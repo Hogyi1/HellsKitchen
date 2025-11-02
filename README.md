@@ -1,4 +1,4 @@
-# Game Flow
+# Game Flow - deprecated
 
 1. ## Nappali műszak - konyhai rész:
 ### Áttekintés
