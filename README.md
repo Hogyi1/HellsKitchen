@@ -1,4 +1,4 @@
-# Game Flow - updated
+# Game Design Document- updated
 
 1. ## Nappali műszak - konyhai rész:
 ### Áttekintés
