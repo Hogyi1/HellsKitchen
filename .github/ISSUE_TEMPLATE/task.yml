@@ -1,14 +1,7 @@
 name: "Task"
-description: "Feladat sablon nem-programozós vagy fejlesztési tevékenységekhez (UI, GDD, audio, map design, dokumentáció stb.)"
+description: "Feladat sablon"
 title: "[Task] <Feladat rövid címe>"
-labels: ["task", "todo"]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ### Leírás
-        Add meg a feladat célját és rövid összefoglalóját.
-
   - type: textarea
     id: goal
     attributes:
@@ -43,13 +36,6 @@ body:
         - Tartalmazza az összes menüpontot
         - Csapat review megtörtént
         - Verzió feltöltve a Drive-ra
-
-  - type: input
-    id: assignee
-    attributes:
-      label: "Felelős / Owner"
-      description: "Kié a feladat?"
-      placeholder: "Pl. Boti / Hogyi / Bence / Dávid"
 
   - type: textarea
     id: notes
