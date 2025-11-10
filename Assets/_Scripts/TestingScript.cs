@@ -17,6 +17,7 @@ public class TestingScript : MonoBehaviour
             int frameRate = Mathf.RoundToInt(frameCount / time);
             text.text = "FPS: " + frameRate.ToString();
 
+
             time -= pollingTime;
             frameCount = 0;
         }
