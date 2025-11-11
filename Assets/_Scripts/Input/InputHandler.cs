@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 using static PlayerInputActions;
 
 [DefaultExecutionOrder(-3)]
-public class InputHandler : MonoBehaviour, IFirstPersonActions, IThirdPersonActions, IUIActions, IMinigameActions, IInputReader
+[CreateAssetMenu(fileName = "NewInputHandler", menuName = "Game/Input")]
+public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonActions, IUIActions, IMinigameActions, IInputReader
 {
     #region Properties
     public event UnityAction<Vector2> Move = delegate { };
