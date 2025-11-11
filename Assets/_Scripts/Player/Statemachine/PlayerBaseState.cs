@@ -8,9 +8,9 @@ public abstract class PlayerBaseState : IState
     public static int FallingAnimation = Animator.StringToHash("Falling");
     public static int CrouchingAnimation = Animator.StringToHash("Crouch");
 
-    protected PlayerController controller;
+    protected PlayerMovementController controller;
 
-    public PlayerBaseState(PlayerController controller)
+    public PlayerBaseState(PlayerMovementController controller)
     {
         this.controller = controller;
     }

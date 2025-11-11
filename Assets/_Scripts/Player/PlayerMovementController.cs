@@ -4,89 +4,62 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 [DefaultExecutionOrder(-1)]
-public class PlayerController : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     #region Variables
     [SerializeField] InputHandler input;
     [SerializeField] PlayerMover mover;
+    [SerializeField] PlayerCameraController cameraController;
     [SerializeField] Transform cameraTransform;
+    [SerializeField] PlayerMovementSettings settings;
 
     StateMachine stateMachine;
     CountDownTimer coyoteTimer;
 
-    [Header("Movement settings")]
-    public float runningSpeed = 8.5f;
-    public float walkingSpeed = 5.5f;
-    public float crouchSpeed = 3.5f;
-    public float timeToCrouch = 0.25f;
-
-    public float moveAcceleration = 50f;
-    public float moveDeceleration = 70f;
-
-    [Header("Gravity settings")]
-    public float gravity = 50f;
-    public float gravityMultiplier = 1.5f;
-    public float _antiBump = -0.5f;
-
     // Local
     Vector3 velocity, savedVelocity;
-    Vector2 movement, lookInput, cameraRotation;
-    bool IsJumpPressed, IsJumping, IsCrouching;
+    Vector2 movement;
+    bool IsJumpPressed, IsJumping, IsCrouching, sprintPressed;
     float smoothVelocity, movementSpeed;
+    public float smoothing = 15f;
 
     public float verticalVelocity; // Cannot handle reference
-
-    [Header("Jump settings")]
-    public float initialJumpVelocity;
-    public float maxJumpHeight = 1f;
-    public float maxJumpTime = 0.5f;
-
-    // Testing
-    [Header("TESTING")]
-    [SerializeField] CinemachineCamera firstPerson;
-    [SerializeField] CinemachineCamera thirdPerson;
-    float smoothing = 15f;
-    Vignette vignette;
-    public bool isFirstPerson = true;
-    public float runningFov = 80f;
-    public float normalFov = 60f;
-    public float crouchingVignette = 0.25f;
-
-    [Header("Camera settings")]
-    public float rotationSmoothTime = 0.05f;
-    [Range(0.1f, 10f)] public float lookSensitivity = 0.1f;
-    [Range(1f, 90f)] public float upperCameraLimit = 60f;
-    [Range(1f, 90f)] public float lowerCameraLimit = 60f;
     #endregion
 
     #region Unity methods
     private void Awake()
     {
+        stateMachine = new StateMachine();
+        coyoteTimer = new CountDownTimer(settings.coyoteTime);
         mover = mover != null ? mover : GetComponentInChildren<PlayerMover>();
-        var volumeSettings = firstPerson.GetComponentInChildren<CinemachineVolumeSettings>();
-        if (volumeSettings != null)
-        {
-            volumeSettings.Profile.TryGet(out vignette);
-        }
+        cameraController = cameraController != null ? cameraController : GetComponentInChildren<PlayerCameraController>();
+        settings = settings != null ? settings : ScriptableObject.CreateInstance<PlayerMovementSettings>();
 
         SetupJumpVariables();
-
-        stateMachine = new StateMachine();
         SetupStateMachine();
-
-        input.Jump += (bool jumping) => { IsJumpPressed = jumping; }; // Change it to method so i can unsubscribe from it
     }
 
-    private void OnValidate() => SetupJumpVariables();
+    private void Start() => input.EnableActions();
+
+    private void OnEnable()
+    {
+        input.Sprint += SprintPressed;
+        input.Jump += JumpPressed;
+    }
+
+    private void OnDisable()
+    {
+        input.Sprint -= SprintPressed;
+        input.Jump -= JumpPressed;
+    }
 
     private void Update()
     {
         movement = input.Movement;
-        lookInput = input.LookDirection;
+        movementSpeed = CalculateMovementSpeed();
 
         stateMachine.Update();
 
-        HandleCameraRotation();
         HandleLateralMovement();
         HandleGravity();
         HandleJump();
@@ -99,62 +72,10 @@ public class PlayerController : MonoBehaviour
     {
         HandleRotation();
 
-        bool crouchPressed = input.IsCrouchPressed;
-        bool sprintPressed = input.IsSprintPressed;
-        bool ceilingBlocked = mover.CeilingDetected();
-
-        if (crouchPressed && !IsCrouching)
+        if (input.IsCrouchPressed && !IsCrouching)
             EnterCrouch();
-        else if (!crouchPressed && !ceilingBlocked && IsCrouching)
+        else if (!input.IsCrouchPressed && !mover.CeilingDetected() && IsCrouching)
             TryExitCrouch();
-
-
-        movementSpeed = (sprintPressed && movement.y > 0.1f && !IsCrouching) ? runningSpeed : IsCrouching ? crouchSpeed : walkingSpeed;
-        float targetFov = (sprintPressed && movement.y > 0.1f && !IsCrouching) ? runningFov : normalFov;
-        float targetVignette = IsCrouching ? crouchingVignette : 0f; // Move this to cameracontroller
-
-        if (Mathf.Abs(firstPerson.Lens.FieldOfView - targetFov) > 0.01f)
-            firstPerson.Lens.FieldOfView = Mathf.Lerp(firstPerson.Lens.FieldOfView, targetFov, Time.deltaTime * smoothing);
-
-        if (Mathf.Abs(vignette.intensity.value - targetVignette) > 0.01f)
-            vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, targetVignette, Time.deltaTime * smoothing);
-
-        if (Input.GetKeyDown(KeyCode.T))
-            ToggleCameraMode();
-    }
-
-    // Extracted to methods
-    private void EnterCrouch()
-    {
-        IsCrouching = true;
-
-        mover.Crouch(true, timeToCrouch);
-    }
-
-    private void TryExitCrouch()
-    {
-        if (mover.CeilingDetected())
-            return;
-
-        IsCrouching = false;
-
-        mover.Crouch(false, timeToCrouch);
-    }
-
-#warning TESTING 
-    private void ToggleCameraMode() // TESTING 
-    {
-        CameraController.Instance.RequestFocus(thirdPerson);
-
-        isFirstPerson = !isFirstPerson;
-
-        if (isFirstPerson)
-        {
-            input.SwitchToFirstPerson();
-            CameraController.Instance.RequestFocus(firstPerson);
-        }
-        else
-            input.SwitchToThirdPerson();
     }
     #endregion
 
@@ -217,15 +138,44 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void SetupJumpVariables()
     {
-        float timeToApex = maxJumpTime / 2;
-        initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
-        gravity = (-2 * maxJumpHeight) / (timeToApex * timeToApex);
+        float timeToApex = settings.maxJumpTime / 2;
+        settings.initialJumpVelocity = (2 * settings.maxJumpHeight) / timeToApex;
+        settings.gravity = (-2 * settings.maxJumpHeight) / (timeToApex * timeToApex);
 
-        coyoteTimer ??= new CountDownTimer(0.2f);
+        coyoteTimer ??= new CountDownTimer(settings.coyoteTime);
+    }
+
+    private void EnterCrouch()
+    {
+        IsCrouching = true;
+
+        mover.Crouch(IsCrouching, settings.timeToCrouch);
+        cameraController.ChangeVignette(IsCrouching, settings.timeToCrouch);
+    }
+
+    private void TryExitCrouch()
+    {
+        if (mover.CeilingDetected())
+            return;
+
+        IsCrouching = false;
+
+        mover.Crouch(IsCrouching, settings.timeToCrouch);
+        cameraController.ChangeVignette(IsCrouching, settings.timeToCrouch);
     }
     #endregion
 
     #region Movement calculations
+
+    /// <summary>
+    /// Calculates the movement speed based on the current input and character state.
+    /// </summary>
+    /// <remarks>The movement speed is determined by whether the sprint input is pressed, the movement
+    /// direction, and whether the character is crouching. Sprinting is only applied when moving forward.</remarks>
+    /// <returns>The movement speed as a floating-point value. Returns the running speed if sprinting, the crouch speed if
+    /// crouching, or the walking speed otherwise.</returns>
+    float CalculateMovementSpeed() => (sprintPressed && movement.y > 0.1f && !IsCrouching) ? settings.runningSpeed : IsCrouching ? settings.crouchSpeed : settings.walkingSpeed;
+
     /// <summary>
     /// Calculates the maximum velocity that can be reached.
     /// </summary>
@@ -238,24 +188,12 @@ public class PlayerController : MonoBehaviour
     /// <returns>The calculated movement direction</returns>
     Vector3 CalculateMovementDirection()
     {
-        var direction = !isFirstPerson
-            ? new Vector3(movement.x, 0f, movement.y)
-            : Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up) * movement.y +
+        var direction = // !isFirstPerson
+                        // ? new Vector3(movement.x, 0f, movement.y) :
+            Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up) * movement.y +
             Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up) * movement.x;
 
         return direction = direction.magnitude > 1f ? direction.normalized : direction;
-    }
-
-    /// <summary>
-    /// Handles camera rotation. Rotates camera on the up-down axis only
-    /// </summary>
-    void HandleCameraRotation()
-    {
-        cameraRotation.x += lookInput.x * lookSensitivity;
-        cameraRotation.y += -lookInput.y * lookSensitivity;
-
-        cameraRotation.y = Mathf.Clamp(cameraRotation.y, -upperCameraLimit, lowerCameraLimit);
-        cameraTransform.localRotation = Quaternion.Euler(cameraRotation.y, 0f, 0f);
     }
 
     /// <summary>
@@ -265,29 +203,25 @@ public class PlayerController : MonoBehaviour
     {
         float target;
 
-        if (isFirstPerson)
-        {
-            target = cameraRotation.x;
-            float smoothed = Mathf.SmoothDampAngle(
-                transform.eulerAngles.y,
-                target,
-                ref smoothVelocity,
-                rotationSmoothTime);
+        target = cameraController.cameraRotation.x;
+        float smoothed = Mathf.SmoothDampAngle(
+            transform.eulerAngles.y,
+            target,
+            ref smoothVelocity,
+            settings.rotationSmoothTime);
 
-            transform.rotation = Quaternion.Euler(0f, smoothed, 0f);
-        }
-        else
-        {
-            Vector3 moveDir = CalculateMovementDirection();
+        transform.rotation = Quaternion.Euler(0f, smoothed, 0f);
 
-            if (moveDir.sqrMagnitude > 0.01f)
-            {
-                Vector3 movedir = new Vector3(movement.x, 0f, movement.y).normalized;
-                transform.forward = Vector3.Lerp(transform.forward, moveDir, Time.deltaTime * smoothing);
-            }
-            else
-                target = transform.eulerAngles.y;
-        }
+
+        //Vector3 moveDir = CalculateMovementDirection();
+
+        //if (moveDir.sqrMagnitude > 0.01f)
+        //{
+        //    Vector3 movedir = new Vector3(movement.x, 0f, movement.y).normalized;
+        //    transform.forward = Vector3.Lerp(transform.forward, moveDir, Time.deltaTime * smoothing);
+        //}
+        //else
+        //    target = transform.eulerAngles.y;
     }
 
     /// <summary>
@@ -298,7 +232,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 targetVelocity = CalculateTargetVelocity();
 
-        float acceleration = targetVelocity.sqrMagnitude > 0.01f ? moveAcceleration : moveDeceleration;
+        float acceleration = targetVelocity.sqrMagnitude > 0.01f ? settings.moveAcceleration : settings.moveDeceleration;
 
         Vector3 lateralVelocity = velocity - transform.up * Vector3.Dot(velocity, transform.up);
         Vector3 newVelocity = Vector3.MoveTowards(lateralVelocity, targetVelocity, acceleration * Time.deltaTime);
@@ -319,14 +253,14 @@ public class PlayerController : MonoBehaviour
         // If we are not in the air apply constant force for the charactercontroller to not bug out
         if (IsGrounded() && verticalVelocity <= 0f)
         {
-            verticalVelocity = _antiBump;
+            verticalVelocity = settings._antiBump;
             return;
         }
 
         // More downward force if we are falling
         float force = IsFalling() || !IsJumpPressed
-            ? gravity * gravityMultiplier
-            : gravity;
+            ? settings.gravity * settings.gravityMultiplier
+            : settings.gravity;
 
         verticalVelocity += force * Time.deltaTime;
     }
@@ -339,7 +273,7 @@ public class PlayerController : MonoBehaviour
         if ((coyoteTimer.IsRunning || IsGrounded()) && IsJumpPressed && !IsJumping)
         {
             IsJumping = true;
-            verticalVelocity = initialJumpVelocity;
+            verticalVelocity = settings.initialJumpVelocity;
             coyoteTimer.Stop();
         }
         else if (IsGrounded() && !IsJumpPressed && IsJumping)
@@ -375,10 +309,19 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    #region Getters and Setters
     bool IsGrounded() => mover.IsGrounded();
     bool IsRising() => verticalVelocity > 0f;
     bool IsFalling() => (verticalVelocity <= 0f && !IsGrounded()) || stateMachine.CurrentState is FallingState;
     bool IsGroundTooSteep() => mover.IsGroundTooSteep();
+    bool IsSprinting() => sprintPressed && movement.y > 0.1f && !IsCrouching;
+    void JumpPressed(bool pressed) => IsJumpPressed = pressed;
+    void SprintPressed(bool pressed)
+    {
+        sprintPressed = pressed;
+        cameraController.ChangeFOV(IsSprinting());
+    }
+    #endregion
 
     /// <summary>
     /// Physics based acceleration calculation - deprecated
@@ -388,8 +331,8 @@ public class PlayerController : MonoBehaviour
         Vector3 inputDir = CalculateMovementDirection();
 
         if (inputDir.sqrMagnitude > 0.01f)
-            velocity += inputDir * moveAcceleration * Time.deltaTime;
-        else velocity -= velocity.normalized * moveDeceleration * Time.deltaTime;
+            velocity += inputDir * settings.moveAcceleration * Time.deltaTime;
+        else velocity -= velocity.normalized * settings.moveDeceleration * Time.deltaTime;
 
         Vector3 lateralVelocity = velocity - transform.up * Vector3.Dot(velocity, transform.up);
 

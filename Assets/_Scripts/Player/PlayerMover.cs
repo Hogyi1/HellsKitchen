@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMover : MonoBehaviour
@@ -9,7 +10,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private SpherecastSensor groundSensor;
     [SerializeField] CharacterController characterController;
 
-    public float slopeLimit; // Ezt lehet itt fogom megvalósítani
+    float slopeLimit;
 
     public bool useExtendedRange = false;
     public float baseRange = 0.5f;
@@ -18,15 +19,14 @@ public class PlayerMover : MonoBehaviour
     public float crouchingHeight = 0.5f;
     Vector3 crouchingCenter = new Vector3(0, 0.25f, 0);
 
-    public float standingHeight = 2f;
+    float standingHeight = 2f;
     Vector3 standingCenter;
 
     float radiusOffset = 0.05f;
     int currentLayer; // Hit layer
-    Coroutine currentRoutine;
+    Tween currentTween;
 
-    bool isGrounded;
-    bool ceilingHit;
+    bool isGrounded, ceilingHit;
     Vector3 groundNormal;
     #endregion
 
@@ -34,6 +34,9 @@ public class PlayerMover : MonoBehaviour
     private void Awake()
     {
         characterController = characterController != null ? characterController : GetComponentInChildren<CharacterController>();
+
+        ceilingDetector = ceilingDetector != null ? ceilingDetector : gameObject.AddComponent<SpherecastSensor>();
+        groundSensor = groundSensor != null ? groundSensor : gameObject.AddComponent<SpherecastSensor>();
 
         SetupVariables();
         CalculateSensorLayerMask();
@@ -45,7 +48,7 @@ public class PlayerMover : MonoBehaviour
         CheckForGround();
         CheckForCeiling();
 
-        groundSensor.DrawDebug();
+        // groundSensor.DrawDebug();
         // ceilingDetector.DrawDebug();
     }
     #endregion
@@ -115,7 +118,7 @@ public class PlayerMover : MonoBehaviour
     {
         standingHeight = characterController.height;
         slopeLimit = characterController.slopeLimit;
-        currentRoutine = null;
+        currentTween = null;
 
         crouchingCenter.y = CalculateCenter(crouchingHeight, characterController.radius);
         standingCenter.y = CalculateCenter(standingHeight, characterController.radius);
@@ -192,7 +195,7 @@ public class PlayerMover : MonoBehaviour
 
     /// <summary>
     /// Smoothly transitions the player's collider height and center 
-    /// between standing and crouching states over the given duration.
+    /// between standing and crouching states over the given duration using DOTween.
     /// </summary>
     /// <param name="isCrouching">Whether the player should crouch or stand.</param>
     /// <param name="timeToCrouch">The time (in seconds) over which to blend the transition.</param>
@@ -203,37 +206,19 @@ public class PlayerMover : MonoBehaviour
         var targetHeight = isCrouching ? crouchingHeight : standingHeight;
         var targetCenter = isCrouching ? crouchingCenter : standingCenter;
 
-        if (currentRoutine != null)
-            StopCoroutine(currentRoutine);
-
-        currentRoutine = StartCoroutine(ChangeHeightRoutine(targetHeight, targetCenter, timeToCrouch));
-    }
-
-    /// <summary>
-    /// Coroutine that interpolates the character controller's height and center 
-    /// over time to achieve a smooth crouch or stand transition.
-    /// </summary>
-    /// <param name="targetHeight">Final height of the collider.</param>
-    /// <param name="targetCenter">Final center of the collider.</param>
-    /// <param name="duration">Transition duration in seconds.</param>
-    IEnumerator ChangeHeightRoutine(float targetHeight, Vector3 targetCenter, float duration)
-    {
-        float time = 0;
-
-        while (time <= duration)
+        currentTween?.Kill();
+        var seq = DOTween.Sequence();
+        seq.Join(DOTween.To(() => characterController.height, x => characterController.height = x, targetHeight, timeToCrouch));
+        seq.Join(DOTween.To(() => characterController.center, x => characterController.center = x, targetCenter, timeToCrouch));
+        seq.SetEase(Ease.InOutSine);
+        seq.OnComplete(() =>
         {
-            time += Time.deltaTime;
-            float progress = Mathf.SmoothStep(0f, 1f, time / duration);
+            characterController.height = targetHeight;
+            characterController.center = targetCenter;
+        });
 
-            characterController.height = Mathf.Lerp(characterController.height, targetHeight, progress);
-            characterController.center = Vector3.Lerp(characterController.center, targetCenter, progress);
-
-            yield return null;
-        }
-
-        characterController.height = targetHeight;
-        characterController.center = targetCenter;
-        currentRoutine = null;
+        currentTween = seq;
     }
+
     #endregion
 }
