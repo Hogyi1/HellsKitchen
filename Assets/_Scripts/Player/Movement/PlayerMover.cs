@@ -6,8 +6,8 @@ using DG.Tweening;
 public class PlayerMover : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private SpherecastSensor ceilingDetector;
-    [SerializeField] private SpherecastSensor groundSensor;
+    [SerializeField] SpherecastSensor ceilingDetector;
+    [SerializeField] SpherecastSensor groundSensor;
     [SerializeField] CharacterController characterController;
 
     float slopeLimit;

@@ -2,9 +2,10 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void OnInteract(Interactor context);
+    void OnInteract(PlayerModel context);
 
-    InteractionResult CanInteract(Interactor context);
+    InteractionResult CanInteract(PlayerModel context);
+
 }
 public readonly struct InteractionResult
 {
@@ -12,4 +13,10 @@ public readonly struct InteractionResult
     public readonly string message;
 
     public InteractionResult(bool success, string message) => (this.success, this.message) = (success, message);
+}
+
+public interface ISelectable
+{
+    void OnSelect();
+    void OnDeselect();
 }

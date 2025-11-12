@@ -6,6 +6,10 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController Instance { get; private set; } // Call this to get the instance
 
+    [SerializeField] CinemachineBrain brain;
+    [SerializeField] CinemachineCamera firstPersonCamera;
+    readonly int activePriority = 100;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -18,7 +22,7 @@ public class CameraController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         brain = brain != null ? brain : GetComponentInChildren<CinemachineBrain>();
-        firstPersonCamera.Priority = 100;
+        firstPersonCamera.Priority = activePriority;
     }
 
     void OnDestroy()
@@ -26,10 +30,6 @@ public class CameraController : MonoBehaviour
         if (Instance == this)
             Instance = null;
     }
-
-    [SerializeField] CinemachineBrain brain;
-    [SerializeField] CinemachineCamera firstPersonCamera;
-    readonly int activePriority = 100;
 
     public void RequestFocus(CinemachineCamera camera)
     {
