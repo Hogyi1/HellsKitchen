@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using NUnit.Framework;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem.OSX;
 
 // Példa egy egyszerű kis játékra
 public class Minigame : MonoBehaviour, IInteractable
@@ -34,7 +36,15 @@ public class Minigame : MonoBehaviour, IInteractable
     }
     void Handle(bool pressed)
     {
-        if (pressed)
-            Debug.Log("Interacted");
+        var ir = new InteractionResult(pressed, pressed ? "Interacted" : "No interaction");
+    }
+
+    public InteractionResult CanInteract(Interactor context)
+    {
+        ContextualPredicate<Interactor> cp = new ContextualPredicate<Interactor>(context, (c) => c.enabled);
+
+        var ir = new InteractionResult(context.enabled, "Yee");
+        return ir;
+
     }
 }
