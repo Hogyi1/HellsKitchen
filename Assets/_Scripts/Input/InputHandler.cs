@@ -132,6 +132,7 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
     }
     #endregion
 
+
     #region UI actions
     public void OnNavigate(InputAction.CallbackContext context) { }
 
