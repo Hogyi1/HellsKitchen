@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public interface IPredicate
 {
@@ -16,19 +15,18 @@ public class FunctionPredicate : IPredicate
     }
 
     public bool Evaluate() => predicate();
-
 }
 
 public class ContextualPredicate<T> : IPredicate
 {
-    private readonly T context;
+    private T context;
     private readonly Func<T, bool> predicate;
 
-    public ContextualPredicate(T context, Func<T, bool> predicate)
+    public ContextualPredicate(Func<T, bool> predicate)
     {
-        this.context = context;
         this.predicate = predicate;
     }
 
+    public void SetContext(T context) => this.context = context;
     public bool Evaluate() => predicate(context);
 }
