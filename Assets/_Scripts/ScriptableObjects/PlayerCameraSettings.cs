@@ -10,8 +10,8 @@ public class PlayerCameraSettings : ScriptableObject
     [Range(1f, 90f)] public float lowerCameraLimit = 60f;
 
     [Header("Camera look settings")]
-    public float runningFov = 80f;
-    public float normalFov = 60f;
-    public float crouchingVignette = 0.25f;
-    public float fovChangeSpeed = 0.25f;
+    [Range(40f, 180f)] public float runningFov = 80f;
+    [Range(40f, 180f)] public float normalFov = 60f;
+    [Range(0f, 1f)] public float crouchingVignette = 0.25f;
+    [Range(0.01f, 1f)] public float fovChangeSpeed = 0.25f;
 }
