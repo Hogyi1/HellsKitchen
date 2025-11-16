@@ -12,17 +12,18 @@ public class PlayerMover : MonoBehaviour
 
     float slopeLimit;
 
+    [Range(0.01f, 0.5f)] public float radiusOffset = 0.05f;
     public bool useExtendedRange = false;
-    public float baseRange = 0.5f;
-    public float extendedRange = 1.5f;
+    [Range(0.01f, 2.5f)] public float baseRange = 0.5f;
+    [Range(0.01f, 3.5f)] public float extendedRange = 1.5f;
 
     public float crouchingHeight = 0.5f;
     Vector3 crouchingCenter = new Vector3(0, 0.25f, 0);
 
-    float standingHeight = 2f;
+    float standingHeight;
     Vector3 standingCenter;
 
-    float radiusOffset = 0.05f;
+
     int currentLayer; // Hit layer
     Tween currentTween;
 
@@ -48,8 +49,8 @@ public class PlayerMover : MonoBehaviour
         CheckForGround();
         CheckForCeiling();
 
-        // groundSensor.DrawDebug();
-        // ceilingDetector.DrawDebug();
+        groundSensor.DrawDebug();
+        ceilingDetector.DrawDebug();
     }
     #endregion
 
@@ -120,7 +121,7 @@ public class PlayerMover : MonoBehaviour
         slopeLimit = characterController.slopeLimit;
         currentTween = null;
 
-        crouchingCenter.y = CalculateCenter(crouchingHeight, characterController.radius);
+        crouchingCenter.y = -CalculateCenter(crouchingHeight, characterController.radius);
         standingCenter.y = CalculateCenter(standingHeight, characterController.radius);
     }
 
