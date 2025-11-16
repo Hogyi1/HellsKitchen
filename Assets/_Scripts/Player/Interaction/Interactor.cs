@@ -10,7 +10,7 @@ public class Interactor : MonoBehaviour
 
     private void Awake()
     {
-        interactionSensor = GetComponent<RaycastSensor>();
+        interactionSensor = interactionSensor != null ? interactionSensor : gameObject.AddComponent<RaycastSensor>();
         interactionSensor.SetRaycastLength(interactionLength);
         interactionSensor.SetLayerMask(interactionMask);
         interactionSensor.SetRaycastDirection(RaycastSensor.RaycastDirection.Forward);
@@ -25,9 +25,14 @@ public class Interactor : MonoBehaviour
     {
         var hoveredObject = GetRaycastResult();
         HandleHoveredObject(hoveredObject);
-        lastInteractable = hoveredObject.GetComponentInChildren<IInteractable>();
+        lastInteractable = hoveredObject != null ? hoveredObject.GetComponentInChildren<IInteractable>() : null;
+        interactionSensor.DrawDebug();
     }
 
+    /// <summary>
+    /// Handles the hovered object by checking if it's selectable and updating the selection state.
+    /// </summary>
+    /// <param name="hoveredObject"></param>
     void HandleHoveredObject(Transform hoveredObject)
     {
         if (hoveredObject != null)
@@ -55,12 +60,20 @@ public class Interactor : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the transform of the object being interacted with.
+    /// </summary>
+    /// <returns></returns>
     Transform GetRaycastResult()
     {
         interactionSensor.Cast();
         return interactionSensor.GetTransform();
     }
 
+    /// <summary>
+    /// Sets the interaction length for the interactor.
+    /// </summary>
+    /// <param name="length"></param>
     public void SetInteractionLength(float length)
     {
         interactionLength = length;
