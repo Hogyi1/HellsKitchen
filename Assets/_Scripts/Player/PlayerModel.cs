@@ -1,12 +1,13 @@
 using NUnit.Framework;
+using System;
 using UnityEngine;
 
 // Under construction
+[Serializable]
 public class PlayerModel
 {
     public PlayerInventoryModel Inventory { get; private set; }
     public float Balance { get; set; }
-    public IInventoryItem EquippedItem { get; private set; }
     public IHoldableItem HeldItem { get; private set; }
 
     public PlayerModel(PlayerModel savedModel)
@@ -21,9 +22,9 @@ public class PlayerModel
         Balance = 0;
     }
 
-    public void EquipItem(IInventoryItem item)
+    public void Pickup(IHoldableItem item)
     {
-        EquippedItem = item;
+        HeldItem = item;
     }
 }
 
