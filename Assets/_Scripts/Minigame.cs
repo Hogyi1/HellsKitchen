@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.OSX;
 
 // Példa egy egyszerű kis játékra
-public class Minigame : MonoBehaviour, IInteractable
+public class Minigame : MonoBehaviour
 {
     public InteractionResult CanInteract(PlayerModel context)
     {
