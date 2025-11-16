@@ -1,11 +1,11 @@
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public interface IInteractable
 {
-    void OnInteract(PlayerModel context);
+    InteractionResult TryInteract(PlayerController context);
 
-    InteractionResult CanInteract(PlayerModel context);
-
+    bool CanInteract(PlayerController context);
 }
 public readonly struct InteractionResult
 {
@@ -13,6 +13,8 @@ public readonly struct InteractionResult
     public readonly string message;
 
     public InteractionResult(bool success, string message) => (this.success, this.message) = (success, message);
+    public static InteractionResult Ok(string message) => new InteractionResult(true, message);
+    public static InteractionResult Fail(string message) => new InteractionResult(false, message);
 }
 
 public interface ISelectable
