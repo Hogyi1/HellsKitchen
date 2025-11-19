@@ -25,7 +25,7 @@ public class Interactor : MonoBehaviour
             interactionSensor.GetTransform().TryGetComponent<IInteractable>(out interactable);
             if (interactable != null)
             {
-                interactable.OnInteract();
+                interactable.OnInteract(this);
             }
         }
     }
