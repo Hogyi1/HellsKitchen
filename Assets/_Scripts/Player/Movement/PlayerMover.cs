@@ -121,7 +121,7 @@ public class PlayerMover : MonoBehaviour
         slopeLimit = characterController.slopeLimit;
         currentTween = null;
 
-        crouchingCenter.y = -CalculateCenter(crouchingHeight, characterController.radius);
+        crouchingCenter.y = CalculateCenter(crouchingHeight, characterController.radius);
         standingCenter.y = CalculateCenter(standingHeight, characterController.radius);
     }
 

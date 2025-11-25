@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 [DefaultExecutionOrder(-1)]
+[RequireComponent(typeof(PlayerCameraController), typeof(PlayerMover))]
 public class PlayerMovementController : MonoBehaviour
 {
     #region Variables
@@ -19,7 +20,7 @@ public class PlayerMovementController : MonoBehaviour
     // Local
     Vector3 velocity, savedVelocity;
     Vector2 movement;
-    bool IsJumpPressed, IsJumping, IsCrouching, sprintPressed;
+    bool isJumpPressed, isJumping, isCrouching, isSprintPressed, isSprinting;
     float smoothVelocity, movementSpeed;
     public float smoothing = 15f;
 
@@ -38,8 +39,6 @@ public class PlayerMovementController : MonoBehaviour
         SetupJumpVariables();
         SetupStateMachine();
     }
-
-    private void Start() => input.EnableActions();
 
     private void OnEnable()
     {
@@ -72,10 +71,17 @@ public class PlayerMovementController : MonoBehaviour
     {
         HandleRotation();
 
-        if (input.IsCrouchPressed && !IsCrouching)
+        if (input.IsCrouchPressed && !isCrouching)
             EnterCrouch();
-        else if (!input.IsCrouchPressed && !mover.CeilingDetected() && IsCrouching)
+        else if (!input.IsCrouchPressed && !mover.CeilingDetected() && isCrouching)
             TryExitCrouch();
+
+        bool currentlySprinting = IsSprinting();
+        if (currentlySprinting != isSprinting)
+        {
+            cameraController.ChangeFOV(currentlySprinting);
+            isSprinting = currentlySprinting;
+        }
     }
     #endregion
 
@@ -85,8 +91,6 @@ public class PlayerMovementController : MonoBehaviour
     /// </summary>
     void SetupStateMachine()
     {
-        stateMachine = new StateMachine();
-
         var grounded = new GroundedState(this);
         var falling = new FallingState(this, ref coyoteTimer);
         var sliding = new SlidingState(this);
@@ -96,7 +100,7 @@ public class PlayerMovementController : MonoBehaviour
         At(grounded, rising, () => IsRising());
         At(grounded, sliding, () => IsGrounded() && IsGroundTooSteep());
         At(grounded, falling, () => !IsGrounded());
-        At(grounded, jumping, () => IsJumpPressed && !IsJumping);
+        At(grounded, jumping, () => isJumpPressed && !isJumping);
 
         At(falling, rising, () => IsRising());
         At(falling, grounded, () => IsGrounded() && !IsGroundTooSteep());
@@ -128,10 +132,9 @@ public class PlayerMovementController : MonoBehaviour
     /// <summary>
     /// Shorter version for the main transitions of the statemachine
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="to"></param>
     /// <param name="condition"></param>
-    void Any<T>(IState to, Func<bool> condition) => stateMachine.AddMainTransition(to, condition);
+    void Any(IState to, Func<bool> condition) => stateMachine.AddMainTransition(to, condition);
 
     /// <summary>
     /// Look at https://www.youtube.com/watch?v=hG9SzQxaCm8 for further info
@@ -147,10 +150,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private void EnterCrouch()
     {
-        IsCrouching = true;
+        isCrouching = true;
 
-        mover.Crouch(IsCrouching, settings.timeToCrouch);
-        cameraController.ChangeVignette(IsCrouching, settings.timeToCrouch);
+        mover.Crouch(isCrouching, settings.timeToCrouch);
+        cameraController.ChangeVignette(isCrouching, settings.timeToCrouch);
     }
 
     private void TryExitCrouch()
@@ -158,10 +161,10 @@ public class PlayerMovementController : MonoBehaviour
         if (mover.CeilingDetected())
             return;
 
-        IsCrouching = false;
+        isCrouching = false;
 
-        mover.Crouch(IsCrouching, settings.timeToCrouch);
-        cameraController.ChangeVignette(IsCrouching, settings.timeToCrouch);
+        mover.Crouch(isCrouching, settings.timeToCrouch);
+        cameraController.ChangeVignette(isCrouching, settings.timeToCrouch);
     }
     #endregion
 
@@ -174,7 +177,7 @@ public class PlayerMovementController : MonoBehaviour
     /// direction, and whether the character is crouching. Sprinting is only applied when moving forward.</remarks>
     /// <returns>The movement speed as a floating-point value. Returns the running speed if sprinting, the crouch speed if
     /// crouching, or the walking speed otherwise.</returns>
-    float CalculateMovementSpeed() => (sprintPressed && movement.y > 0.1f && !IsCrouching) ? settings.runningSpeed : IsCrouching ? settings.crouchSpeed : settings.walkingSpeed;
+    float CalculateMovementSpeed() => (isSprintPressed && movement.y > 0.1f && !isCrouching) ? settings.runningSpeed : isCrouching ? settings.crouchSpeed : settings.walkingSpeed;
 
     /// <summary>
     /// Calculates the maximum velocity that can be reached.
@@ -258,7 +261,7 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         // More downward force if we are falling
-        float force = IsFalling() || !IsJumpPressed
+        float force = IsFalling() || !isJumpPressed
             ? settings.gravity * settings.gravityMultiplier
             : settings.gravity;
 
@@ -270,14 +273,14 @@ public class PlayerMovementController : MonoBehaviour
     /// </summary>
     void HandleJump()
     {
-        if ((coyoteTimer.IsRunning || IsGrounded()) && IsJumpPressed && !IsJumping)
+        if ((coyoteTimer.IsRunning || IsGrounded()) && isJumpPressed && !isJumping)
         {
-            IsJumping = true;
+            isJumping = true;
             verticalVelocity = settings.initialJumpVelocity;
             coyoteTimer.Stop();
         }
-        else if (IsGrounded() && !IsJumpPressed && IsJumping)
-            IsJumping = false;
+        else if (IsGrounded() && !isJumpPressed && isJumping)
+            isJumping = false;
     }
     #endregion
 
@@ -302,7 +305,7 @@ public class PlayerMovementController : MonoBehaviour
         isFalling = IsFalling();
         isReallyGrounded = IsGrounded();
         isSliding = IsGroundTooSteep();
-        isJumpingDebug = IsJumping;
+        isJumpingDebug = isJumping;
         isCoyoteActive = coyoteTimer.IsRunning;
         isCoyoteFinished = coyoteTimer.IsFinished;
         ceilingHit = mover.CeilingDetected();
@@ -314,13 +317,9 @@ public class PlayerMovementController : MonoBehaviour
     bool IsRising() => verticalVelocity > 0f;
     bool IsFalling() => (verticalVelocity <= 0f && !IsGrounded()) || stateMachine.CurrentState is FallingState;
     bool IsGroundTooSteep() => mover.IsGroundTooSteep();
-    bool IsSprinting() => sprintPressed && movement.y > 0.1f && !IsCrouching;
-    void JumpPressed(bool pressed) => IsJumpPressed = pressed;
-    void SprintPressed(bool pressed)
-    {
-        sprintPressed = pressed;
-        cameraController.ChangeFOV(IsSprinting());
-    }
+    bool IsSprinting() => isSprintPressed && movement.y > 0.1f && !isCrouching;
+    void JumpPressed(bool pressed) => isJumpPressed = pressed;
+    void SprintPressed(bool pressed) => isSprintPressed = pressed;
     #endregion
 
     /// <summary>

@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(Interactor))]
 public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 {
     [SerializeField] Interactor interactor;
@@ -9,17 +10,15 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 
     PlayerModel playerModel;
     public bool hasChild;
-    [SerializeField] KitchenObject debugHeldItem;
+    CountDownTimer interactionTimer;
+
+    public float interactionCooldown = 0.2f;
 
     private void Awake()
     {
-        interactor = GetComponentInChildren<Interactor>();
+        interactor = interactor != null ? interactor : GetComponentInChildren<Interactor>();
         playerModel = new PlayerModel();
-
-        if (debugHeldItem != null)
-        {
-            debugHeldItem.SetParent(this);
-        }
+        interactionTimer = new(interactionCooldown);
     }
 
     private void OnEnable() => input.Interact += OnInteractionPressed;
@@ -29,8 +28,9 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
     void OnInteractionPressed()
     {
         var interactable = interactor.GetInteractable();
-        if (interactable == null) return;
+        if (interactable == null || interactionTimer.IsRunning) return;
 
+        interactionTimer.Start();
         var ir = interactable.TryInteract(this);
         Debug.Log(ir.message);
     }
@@ -60,15 +60,7 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
         hasChild = HasChild();
     }
 
-    private void OnValidate()
-    {
-        if (debugHeldItem != null)
-        {
-            SetChild(debugHeldItem);
-            debugHeldItem.SetParent(this);
-        }
-    }
-
     public void SetChild(IObjectChild child) => SetChild((IHoldableItem)child);
     IObjectChild IObjectParent.GetChild() => GetChild();
+
 }

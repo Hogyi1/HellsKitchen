@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.ProBuilder;
 using UnityEngine.Rendering.Universal;
 
-// Under construction
+// TODO move camera with crouching
 public class PlayerCameraController : MonoBehaviour
 {
     [SerializeField] Transform cameraTransform;
