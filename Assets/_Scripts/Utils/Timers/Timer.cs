@@ -166,7 +166,7 @@ public class LoopTimer : Timer
     public LoopTimer(float value, int loopAmount) : base(value)
     {
         if (loopAmount <= 0)
-            loopAmount = int.MaxValue;
+            this.loopAmount = int.MaxValue;
         else
             this.loopAmount = loopAmount;
     }
