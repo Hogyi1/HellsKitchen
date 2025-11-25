@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13d756f3e5be6fd44882b4200040fbea, type: 3}
-  m_Name: Tomato
+  m_Name: CuttedBun
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
-  Name: Tomato
+  Name: CuttedBun
   Icon: {fileID: 0}
-  Prefab: {fileID: 665030498230344644, guid: 61036bd945c2eb54bb10f8dd042bb29e, type: 3}
-  VisualOffset: 0.3
-  Splittable: 0
-  BottomPrefab: {fileID: 0}
-  TopPrefab: {fileID: 0}
-  SplitVisualOffset: 0
-  TopVisualOffset: 0
+  Prefab: {fileID: 2781500773046254329, guid: 60d4aa1b526b6bf4fa957a2f0dff84da, type: 3}
+  VisualOffset: 0.205
+  Splittable: 1
+  BottomPrefab: {fileID: 4183788893305234516, guid: 6afcb785ac25c7445bd5dd94ddeb6e41, type: 3}
+  TopPrefab: {fileID: 4705081178201969313, guid: 7af2f2eafc758634c938e2330b062fdf, type: 3}
+  SplitVisualOffset: 0.1
+  TopVisualOffset: 0.1

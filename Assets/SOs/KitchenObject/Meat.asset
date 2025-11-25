@@ -15,3 +15,9 @@ MonoBehaviour:
   Name: Meat
   Icon: {fileID: 0}
   Prefab: {fileID: 9176854284382123342, guid: fe6fa7ec48d654c458f132dc2d5ad0a0, type: 3}
+  VisualOffset: 0.3
+  Splittable: 0
+  BottomPrefab: {fileID: 0}
+  TopPrefab: {fileID: 0}
+  SplitVisualOffset: 0
+  TopVisualOffset: 0

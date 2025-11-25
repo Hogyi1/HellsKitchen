@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13d756f3e5be6fd44882b4200040fbea, type: 3}
-  m_Name: Tomato
+  m_Name: CuttedMeat
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
-  Name: Tomato
+  Name: CuttedMeat
   Icon: {fileID: 0}
-  Prefab: {fileID: 665030498230344644, guid: 61036bd945c2eb54bb10f8dd042bb29e, type: 3}
+  Prefab: {fileID: 5557915837382540259, guid: 01ad9bca74ef18c449d8a0ff6ed7a23c, type: 3}
   VisualOffset: 0.3
   Splittable: 0
   BottomPrefab: {fileID: 0}
