@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 499a22c0687d2774e94ea26f998cc8b6, type: 3}
   m_Name: DefaultMovementSettings
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementSettings
-  runningSpeed: 8.5
-  walkingSpeed: 5.5
-  crouchSpeed: 3.5
+  runningSpeed: 6
+  walkingSpeed: 3.5
+  crouchSpeed: 1.5
   timeToCrouch: 0.25
   moveAcceleration: 50
   moveDeceleration: 70
