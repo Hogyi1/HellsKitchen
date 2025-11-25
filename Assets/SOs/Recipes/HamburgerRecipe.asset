@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc09453aa515ca2448be2666195adab3, type: 3}
+  m_Name: HamburgerRecipe
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
+  RecipeName: 0
+  MainIngredient:
+    KitchenObjectSO: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
+    Quantity: 1
+  IngredientsToChooseFrom:
+  - KitchenObjectSO: {fileID: 11400000, guid: 63d4b413031ff2f46bb15985eaa38e61, type: 2}
+    Quantity: 3
+  - KitchenObjectSO: {fileID: 11400000, guid: d539eb1747736ba45a3eee4580b23e89, type: 2}
+    Quantity: 2
+  - KitchenObjectSO: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
+    Quantity: 1
+  AveragePrepareTime: 30
