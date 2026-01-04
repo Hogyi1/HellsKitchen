@@ -1,4 +1,4 @@
-﻿public class Trashbin : BaseCounter
+﻿public class Trashbin : CounterModel
 {
     private void Awake()
     {

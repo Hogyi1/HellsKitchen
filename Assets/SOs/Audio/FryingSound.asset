@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5a7e1a51a62284c8d414c456f758c5, type: 3}
+  m_Name: FryingSound
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSO
+  Clips:
+  - {fileID: 8300000, guid: 01b8c2bb6b4a34a4fa08d42f77ff8e9c, type: 3}
+  - {fileID: 8300000, guid: dd1b7704d89803b4abd0cef28e28bd71, type: 3}
+  - {fileID: 8300000, guid: f819360213cfbe248a57fb77551a09eb, type: 3}
+  Output: {fileID: 0}
+  Volume: 1
+  PitchMin: 0.95
+  PitchMax: 1.1
+  Loop: 1
+  Fade: 1
+  fadeTime: 1.5

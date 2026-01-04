@@ -1,0 +1,22 @@
+:root {
+    transition-duration: 0.5s;
+}
+
+.Background {
+    border-radius: 10;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.Border {
+    border-radius: 23;
+    border-width: 3;
+}
+
+.Fill {
+    -unity-background-image-tint-color: red;
+}
+
+.Mask{
+    overflow: hidden;
+    border-radius: 23px;
+}

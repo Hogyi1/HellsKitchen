@@ -179,7 +179,6 @@ public class PlayerMover : MonoBehaviour
 
             float threshold = halfheight + diff - sphereR;
             ceiling = distance <= threshold + 0.02f; // Margin of error
-            Debug.Log(distance + " " + threshold);
         }
 
         ceilingHit = ceiling;

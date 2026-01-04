@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class IdleState : StoveBaseState
 {
-    public IdleState(StoveCounter stoveCounter) : base(stoveCounter) { }
+    public IdleState(StoveController stoveCounter) : base(stoveCounter) { }
 
     public override void OnEnter()
     {
@@ -11,6 +11,10 @@ public class IdleState : StoveBaseState
             var ko = stoveCounter.GetChild();
             ko.DestroySelf();
         }
+
+        stoveCounter.InvokeStateChange(StoveController.StoveState.Idle);
+        stoveCounter.Model.FryingProgress = 0f;
+        stoveCounter.Model.BurningProgress = 0f;
     }
 
     public override void OnExit() { }
@@ -18,7 +22,7 @@ public class IdleState : StoveBaseState
     public override InteractionResult TryInteract(PlayerController context)
     {
         var ko = context.TryGetKitchenObject();
-        var fr = stoveCounter.GetFryingRecipe(ko);
+        var fr = KitchenSODatabase.Instance.GetFryingRecipeWithInput(ko);
         if (fr != null)
         {
             ko.SetParent(stoveCounter);
@@ -32,18 +36,25 @@ public class IdleState : StoveBaseState
 
 public class FryingState : StoveBaseState
 {
-    CountUpTimer cookingTimer;
-    public FryingState(StoveCounter stoveCounter, ref CountUpTimer cookingTimer) : base(stoveCounter)
+    CountUpTimer fryingTimer;
+    public FryingState(StoveController stoveCounter, ref CountUpTimer cookingTimer) : base(stoveCounter)
     {
-        this.cookingTimer = cookingTimer;
+        this.fryingTimer = cookingTimer;
     }
     public override void OnEnter()
     {
-        cookingTimer.Start();
+        fryingTimer.Start();
+        stoveCounter.InvokeStateChange(StoveController.StoveState.Frying);
     }
+
+    public override void Update()
+    {
+        stoveCounter.Model.FryingProgress = fryingTimer.Progress;
+    }
+
     public override void OnExit()
     {
-        cookingTimer.Stop();
+        fryingTimer.Stop();
     }
     public override InteractionResult TryInteract(PlayerController context)
     {
@@ -54,7 +65,7 @@ public class FryingState : StoveBaseState
 public class FriedState : StoveBaseState
 {
     CountUpTimer burnTimer;
-    public FriedState(StoveCounter stoveCounter, ref CountUpTimer burnTimer) : base(stoveCounter)
+    public FriedState(StoveController stoveCounter, ref CountUpTimer burnTimer) : base(stoveCounter)
     {
         this.burnTimer = burnTimer;
     }
@@ -62,9 +73,16 @@ public class FriedState : StoveBaseState
     {
         var ownKo = stoveCounter.GetChild();
         ownKo.DestroySelf();
-        KitchenObject.SpawnVisual(stoveCounter.currentRecipe.to, stoveCounter);
+        KitchenObject.SpawnVisual(stoveCounter.Model.CurrentRecipe.To, stoveCounter);
         burnTimer.Start();
+        stoveCounter.InvokeStateChange(StoveController.StoveState.Fried);
     }
+
+    public override void Update()
+    {
+        stoveCounter.Model.BurningProgress = burnTimer.Progress;
+    }
+
     public override void OnExit()
     {
         burnTimer.Stop();
@@ -73,7 +91,7 @@ public class FriedState : StoveBaseState
     {
         var ownKo = stoveCounter.GetChild();
         var playerKo = context.TryGetKitchenObject();
-        var fr = stoveCounter.GetFryingRecipe(playerKo);
+        var fr = KitchenSODatabase.Instance.GetFryingRecipeWithInput(playerKo);
 
         if (fr != null)
         {
@@ -102,19 +120,21 @@ public class FriedState : StoveBaseState
 
 public class BurnedState : StoveBaseState
 {
-    public BurnedState(StoveCounter stoveCounter) : base(stoveCounter) { }
+    public BurnedState(StoveController stoveCounter) : base(stoveCounter) { }
     public override void OnEnter()
     {
         var ownKo = stoveCounter.GetChild();
         ownKo.DestroySelf();
-        KitchenObject.SpawnVisual(stoveCounter.currentRecipe.burnt, stoveCounter);
+        KitchenObject.SpawnVisual(stoveCounter.Model.CurrentRecipe.Burnt, stoveCounter);
+        stoveCounter.InvokeStateChange(StoveController.StoveState.Burnt);
+        stoveCounter.Model.BurningProgress = 1f;
     }
     public override void OnExit() { }
     public override InteractionResult TryInteract(PlayerController context)
     {
         var ownKo = stoveCounter.GetChild();
         var playerKo = context.TryGetKitchenObject();
-        var fr = stoveCounter.GetFryingRecipe(playerKo);
+        var fr = KitchenSODatabase.Instance.GetFryingRecipeWithInput(playerKo);
 
         if (fr != null)
         {

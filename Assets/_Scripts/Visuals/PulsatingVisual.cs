@@ -19,7 +19,7 @@ public class PulsatingVisual : BaseVisual
     public override void OnSelect()
     {
         fadeTween.Kill();
-        selectedVisual.SetActive(true);
+        Show();
 
         fadeTween = DOTween.To(() => currentOpacity,
             x => SetAllMaterialsAlpha(x),
@@ -46,8 +46,7 @@ public class PulsatingVisual : BaseVisual
             .SetEase(Ease.InOutSine)
             .OnComplete(() =>
             {
-                SetAllMaterialsAlpha(0f);
-                selectedVisual.SetActive(false);
+                Hide();
             });
     }
 
@@ -56,5 +55,18 @@ public class PulsatingVisual : BaseVisual
     {
         if (fadeTween != null)
             fadeTween.Kill();
+    }
+
+    public override void Show()
+    {
+        selectedVisual.SetActive(true);
+        isSelected = true;
+    }
+
+    public override void Hide()
+    {
+        SetAllMaterialsAlpha(0f);
+        selectedVisual.SetActive(false);
+        isSelected = false;
     }
 }

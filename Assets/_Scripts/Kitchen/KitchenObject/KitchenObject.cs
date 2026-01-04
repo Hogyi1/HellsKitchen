@@ -1,11 +1,11 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Security;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-// I aint doing another mvc for this shit
-// CodeMonkey typa fel�p�t�s mine better xd
+// MVVM-be
 public abstract class KitchenObject : MonoBehaviour, IObjectChild, IHoldableItem
 {
     [SerializeField] KitchenObjectSO kitchenObjectSo;
@@ -16,6 +16,8 @@ public abstract class KitchenObject : MonoBehaviour, IObjectChild, IHoldableItem
     public IObjectParent GetParent() => currentParent;
 
     public KitchenObjectSO GetKitchenObjectSO() => kitchenObjectSo; // Nem bizti hogy fog kelleni
+
+    protected Tween currentTween;
 
     /// <summary>
     /// Clears the current parent and then sets the new
@@ -45,7 +47,13 @@ public abstract class KitchenObject : MonoBehaviour, IObjectChild, IHoldableItem
 
     void SetTransform(Transform tr)
     {
-        transform.position = tr.position;
+        currentTween?.Kill();
+        currentTween = DOTween.To(() => transform.position,
+            x => transform.position = x,
+            tr.position,
+            0.2f)
+            .SetEase(Ease.InOutSine)
+            .OnComplete(() => transform.position = tr.position);
         transform.SetParent(tr, true);
         transform.localRotation = Quaternion.identity;
     }
@@ -86,9 +94,29 @@ public abstract class KitchenObject : MonoBehaviour, IObjectChild, IHoldableItem
     /// <param name="so"></param>
     /// <param name="parent"></param>
     /// <returns></returns>
-    public static KitchenObject SpawnVisual(KitchenObjectSO so, IObjectParent parent)
+    public static KitchenObject SpawnVisual(KitchenObjectSO so, IObjectParent parent, Transform parentTransform)
     {
-        var parentTransform = parent.GetParentPosition();
+        GameObject instance = Instantiate(so.Prefab, parentTransform.position, Quaternion.identity);
+        var ko = instance.GetComponentInChildren<KitchenObject>();
+        ko.SetParent(parent);
+        return ko;
+    }
+}
+
+public class KitchenObjectView : MonoBehaviour
+{
+    [SerializeField] KitchenObject kitchenObject;
+    [SerializeField] Transform parentTransform;
+    public KitchenObject GetKitchenObject() => kitchenObject;
+
+    /// <summary>
+    /// Spawns the kitchenobject, also sets the parent
+    /// </summary>
+    /// <param name="so"></param>
+    /// <param name="parent"></param>
+    /// <returns></returns>
+    public static KitchenObject SpawnVisual(KitchenObjectSO so, IObjectParent parent, Transform parentTransform)
+    {
         GameObject instance = Instantiate(so.Prefab, parentTransform.position, Quaternion.identity);
         var ko = instance.GetComponentInChildren<KitchenObject>();
         ko.SetParent(parent);

@@ -6,9 +6,8 @@ using UnityEngine;
 public class KitchenObjectSO : ScriptableObject
 {
     public string Name;
-    public Sprite Icon;
     public GameObject Prefab;
-    public float VisualOffset;
+    [UnityEngine.Range(-1.0f, 2.0f)] public float VisualOffset;
 
     [Header("Splittable")]
     public bool Splittable = false;

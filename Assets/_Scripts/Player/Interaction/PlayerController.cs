@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
     [SerializeField] Interactor interactor;
     [SerializeField] InputHandler input;
     [SerializeField] Transform handTransform;
+    public AudioSO pickupSound;
 
     PlayerModel playerModel;
     public bool hasChild;
@@ -32,13 +33,15 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 
         interactionTimer.Start();
         var ir = interactable.TryInteract(this);
-        Debug.Log(ir.message);
+        //Debug.Log(ir.message);
     }
 
     public Transform GetParentPosition() => handTransform;
 
     public void SetChild(IHoldableItem child)
     {
+        if (child != null)
+            AudioManager.Instance.PlaySFX(pickupSound, transform.position);
         playerModel.Pickup(child);
     }
 
@@ -63,4 +66,8 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
     public void SetChild(IObjectChild child) => SetChild((IHoldableItem)child);
     IObjectChild IObjectParent.GetChild() => GetChild();
 
+    public void ClearChild()
+    {
+        SetChild(null);
+    }
 }

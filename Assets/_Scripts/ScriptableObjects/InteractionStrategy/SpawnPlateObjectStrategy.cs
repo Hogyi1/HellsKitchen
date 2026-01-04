@@ -3,11 +3,11 @@
 [CreateAssetMenu(fileName = "NewSimpleSpawnStrategy", menuName = "Game/Strategy/CounterStrategy/SpawnStrategy/PlateSpawn")]
 public class SpawnPlateObjectStrategy : BaseCounterStrategy
 {
-    public override bool CanExecuteOnCounter(PlayerController context, BaseCounter counter)
+    public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
         var playerKo = context.TryGetKitchenObject();
 
-        if (counter is not ISpawner<PlateObject> || counter is not PlateDispenser)
+        if (counter is not ISpawner<PlateObject> || counter.GetModel() is not DispenserModel)
             return false;
 
         if (playerKo == null)
@@ -19,11 +19,11 @@ public class SpawnPlateObjectStrategy : BaseCounterStrategy
         return false;
     }
 
-    public override InteractionResult ExecuteOnCounter(PlayerController context, BaseCounter counter)
+    public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
         var playerKo = context.TryGetKitchenObject();
         var spawner = counter as ISpawner<PlateObject>;
-        var plateDispenser = counter as PlateDispenser;
+        var plateDispenser = counter.GetModel() as DispenserModel;
 
         if (spawner == null || plateDispenser == null)
         {

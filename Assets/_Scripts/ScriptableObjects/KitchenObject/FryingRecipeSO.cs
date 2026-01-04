@@ -4,8 +4,8 @@ using UnityEngine;
 public class FryingRecipeSO : ScriptableObject
 {
     public KitchenObjectSO from;
-    public KitchenObjectSO to;
-    public KitchenObjectSO burnt;
+    public KitchenObjectSO To;
+    public KitchenObjectSO Burnt;
 
     public float fryingTime = 5f;
     public float burningTime = 3f;
