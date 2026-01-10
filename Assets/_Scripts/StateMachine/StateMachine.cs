@@ -19,7 +19,7 @@ public class StateMachine
         if (transition != null)
             ChangeState(transition.State());
 
-        currentNode.State?.Update();
+        currentNode.State?.Update(); 
     }
 
     public void FixedUpdate()
