@@ -4,19 +4,17 @@ using UnityEngine;
 public class DeliveryController : CounterController, IObjectHolder<KitchenObjectController>, IHasCooldown
 {
     [SerializeField] float _deliveryTime = 4f;
-    private float _graceTime;
+    [SerializeField] float _coolDown = 1f;
     private CountDownTimer _deliveryTimer;
-    private CountDownTimer _graceTimer;
+    private CountDownTimer _coolDownTimer;
 
     public DeliveryCounter Model => GetModel<DeliveryCounter>();
 
     protected override void Initialize()
     {
         model = new DeliveryCounter(_deliveryTime);
-        _graceTime = _deliveryTime / 2f;
-
         _deliveryTimer = new CountDownTimer(_deliveryTime);
-        _graceTimer = new CountDownTimer(_graceTime);
+        _coolDownTimer = new CountDownTimer(_coolDown);
 
         var hasPlateAndNotEmpty = new ContextualPredicate<PlayerController>(
             (PlayerController context) =>
@@ -43,19 +41,24 @@ public class DeliveryController : CounterController, IObjectHolder<KitchenObject
         _deliveryTimer.OnTimerStop += ScoreDelivery;
         Model.StartDelivery(other as PlateObjectController);
         _deliveryTimer.Start();
+        _coolDownTimer.Start();
     }
 
     private void ScoreDelivery()
     {
         _deliveryTimer.OnTimerStop -= ScoreDelivery;
         OrderManager.Instance.CompleteOrder(Model.Plate.GetIngredientDictionary());
+        _coolDownTimer.Stop();
         Model.ReleaseChild();
     }
 
     public void OnRelease()
     {
         Model.ResetDelivery();
+        _coolDownTimer.Stop();
+        _deliveryTimer.OnTimerStop -= ScoreDelivery;
+        _deliveryTimer.Stop();
     }
 
-    public bool IsReady() => _deliveryTimer.IsFinished;
+    public bool IsReady() => !_deliveryTimer.IsRunning;
 }

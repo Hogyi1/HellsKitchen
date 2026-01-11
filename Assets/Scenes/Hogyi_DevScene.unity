@@ -1900,6 +1900,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7f58eac392cdde449976973afb1f7389, type: 2}
   - {fileID: 11400000, guid: 1c061b2cd779daf49a3f082bdda5c602, type: 2}
   _deliveryTime: 4
+  _coolDown: 1
 --- !u!1 &489619803
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,6 +2026,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3075139169936562120, guid: 3c1f1ff7f9921a349b1727528d622e74, type: 3}
   m_PrefabInstance: {fileID: 5282397932302896275}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &725201152
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1315509864311227539, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_Name
+      value: Crate_Tomato
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.327
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237748784210765435, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916789309038393225, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: KitchenObjectSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 63d4b413031ff2f46bb15985eaa38e61, type: 2}
+    - target: {fileID: 8155617661109284471, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+      propertyPath: mySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b0a024c5ace93c94eb0287e2b94ee0a3, type: 3}
+    m_RemovedComponents:
+    - {fileID: 5568297599134112960, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5fcd4594feeb87549aadd6470f1551d7, type: 3}
 --- !u!1001 &728953150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4124,6 +4191,7 @@ SceneRoots:
   - {fileID: 5282397932302896275}
   - {fileID: 448734718}
   - {fileID: 5228126934860630834}
+  - {fileID: 725201152}
   - {fileID: 728953150}
   - {fileID: 7635312481398825634}
   - {fileID: 1353588745}

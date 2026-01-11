@@ -45,7 +45,7 @@ public class ContainerView : CounterView
     /// <param name="ko">The KitchenObject involved in the interaction.</param>
     private void InteractedWith(KitchenObjectController ko)
     {
-        if (ko != Model.GetChild())
+        if (ko != null)
         {
             anim.Play(OpenClose);
             AudioManager.Instance.PlaySFX(openingAudio, audioSource);

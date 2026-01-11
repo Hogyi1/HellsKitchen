@@ -14,7 +14,6 @@ public class SimpleDisposeStrategy : BaseCounterStrategy
         if (playerKo == null || !(playerKo is IDisposable disposable))
             return InteractionResult.Fail("Player has no valid item to dispose");
 
-        disposable.Dispose();
         (counter as IDisposer)?.OnDispose(disposable);
         return InteractionResult.Ok("Player disposed of item");
     }
