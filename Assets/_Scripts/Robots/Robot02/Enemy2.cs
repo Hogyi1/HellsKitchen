@@ -131,8 +131,10 @@ public class Enemy2:MonoBehaviour, IShotable, ICrawlable,IStunnable
 
     public void MoveDown()
     {
+        agent.isStopped = true;
         isSpawned = false;
         transform.position = retreatTarget.position - new Vector3(0, 100, 0);
         Despawned.Invoke();
+        
     }
 }

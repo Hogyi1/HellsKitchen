@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    //Az enemy-k legyenek a scene-ben csak pálya alatt vagy le akarjuk õket spwanolni egy prefab-bõl?
-    //egyenlõre az elõbbit csinálom meg, de változtatni bármikor tudok
     [SerializeField] private Enemy robotOne;
     [SerializeField] private Enemy2 robotTwo;
-
+    
     [SerializeField] private Transform spawnPoint;
 
     [SerializeField] private EnemyData enemyData;
@@ -28,7 +26,7 @@ public class EnemyManager : MonoBehaviour
         IsEnabled = false;
         countDownTimer = new CountDownTimer(5);
         countDownTimer.Start();
-        countDownEnemyOne = new CountDownTimer(20);
+        countDownEnemyOne = new CountDownTimer(25);
         robotOne.Despawned += OnRobotOneDespawned;
         robotTwo.Despawned += OnRobotTwoDespawned;
     }
@@ -84,7 +82,6 @@ public class EnemyManager : MonoBehaviour
         //var index = GameManager.Instance.CurrentDays;
 
         var type = enemyData.Days[1]; // index kell
-
 
         switch (type)
         {

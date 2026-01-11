@@ -9,7 +9,7 @@ public class Robot02CrawlJumpscare : Robot02BaseState
     {
         this.agent = agent;
     }
-
+    
     public override void OnEnter()
     {
         agent.isStopped = true;

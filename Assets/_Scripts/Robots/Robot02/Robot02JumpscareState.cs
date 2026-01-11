@@ -8,7 +8,7 @@ public class Robot02JumpscareState : Robot02BaseState
     {
         this.agent = agent;
     }
-
+    
     public override void OnEnter()
     {
         agent.isStopped = true;

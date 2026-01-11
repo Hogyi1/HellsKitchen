@@ -9,12 +9,14 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(PlayerDetector))]
 public class Enemy : MonoBehaviour, IShotable
 {
+
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
     [SerializeField] public Transform root;
     [SerializeField] public Transform waypointParent;
     [SerializeField] public Transform lightsOutWaypointParent;
     [SerializeField] PlayerDetector playerDetector;
+
     private Transform[] waypoints;
     private Transform[] lightsOutWaypoints;
 

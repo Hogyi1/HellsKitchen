@@ -30,7 +30,7 @@ public class Robot01JumpscareState : Robot01BaseState
     {
         //stops every action from the player
 
-        //PlayerController.KillPlayer()
+        //PlayerController.KillPlayer();
         
         Debug.Log("Meghaltál");
     }

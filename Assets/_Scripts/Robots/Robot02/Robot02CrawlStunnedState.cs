@@ -8,7 +8,7 @@ public class Robot02CrawlStunnedState : Robot02BaseState
     public Robot02CrawlStunnedState(Enemy2 enemy, Animator animator,NavMeshAgent agent) : base(enemy, animator)
     {
         this.agent = agent;
-        coolDownTimer = new CountDownTimer(8);
+        coolDownTimer = new CountDownTimer(6);
     }
 
     public override void OnEnter()

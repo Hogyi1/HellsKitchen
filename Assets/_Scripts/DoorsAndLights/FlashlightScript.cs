@@ -7,7 +7,7 @@ public class FlashlightScript : MonoBehaviour
     [SerializeField] private float maxBatteryTime = 100f;
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private LayerMask enemyLayer;
-
+    [SerializeField] private KeyCode inputKey = KeyCode.F;
     private float currentBattery;
     private bool isOn = false;
     private LoopTimer rayLoop;
@@ -17,19 +17,23 @@ public class FlashlightScript : MonoBehaviour
     {
         currentBattery = maxBatteryTime;
         rayLoop = new LoopTimer(1,99999);
+        rayLoop.OnLoop += OnLoop;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(inputKey))
         {
             ToggleFlashlight();
+            Debug.Log($"A zseblámpa bekapcsolva és {currentBattery}% battery-nk van.");
         }
+    }
 
-        // Akku fogyása
+    private void OnLoop(int i)
+    {
         if (isOn && currentBattery > 0f)
         {
-            currentBattery -= Time.deltaTime;
+            currentBattery -= 1.25f;
 
             if (currentBattery <= 0f)
             {
@@ -38,23 +42,20 @@ public class FlashlightScript : MonoBehaviour
                 Debug.Log("A zseblámpa lemerült!");
             }
 
-            if(rayLoop.IsFinished)
-            {           
-                RaycastHit hit;
-                Vector3 origin = transform.position;
-                Vector3 direction = transform.forward;
 
+            RaycastHit hit;
+            Vector3 origin = transform.position;
+            Vector3 direction = transform.forward;
 
-                if (Physics.Raycast(origin, direction, out hit, rayDistance, enemyLayer))
-                {
+            Debug.Log($"A zseblámpa tickelt és {currentBattery} % battery-nk van.");
+            if (Physics.Raycast(origin, direction, out hit, rayDistance, enemyLayer))
+            {
 
-                    hit.transform.TryGetComponent(out IStunnable target);
-                    target?.OnFlashed();
-                }
+                hit.transform.TryGetComponent(out IStunnable target);
+                target?.OnFlashed();
             }
         }
     }
-
     void ToggleFlashlight()
     {
         if (currentBattery <= 0f)

@@ -10,6 +10,7 @@ using UnityEngine.Events;
 /// </summary>
 public class Wardrobe_Movable_Catchable : MonoBehaviour
 {
+
     [Header("References")]
     [SerializeField] private Transform door; // pivot at hinge
     [SerializeField] private Transform enterPoint;
@@ -221,8 +222,4 @@ public class Wardrobe_Movable_Catchable : MonoBehaviour
             // Example: StartCoroutine(ExitSequence()); // uncomment to auto-evict the player
         }
     }
-
-    // Optional helpers
-    public bool IsPlayerInside => isInside;
-    public bool IsDoorOpen => isOpen;
 }

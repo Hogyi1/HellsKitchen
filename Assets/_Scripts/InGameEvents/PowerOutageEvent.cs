@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PowerOutageEvent : MonoBehaviour
 {
+
     public float checkInterval = 10f;
     public float outageChancePercent = 1f;
     public Transform doorparent;
