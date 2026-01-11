@@ -5,7 +5,7 @@ using UnityEngine;
 /// Controls the logic for a KitchenContainer, handling the spawning of KitchenObjects
 /// based on the model's state and cooldown.
 /// </summary>
-public class ContainerController : CounterController, ISpawner<KitchenObject>, IHasCooldown
+public class ContainerController : CounterController, ISpawner<KitchenObjectController>, IHasCooldown
 {
     [Range(0, 3f)] float interactionTimer = 2f;
     [SerializeField] KitchenObjectSO KitchenObjectSO;
@@ -35,9 +35,9 @@ public class ContainerController : CounterController, ISpawner<KitchenObject>, I
     /// <param name="parent">The parent object for the newly spawned KitchenObject.</param>
     /// <param name="parentTransform">The transform to parent the visual representation to.</param>
     /// <returns>The newly spawned KitchenObject.</returns>
-    public KitchenObject SpawnObject(IObjectParent parent, Transform parentTransform)
+    public KitchenObjectController SpawnObject(IObjectParent parent, Transform parentTransform)
     {
-        var ko = KitchenObject.SpawnVisual(Model.CrateObject, parent, parentTransform);
+        var ko = KitchenObjectController.SpawnKitchenObject(Model.CrateObject, parent, parentTransform);
         _timer.Start();
         Model.NotifyObjectSpawned(ko);
         return ko;
@@ -49,7 +49,8 @@ public class ContainerController : CounterController, ISpawner<KitchenObject>, I
     /// <returns>True if the container is ready, false otherwise.</returns>
     public bool IsReady() => !_timer.IsRunning;
 
-    public KitchenObject GetSpawnerObject() => SpawnObject(Model, GetSpawnPosition()); //TODO refactor
+    public KitchenObjectController GetSpawnerObject() => SpawnObject(this, GetSpawnPosition());
 
     public Transform GetSpawnPosition() => view.GetTransformPosition();
+
 }

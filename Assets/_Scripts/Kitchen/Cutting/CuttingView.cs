@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -5,7 +6,7 @@ using UnityEngine;
 /// It handles playing cutting animations, sound effects, and controls the cutting UI.
 /// </summary>
 [RequireComponent(typeof(CuttingController), typeof(Animator), typeof(AudioSource))]
-public class CuttingBoardView : CounterView
+public class CuttingView : CounterView
 {
     /// <summary>
     /// The Audio ScriptableObject to play during cutting actions.
@@ -15,6 +16,13 @@ public class CuttingBoardView : CounterView
     /// Animator hash for the "Cutting" animation parameter.
     /// </summary>
     public static int CuttingAnimation = Animator.StringToHash("Cutting");
+
+    /// <summary>
+    /// Occurs when the cutting animation has been played.
+    /// </summary>
+    /// <remarks>Subscribers are notified immediately after the cutting animation completes. This event is
+    /// invoked even if no subscribers are attached.</remarks>
+    public event Action OnCuttingAnimationPlayed = delegate { };
 
     /// <summary>
     /// Gets the associated CuttingBoard model.
@@ -29,13 +37,25 @@ public class CuttingBoardView : CounterView
     /// Plays the cutting animation when a cutting action occurs.
     /// </summary>
     /// <param name="so">The KitchenObjectSO involved in the cutting action.</param>
-    private void OnCuttingAction(KitchenObjectSO so) => anim.Play(CuttingAnimation);
+    private void OnCuttingAction(KitchenObjectSO so)
+    {
+        anim.Play(CuttingAnimation);
+    }
+
+    /// <summary>
+    /// This method is called by an Animation Event at the end of the cutting animation clip.
+    /// It invokes the OnCuttingAnimationPlayed event.
+    /// </summary>
+    public void OnAnimationFinished()
+    {
+        OnCuttingAnimationPlayed?.Invoke();
+    }
 
     /// <summary>
     /// Toggles the visibility of the cutting UI based on whether an item is on the board.
     /// </summary>
     /// <param name="ko">The KitchenObject currently on the board (null if empty).</param>
-    private void OnItemChanged(KitchenObject ko)
+    private void OnItemChanged(KitchenObjectController ko)
     {
         if (ko != null)
             cuttingUIHandler.TurnOn();

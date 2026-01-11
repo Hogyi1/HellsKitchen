@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 /// <typeparam name="T">The specific type of BaseCounter that this controller manages as its model.</typeparam>
 [DefaultExecutionOrder(45)]
-public abstract class CounterController : MonoBehaviour, IInteractable
+public abstract class CounterController : MonoBehaviour, IInteractable, IObjectParent<KitchenObjectController>
 {
     /// <summary>
     /// The instance of the specific BaseCounter (acting as the model) managed by this controller.
@@ -120,4 +120,50 @@ public abstract class CounterController : MonoBehaviour, IInteractable
     /// Called inside Awake to set up necessary components.
     /// </summary>
     protected virtual void SetupComponents() { }
+
+    /// <summary>
+    /// Gets the current transform representing the position and orientation of the view.
+    /// </summary>
+    /// <returns>A <see cref="Transform"/> object that describes the view's current position and orientation.</returns>
+    public Transform GetTransform() => view.GetTransformPosition();
+
+    /// <summary>
+    /// Assigns the specified <see cref="KitchenObjectController"/> as the child of the managed model.
+    /// This delegates to <see cref="CounterModel.SetChild(KitchenObjectController)"/>.
+    /// </summary>
+    /// <param name="child">The <see cref="KitchenObjectController"/> to set as the child.</param>
+    public void SetChild(KitchenObjectController child) => model.SetChild(child);
+
+    /// <summary>
+    /// Clears any child currently assigned to the managed model.
+    /// This delegates to <see cref="CounterModel.ClearChild"/>.
+    /// </summary>
+    public void ClearChild() => model.ClearChild();
+
+    /// <summary>
+    /// Gets the current <see cref="KitchenObjectController"/> child assigned to the managed model.
+    /// </summary>
+    /// <returns>The current <see cref="KitchenObjectController"/> child, or <c>null</c> if none is assigned.</returns>
+    public KitchenObjectController GetChild() => model.GetChild();
+
+    /// <summary>
+    /// Determines whether the managed model currently has a child assigned.
+    /// </summary>
+    /// <returns><c>true</c> if a child is assigned; otherwise, <c>false</c>.</returns>
+    public bool HasChild() => model.HasChild();
+
+    /// <summary>
+    /// Assigns the specified <see cref="IObjectChild"/> as the child of the managed model.
+    /// This overload allows assigning children via the interface and delegates to the model.
+    /// </summary>
+    /// <param name="child">The <see cref="IObjectChild"/> to set as the child.</param>
+    public void SetChild(IObjectChild child) => SetChild(child as KitchenObjectController);
+
+    /// <summary>
+    /// Explicit interface implementation that returns the current child as an <see cref="IObjectChild"/>.
+    /// Delegates to <see cref="GetChild"/> and allows consumers using the non-generic
+    /// <c>IObjectParent</c> interface to obtain the child reference.
+    /// </summary>
+    /// <returns>The current child as an <see cref="IObjectChild"/>, or <c>null</c> if none is assigned.</returns>
+    IObjectChild IObjectParent.GetChild() => GetChild();
 }

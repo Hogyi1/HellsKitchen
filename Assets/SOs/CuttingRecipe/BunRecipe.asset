@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BunRecipe
   m_EditorClassIdentifier: Assembly-CSharp::CuttingRecipeSO
   cuttingTimes: 2
-  from: {fileID: 11400000, guid: 5837ab51cd15817499c8c8d8ccc65ba4, type: 2}
-  to: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
+  Input: {fileID: 11400000, guid: 5837ab51cd15817499c8c8d8ccc65ba4, type: 2}
+  Output: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}

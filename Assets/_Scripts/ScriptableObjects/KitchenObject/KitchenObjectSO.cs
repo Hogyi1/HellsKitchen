@@ -15,4 +15,9 @@ public class KitchenObjectSO : ScriptableObject
     public GameObject TopPrefab;
     public float SplitVisualOffset;
     public float TopVisualOffset;
+
+    [Header("Sounds")]
+    public AudioSO PlaceSound;
+    public AudioSO PickUpSound;
+    public AudioSO DisposeSound;
 }

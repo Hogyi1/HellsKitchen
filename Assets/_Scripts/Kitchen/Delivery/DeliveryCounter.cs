@@ -1,9 +1,8 @@
 ﻿using UnityEngine.Events;
 
-public class DeliveryCounter : CounterModel, IHasCooldown
+public class DeliveryCounter : CounterModel
 {
 
-    private CountDownTimer _deliveryTimer;
     private float _deliveryDelay;
 
     public float DeliveryDelay
@@ -12,16 +11,20 @@ public class DeliveryCounter : CounterModel, IHasCooldown
         set => _deliveryDelay = value;
     }
 
-    public event UnityAction<PlateObject> OnPlateDelivered = delegate { };
-    public event UnityAction<PlateObject> OnPlateReleased = delegate { };
+    public PlateObjectController Plate
+    {
+        get => _plateBeingDelivered;
+        set => _plateBeingDelivered = value;
+    }
 
-    private PlateObject plateBeingDelivered;
+    public event UnityAction<PlateObjectController> OnPlateDelivered = delegate { };
+    public event UnityAction<PlateObjectController> OnPlateReleased = delegate { };
+
+    private PlateObjectController _plateBeingDelivered;
 
     public DeliveryCounter(float deliveryDelay)
     {
         _deliveryDelay = deliveryDelay;
-        _deliveryTimer = new CountDownTimer(deliveryDelay);
-        _deliveryTimer.OnTimerStop += ReleaseChild;
     }
 
     public void ReleaseChild()
@@ -29,36 +32,26 @@ public class DeliveryCounter : CounterModel, IHasCooldown
         if (HasChild())
             GetChild().SetParent(null);
 
-        OnPlateReleased.Invoke(plateBeingDelivered);
+        OnPlateReleased.Invoke(_plateBeingDelivered);
         ResetDelivery();
     }
 
-    public void StartDelivery(PlateObject plate)
+    public void StartDelivery(PlateObjectController plate)
     {
-        if (plateBeingDelivered == null)
+        if (_plateBeingDelivered == null)
             return;
 
-        plateBeingDelivered = plate;
-        _deliveryTimer.OnTimerStop += FinishedDelivery;
-        _deliveryTimer.Start();
+        _plateBeingDelivered = plate;
+
     }
 
     public void FinishedDelivery()
     {
-        OnPlateDelivered.Invoke(plateBeingDelivered);
-        _deliveryTimer.OnTimerStop -= FinishedDelivery;
+        OnPlateDelivered.Invoke(_plateBeingDelivered);
     }
 
     public void ResetDelivery()
     {
-        _deliveryTimer.Reset();
-        _deliveryTimer.OnTimerStop -= FinishedDelivery;
-        plateBeingDelivered = null;
+        _plateBeingDelivered = null;
     }
-
-    /// <summary>
-    /// Is ready to take another plate because the timer has already stopped
-    /// </summary>
-    /// <returns></returns>
-    public bool IsReady() => !_deliveryTimer.IsRunning;
 }

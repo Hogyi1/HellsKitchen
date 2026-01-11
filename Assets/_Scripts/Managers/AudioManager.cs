@@ -233,5 +233,9 @@ public class AudioManager : Singleton<AudioManager>
         activeMusicFade = null;
     }
 
+    public override void BaseAwake()
+    {
+    }
+
     #endregion
 }

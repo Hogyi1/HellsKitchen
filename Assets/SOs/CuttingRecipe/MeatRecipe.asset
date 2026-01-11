@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MeatRecipe
   m_EditorClassIdentifier: Assembly-CSharp::CuttingRecipeSO
   cuttingTimes: 5
-  from: {fileID: 11400000, guid: 93db595b6bc0dcd41a86e42f47cfd161, type: 2}
-  to: {fileID: 11400000, guid: 289192b31a85cc043a44a4c2edf1d20d, type: 2}
+  Input: {fileID: 11400000, guid: 93db595b6bc0dcd41a86e42f47cfd161, type: 2}
+  Output: {fileID: 11400000, guid: 289192b31a85cc043a44a4c2edf1d20d, type: 2}

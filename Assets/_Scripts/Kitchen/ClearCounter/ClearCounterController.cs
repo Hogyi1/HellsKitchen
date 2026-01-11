@@ -5,7 +5,7 @@ using UnityEngine;
 /// It acts as a basic surface for placing and picking up items.
 /// </summary>
 [RequireComponent(typeof(ClearCounterView))]
-public class ClearCounterController : CounterController, IObjectHolder<KitchenObject>
+public class ClearCounterController : CounterController, IObjectHolder<KitchenObjectController>
 {
     /// <summary>
     /// Initializes the counter's model and sets up interaction predicates.
@@ -26,7 +26,7 @@ public class ClearCounterController : CounterController, IObjectHolder<KitchenOb
     /// </summary>
     /// <param name="other">The KitchenObject to be placed.</param>
     /// <returns>True if the object can be placed, false otherwise.</returns>
-    public bool CanPlace(KitchenObject other) => (other != model.GetChild());
+    public bool CanPlace(KitchenObjectController other) => (other != model.GetChild());
 
     /// <summary>
     /// Checks if a KitchenObject can be released (picked up) from this counter.
@@ -38,7 +38,7 @@ public class ClearCounterController : CounterController, IObjectHolder<KitchenOb
     /// Places a KitchenObject on the counter by setting its parent.
     /// </summary>
     /// <param name="other">The KitchenObject to place.</param>
-    public void OnPlace(KitchenObject other) => other.SetParent(model);
+    public void OnPlace(KitchenObjectController other) => other.SetParent(this);
 
     /// <summary>
     /// Releases the KitchenObject from the counter.

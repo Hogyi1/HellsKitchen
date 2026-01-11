@@ -9,7 +9,7 @@ public class ContainerModel : CounterModel
     /// <summary>
     /// Event triggered when a new KitchenObject is spawned from this container.
     /// </summary>
-    public event Action<KitchenObject> OnObjectSpawned = delegate { };
+    public event Action<KitchenObjectController> OnObjectSpawned = delegate { };
 
     /// <summary>
     /// Gets the ScriptableObject representing the type of KitchenObject this container spawns.
@@ -38,7 +38,7 @@ public class ContainerModel : CounterModel
     /// Notifies listeners that an object has been spawned and starts the cooldown timer.
     /// </summary>
     /// <param name="ko">The KitchenObject that was spawned.</param>
-    public void NotifyObjectSpawned(KitchenObject ko)
+    public void NotifyObjectSpawned(KitchenObjectController ko)
     {
         OnObjectSpawned.Invoke(ko);
     }

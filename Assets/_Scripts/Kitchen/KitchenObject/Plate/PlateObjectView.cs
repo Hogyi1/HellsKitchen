@@ -1,32 +1,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using DG.Tweening;
 
-[RequireComponent(typeof(PlateObject))]
-public class PlateObjectVisual : MonoBehaviour
+[RequireComponent(typeof(PlateObjectController))]
+public class PlateObjectView : KitchenObjectView
 {
-    [SerializeField] private PlateObject plateObject;
     [SerializeField] private Transform plateCenter;
-    public bool debug;
     private readonly List<GameObject> spawnedVisuals = new();
 
-    private void Awake()
-    {
-        if (plateObject == null)
-            plateObject = GetComponent<PlateObject>();
-    }
+    public PlateObjectModel PlateModel => model as PlateObjectModel;
 
-    private void Start()
+    public override void Initialize()
     {
-        plateObject.OnIngredientAdded += _ => RebuildStack();
-        plateObject.OnIngredientRemoved += _ => RebuildStack();
+        PlateModel.OnIngredientAdded += _ => RebuildStack();
+        PlateModel.OnIngredientRemoved += _ => RebuildStack();
         RebuildStack();
     }
 
     private void OnDestroy()
     {
-        plateObject.OnIngredientAdded -= _ => RebuildStack();
-        plateObject.OnIngredientRemoved -= _ => RebuildStack();
+        currentTween?.Kill();
+        PlateModel.OnIngredientAdded -= _ => RebuildStack();
+        PlateModel.OnIngredientRemoved -= _ => RebuildStack();
     }
 
     private void RebuildStack()
@@ -37,7 +33,7 @@ public class PlateObjectVisual : MonoBehaviour
         spawnedVisuals.Clear();
 
         float currentHeight = 0f;
-        var includedIngredients = plateObject.GetIngredientList();
+        var includedIngredients = PlateModel.GetIngredientList();
         var splittable = includedIngredients?.FirstOrDefault(t => t.Splittable);
 
         if (splittable != null)
@@ -48,7 +44,7 @@ public class PlateObjectVisual : MonoBehaviour
             currentHeight += splittable.SplitVisualOffset;
         }
 
-        foreach (var ingredient in plateObject.GetIngredientList())
+        foreach (var ingredient in PlateModel.GetIngredientList())
         {
             if (ingredient == splittable)
                 continue;
@@ -68,11 +64,5 @@ public class PlateObjectVisual : MonoBehaviour
             spawnedVisuals.Add(topVisual);
             currentHeight += splittable.TopVisualOffset;
         }
-    }
-
-    private void OnValidate()
-    {
-        if (plateObject != null)
-            RebuildStack();
     }
 }

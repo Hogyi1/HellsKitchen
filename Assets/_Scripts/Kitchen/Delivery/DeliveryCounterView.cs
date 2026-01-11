@@ -10,7 +10,7 @@ public class DeliveryCounterView : CounterView
 
     public DeliveryCounter Model => GetModel<DeliveryCounter>();
 
-    private Dictionary<PlateObject, Tween> activeTweens = new Dictionary<PlateObject, Tween>();
+    private Dictionary<PlateObjectController, Tween> activeTweens = new Dictionary<PlateObjectController, Tween>();
 
     protected override void Initialize()
     {
@@ -25,7 +25,7 @@ public class DeliveryCounterView : CounterView
         counterEnd = counterEnd != null ? counterEnd : transform;
     }
 
-    private void DeliveryCounter_OnPlateDelivered(PlateObject po)
+    private void DeliveryCounter_OnPlateDelivered(PlateObjectController po)
     {
         if (activeTweens.ContainsKey(po))
         {
@@ -47,7 +47,7 @@ public class DeliveryCounterView : CounterView
         activeTweens[po] = deliveryTween;
     }
 
-    private void DeliveryCounter_OnPlateReleased(PlateObject po)
+    private void DeliveryCounter_OnPlateReleased(PlateObjectController po)
     {
         if (activeTweens.TryGetValue(po, out Tween activeTween))
         {

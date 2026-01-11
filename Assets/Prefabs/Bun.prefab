@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1234293461655925892}
   - component: {fileID: 1255853154774399396}
+  - component: {fileID: -8389254715533835440}
   m_Layer: 0
   m_Name: Bun
   m_TagString: Untagged
@@ -45,9 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0544806a67429954081c35bff05cf817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  kitchenObjectSo: {fileID: 11400000, guid: 5837ab51cd15817499c8c8d8ccc65ba4, type: 2}
-  isCuttable: 1
-  isFryable: 0
+  view: {fileID: -8389254715533835440}
+  so: {fileID: 11400000, guid: 5837ab51cd15817499c8c8d8ccc65ba4, type: 2}
+--- !u!114 &-8389254715533835440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849792964173724212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0debc5ca3366b346abec5e8e1664da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectView
 --- !u!1 &7872091301042318271
 GameObject:
   m_ObjectHideFlags: 0

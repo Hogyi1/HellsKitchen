@@ -9,7 +9,7 @@ public class PlaceWithoutParentingStrategy : BaseCounterStrategy
         var playerKo = context.TryGetKitchenObject();
         if (playerKo != null && ownKo == null)
             return true;
-        if (counter is IObjectHolder<KitchenObject> holder)
+        if (counter is IObjectHolder<KitchenObjectController> holder)
             return holder.CanPlace(playerKo);
 
         return false;
@@ -24,7 +24,7 @@ public class PlaceWithoutParentingStrategy : BaseCounterStrategy
 
         playerKo.SetParent(null);
 
-        if (counter is IObjectHolder<KitchenObject> holder)
+        if (counter is IObjectHolder<KitchenObjectController> holder)
             holder.OnPlace(counter.GetModel().GetChild());
 
         return InteractionResult.Ok("Player placed item on counter");

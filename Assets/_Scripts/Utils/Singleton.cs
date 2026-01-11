@@ -42,6 +42,6 @@ public abstract class Singleton<T> : MonoBehaviour, ISingleton<T> where T : Mono
         }
     }
 
-    public abstract void BaseAwake();
+    public virtual void BaseAwake() { }
     public T GetInstance() => Instance;
 }

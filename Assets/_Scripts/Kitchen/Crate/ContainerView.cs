@@ -43,9 +43,9 @@ public class ContainerView : CounterView
     /// Handles visual and audio feedback when an object is interacted with (e.g., spawned).
     /// </summary>
     /// <param name="ko">The KitchenObject involved in the interaction.</param>
-    private void InteractedWith(KitchenObject ko)
+    private void InteractedWith(KitchenObjectController ko)
     {
-        if (ko.GetParent() as ContainerModel != Model)
+        if (ko != Model.GetChild())
         {
             anim.Play(OpenClose);
             AudioManager.Instance.PlaySFX(openingAudio, audioSource);

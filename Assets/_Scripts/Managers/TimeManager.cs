@@ -25,4 +25,6 @@ public class TimeManager : Singleton<TimeManager>
         IsPaused = pause;
         Time.timeScale = pause ? 0f : 1f;
     }
+
+    public override void BaseAwake() { }
 }

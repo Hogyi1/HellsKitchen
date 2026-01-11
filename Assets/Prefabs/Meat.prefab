@@ -99,6 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3686360336681952304}
   - component: {fileID: 5603129368754647360}
+  - component: {fileID: 3063998024370984377}
   m_Layer: 0
   m_Name: Meat
   m_TagString: Untagged
@@ -134,6 +135,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0544806a67429954081c35bff05cf817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  kitchenObjectSo: {fileID: 11400000, guid: 93db595b6bc0dcd41a86e42f47cfd161, type: 2}
-  isCuttable: 0
-  isFryable: 0
+  view: {fileID: 3063998024370984377}
+  so: {fileID: 11400000, guid: 93db595b6bc0dcd41a86e42f47cfd161, type: 2}
+--- !u!114 &3063998024370984377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9176854284382123342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0debc5ca3366b346abec5e8e1664da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectView

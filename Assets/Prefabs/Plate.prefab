@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23e9ad91f811d4ab34d5e8751ea91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlateObject
-  kitchenObjectSo: {fileID: 11400000, guid: 7dce2b39554a00b4f988e78e50a12182, type: 2}
+  view: {fileID: 1975313766215391117}
+  so: {fileID: 11400000, guid: 7dce2b39554a00b4f988e78e50a12182, type: 2}
   recipeSO: {fileID: 11400000, guid: 63a3b5628488a1347a512b0aabb5c6a3, type: 2}
-  ingredientList: []
 --- !u!114 &1975313766215391117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,9 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000c895314d99fa4e80d884ad10c9cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlateObjectVisual
-  plateObject: {fileID: 8807051445925627170}
   plateCenter: {fileID: 1913992746544246836}
-  debug: 0
 --- !u!1 &8428856555345728783
 GameObject:
   m_ObjectHideFlags: 0

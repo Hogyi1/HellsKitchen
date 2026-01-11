@@ -33,10 +33,8 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 
         interactionTimer.Start();
         var ir = interactable.TryInteract(this);
-        //Debug.Log(ir.message);
+        Debug.Log(ir.message);
     }
-
-    public Transform GetParentPosition() => handTransform;
 
     public void SetChild(IHoldableItem child)
     {
@@ -47,9 +45,9 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 
     public bool HasChild() => playerModel.HeldItem != null;
 
-    public KitchenObject TryGetKitchenObject()
+    public KitchenObjectController TryGetKitchenObject()
     {
-        if (playerModel.HeldItem is KitchenObject kitchenObject)
+        if (playerModel.HeldItem is KitchenObjectController kitchenObject)
             return kitchenObject;
         return null;
     }
@@ -70,4 +68,6 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
     {
         SetChild(null);
     }
+
+    public Transform GetTransform() => handTransform;
 }

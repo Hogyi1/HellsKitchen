@@ -6,7 +6,7 @@ public class SimpleDisposeStrategy : BaseCounterStrategy
     public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
         var playerKo = context.TryGetKitchenObject();
-        return playerKo != null && playerKo is IDisposable;
+        return playerKo != null && playerKo is IDisposable && counter is IDisposer;
     }
     public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
@@ -15,6 +15,7 @@ public class SimpleDisposeStrategy : BaseCounterStrategy
             return InteractionResult.Fail("Player has no valid item to dispose");
 
         disposable.Dispose();
+        (counter as IDisposer)?.OnDispose(disposable);
         return InteractionResult.Ok("Player disposed of item");
     }
 }

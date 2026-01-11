@@ -5,7 +5,7 @@ using UnityEngine;
 /// and performing cutting actions on KitchenObjects. It implements IObjectHolder
 /// and IProgressiveInteraction interfaces.
 /// </summary>
-public class CuttingController : CounterController, IObjectHolder<KitchenObject>, IProgressiveInteraction, IHasCooldown
+public class CuttingController : CounterController, IObjectHolder<KitchenObjectController>, IProgressiveInteraction, IHasCooldown
 {
     [SerializeField] float cuttingCooldown = 2f;
     private CountDownTimer _timer;
@@ -30,7 +30,7 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObject>
     /// Places a KitchenObject on the cutting board and initializes the cutting process.
     /// </summary>
     /// <param name="other">The KitchenObject to be placed.</param>
-    public void OnPlace(KitchenObject other) => InitCutting(other);
+    public void OnPlace(KitchenObjectController other) => InitCutting(other);
     /// <summary>
     /// Checks if a KitchenObject can be released (picked up) from the cutting board.
     /// An item can be released only if the cutting process is considered "done" (output is ready).
@@ -43,7 +43,7 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObject>
     /// </summary>
     /// <param name="other">The KitchenObject to potentially place.</param>
     /// <returns>True if the object can be placed, false otherwise.</returns>
-    public bool CanPlace(KitchenObject other) => GetRecipeFor(other) != null && Model.CurrentRecipe == null;
+    public bool CanPlace(KitchenObjectController other) => GetRecipeFor(other) != null && Model.CurrentRecipe == null;
     /// <summary>
     /// Handles the release of a KitchenObject from the board, resetting the current recipe.
     /// </summary>
@@ -54,7 +54,7 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObject>
     /// Resets cutting progress and sets the current recipe based on the placed item.
     /// </summary>
     /// <param name="other">The KitchenObject to be cut.</param>
-    private void InitCutting(KitchenObject other)
+    private void InitCutting(KitchenObjectController other)
     {
         Model.ResetCutting();
         _timer.Reset();
@@ -66,7 +66,7 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObject>
     /// </summary>
     /// <param name="other">The KitchenObject to find a recipe for.</param>
     /// <returns>The CuttingRecipeSO if found, otherwise null.</returns>
-    private CuttingRecipeSO GetRecipeFor(KitchenObject other) => KitchenSODatabase.Instance.GetCuttingRecipeWithInput(other);
+    private CuttingRecipeSO GetRecipeFor(KitchenObjectController other) => KitchenSODatabase.Instance.GetCuttingRecipeWithInput(other);
 
     /// <summary>
     /// Determines whether the timer is ready for use.
@@ -89,11 +89,17 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObject>
         // Check if cutting is complete based on the recipe
         if (Model.CuttingTimes >= Model.CurrentRecipe.cuttingTimes)
         {
-            Model.GetChild().DestroySelf(); // Destroy the input item
-            Model.OnFinishedCutting(); // Notify that cutting is finished
-            // Spawn the output KitchenObject visually
-            KitchenObject.SpawnVisual(Model.CurrentRecipe.Output, Model, view.GetTransformPosition());
+            (view as CuttingView).OnCuttingAnimationPlayed += SpawnCuttedInstance;
         }
+    }
+
+    private void SpawnCuttedInstance()
+    {
+        Model.GetChild().DestroySelf(); // Destroy the input item
+                                        // Spawn the output KitchenObject visually
+        KitchenObjectController.SpawnKitchenObject(Model.CurrentRecipe.Output, this, view.GetTransformPosition());
+        Model.OnFinishedCutting(); // Notify that cutting is finished
+        (view as CuttingView).OnCuttingAnimationPlayed -= SpawnCuttedInstance;
     }
 
     /// <summary>
@@ -113,4 +119,7 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObject>
     /// Triggers a cutting action. Implements IProgressiveInteraction.OnAction.
     /// </summary>
     public void OnAction() => Cut();
+
+    public bool CanAct() => Model.CurrentRecipe != null;
+
 }

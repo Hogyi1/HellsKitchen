@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class DispenserModel : CounterModel
 {
-    public event Action<PlateObject> OnPlateAdded = delegate { };
+    public event Action<PlateObjectController> OnPlateAdded = delegate { };
     public int MaxPlateCount { get; private set; }
     public int PlateCount
     {
@@ -12,7 +12,7 @@ public class DispenserModel : CounterModel
         set => _ = value;
     }
 
-    private Stack<PlateObject> _plates;
+    private Queue<PlateObjectController> _plates;
 
     public DispenserModel(int maxPlateCount)
     {
@@ -20,27 +20,30 @@ public class DispenserModel : CounterModel
         _plates = new(maxPlateCount);
     }
 
-    public List<PlateObject> GetPlates()
+    public List<PlateObjectController> GetPlates()
     {
-        return new List<PlateObject>(_plates);
+        return new List<PlateObjectController>(_plates);
     }
 
-    public void AddPlate(PlateObject plate)
+    public void AddPlate(PlateObjectController plate)
     {
         if (PlateCount < MaxPlateCount)
         {
-            _plates.Push(plate);
-            SetChild(plate);
+            //_plates.Push(plate);
+            _plates.Enqueue(plate);
+            if (!HasChild())
+                SetChild(plate);
             OnPlateAdded?.Invoke(plate);
         }
     }
 
-    public PlateObject TakePlate()
+    public PlateObjectController TakePlate()
     {
         if (PlateCount == 0)
             return null;
 
-        var plate = _plates.Pop();
+        //var plate = _plates.Pop();
+        var plate = _plates.Dequeue();
         if (PlateCount > 0)
             SetChild(_plates.Peek());
         else

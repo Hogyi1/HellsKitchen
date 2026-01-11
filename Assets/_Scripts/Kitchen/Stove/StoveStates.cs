@@ -12,7 +12,7 @@ public class IdleState : StoveBaseState
             ko.DestroySelf();
         }
 
-        stoveCounter.InvokeStateChange(StoveController.StoveState.Idle);
+        stoveCounter.InvokeStateChange(StoveModel.StoveState.Idle);
         stoveCounter.Model.FryingProgress = 0f;
         stoveCounter.Model.BurningProgress = 0f;
     }
@@ -44,7 +44,7 @@ public class FryingState : StoveBaseState
     public override void OnEnter()
     {
         fryingTimer.Start();
-        stoveCounter.InvokeStateChange(StoveController.StoveState.Frying);
+        stoveCounter.InvokeStateChange(StoveModel.StoveState.Frying);
     }
 
     public override void Update()
@@ -73,9 +73,9 @@ public class FriedState : StoveBaseState
     {
         var ownKo = stoveCounter.GetChild();
         ownKo.DestroySelf();
-        KitchenObject.SpawnVisual(stoveCounter.Model.CurrentRecipe.To, stoveCounter);
+        KitchenObjectController.SpawnKitchenObject(stoveCounter.Model.CurrentRecipe.To, stoveCounter);
         burnTimer.Start();
-        stoveCounter.InvokeStateChange(StoveController.StoveState.Fried);
+        stoveCounter.InvokeStateChange(StoveModel.StoveState.Fried);
     }
 
     public override void Update()
@@ -107,7 +107,7 @@ public class FriedState : StoveBaseState
             return InteractionResult.Ok("Took cooked item from stove.");
         }
 
-        if (playerKo is PlateObject po)
+        if (playerKo is PlateObjectController po)
         {
             po.AddIngredient(ownKo);
             stoveCounter.ResetStove();
@@ -125,8 +125,8 @@ public class BurnedState : StoveBaseState
     {
         var ownKo = stoveCounter.GetChild();
         ownKo.DestroySelf();
-        KitchenObject.SpawnVisual(stoveCounter.Model.CurrentRecipe.Burnt, stoveCounter);
-        stoveCounter.InvokeStateChange(StoveController.StoveState.Burnt);
+        KitchenObjectController.SpawnKitchenObject(stoveCounter.Model.CurrentRecipe.Burnt, stoveCounter);
+        stoveCounter.InvokeStateChange(StoveModel.StoveState.Burnt);
         stoveCounter.Model.BurningProgress = 1f;
     }
     public override void OnExit() { }

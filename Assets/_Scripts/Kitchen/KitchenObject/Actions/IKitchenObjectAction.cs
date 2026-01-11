@@ -1,5 +1,5 @@
 public interface IKitchenObjectAction
 {
-    bool CanExecute(KitchenObject other);
-    void Execute(KitchenObject other);
+    bool CanExecute(KitchenObjectController other);
+    void Execute(KitchenObjectController other);
 }

@@ -15,25 +15,25 @@ public class StoveCounterView : CounterView
 
     public StoveModel Model => GetModel<StoveModel>();
 
-    private void Awake()
+    protected override void SetupComponents()
     {
         audioSource = audioSource != null ? audioSource : GetComponentInChildren<AudioSource>();
         stoveLight = stoveLight != null ? stoveLight : GetComponentInChildren<Light>();
         fireParticles = fireParticles != null ? fireParticles : GetComponentInChildren<ParticleSystem>();
         smokeParticles = smokeParticles != null ? smokeParticles : GetComponent<ParticleSystem>();
         stoveUIHandler = stoveUIHandler != null ? stoveUIHandler : GetComponentInChildren<StoveUIHandler>();
-
-        stoveUIHandler.BindData(Model);
-        Model.OnStateChanged += HandleStateChanged;
-        TurnOffStove();
     }
 
-    private void Start()
+    protected override void Initialize()
     {
         fireParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         smokeParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         stoveLight.enabled = false;
         AudioManager.Instance.StopSFX(audioSource);
+
+        stoveUIHandler.BindData(Model);
+        Model.OnStateChanged += HandleStateChanged;
+        TurnOffStove();
     }
 
     private void HandleStateChanged(StoveModel.StoveState state)

@@ -1,21 +1,23 @@
 ﻿using System;
 using UnityEngine;
 
-public class DeliveryController : CounterController, IObjectHolder<KitchenObject>
+public class DeliveryController : CounterController, IObjectHolder<KitchenObjectController>, IHasCooldown
 {
     [SerializeField] float _deliveryTime = 4f;
+    private CountDownTimer _deliveryTimer;
 
     public DeliveryCounter Model => GetModel<DeliveryCounter>();
 
     protected override void Initialize()
     {
         model = new DeliveryCounter(_deliveryTime);
+        _deliveryTimer = new CountDownTimer(_deliveryTime);
 
         var hasPlateAndNotEmpty = new ContextualPredicate<PlayerController>(
             (PlayerController context) =>
             {
                 var heldObject = context.TryGetKitchenObject();
-                if (heldObject is PlateObject plate)
+                if (heldObject is PlateObjectController plate)
                 {
                     return !plate.IsEmpty();
                 }
@@ -27,19 +29,20 @@ public class DeliveryController : CounterController, IObjectHolder<KitchenObject
         predicateList.Add(hasPlateAndNotEmpty);
     }
 
-    public bool CanRelease() => !Model.IsReady();
+    public bool CanRelease() => !IsReady();
 
-    public bool CanPlace(KitchenObject other) => Model.IsReady() && other is PlateObject;
+    public bool CanPlace(KitchenObjectController other) => IsReady() && other is PlateObjectController;
 
-    public void OnPlace(KitchenObject other)
+    public void OnPlace(KitchenObjectController other)
     {
-        Model.StartDelivery(other as PlateObject);
-        Model.OnPlateDelivered += ScoreDelivery;
+        Model.StartDelivery(other as PlateObjectController);
+        _deliveryTimer.Start();
+        _deliveryTimer.OnTimerStop += ScoreDelivery;
     }
 
-    private void ScoreDelivery(PlateObject plate)
+    private void ScoreDelivery()
     {
-        OrderManager.Instance.CompleteOrder(plate.GetIngredientDictionary());
+        OrderManager.Instance.CompleteOrder(Model.Plate.GetIngredientDictionary());
         Model.ReleaseChild();
     }
 
@@ -48,4 +51,5 @@ public class DeliveryController : CounterController, IObjectHolder<KitchenObject
         Model.ResetDelivery();
     }
 
+    public bool IsReady() => _deliveryTimer.IsFinished;
 }

@@ -287,8 +287,8 @@ GameObject:
   - component: {fileID: 8832235585964785082}
   - component: {fileID: 4847838099450470697}
   - component: {fileID: 8041651290387700761}
-  - component: {fileID: 1113565691785483830}
   - component: {fileID: 7398615742265872137}
+  - component: {fileID: 361111868959664250}
   m_Layer: 6
   m_Name: Counter
   m_TagString: Untagged
@@ -354,24 +354,6 @@ MonoBehaviour:
   fadeOutTime: 0.25
   lowerFadeAmount: 0.45
   upperFadeAmount: 0.85
---- !u!114 &1113565691785483830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727777696537172168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f482810af72356f43817f251ec9debd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ClearCounter
-  counterTop: {fileID: 654953418724536559}
-  interactionStrategies:
-  - {fileID: 11400000, guid: 9862dca065a2350419272052e0b0483b, type: 2}
-  - {fileID: 11400000, guid: 1c061b2cd779daf49a3f082bdda5c602, type: 2}
-  - {fileID: 11400000, guid: 7f58eac392cdde449976973afb1f7389, type: 2}
-  child: {fileID: 0}
 --- !u!114 &7398615742265872137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,9 +366,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cdfe10b19567494399ceda022491e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClearCounterVisual
+  counterTop: {fileID: 654953418724536559}
+  visual: {fileID: 8041651290387700761}
   placeSound: {fileID: 11400000, guid: 1138c026f3f727a43b4a7aadbdd23f5f, type: 2}
   audioSource: {fileID: 7792763812486026451}
-  myCounter: {fileID: 1113565691785483830}
+--- !u!114 &361111868959664250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4727777696537172168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae6c13cf8297c94fb41684ac5e5f516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClearCounterController
+  view: {fileID: 7398615742265872137}
+  interactionStrategies:
+  - {fileID: 11400000, guid: 9862dca065a2350419272052e0b0483b, type: 2}
+  - {fileID: 11400000, guid: 7f58eac392cdde449976973afb1f7389, type: 2}
+  - {fileID: 11400000, guid: 1c061b2cd779daf49a3f082bdda5c602, type: 2}
 --- !u!1 &5040698501153048634
 GameObject:
   m_ObjectHideFlags: 0

@@ -99,11 +99,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5237748784210765435}
   - component: {fileID: 2794795458806840447}
-  - component: {fileID: 5129885172439288769}
   - component: {fileID: 9165913768983771167}
-  - component: {fileID: 5568297599134112960}
-  - component: {fileID: 8155617661109284471}
   - component: {fileID: 1685522011758676454}
+  - component: {fileID: 5129885172439288769}
+  - component: {fileID: 8155617661109284471}
+  - component: {fileID: 7916789309038393225}
   m_Layer: 6
   m_Name: Crate
   m_TagString: Untagged
@@ -151,24 +151,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5129885172439288769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315509864311227539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4382a43f733b681439c5cf1bc9cc7514, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PulsatingVisual
-  selectedVisual: {fileID: 3436925788383347447}
-  pulsingTime: 1
-  fadeInTime: 0.25
-  fadeOutTime: 0.25
-  lowerFadeAmount: 0.45
-  upperFadeAmount: 0.85
 --- !u!65 &9165913768983771167
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -190,41 +172,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.83131385, y: 0.8338485, z: 0.8313154}
   m_Center: {x: -0.0000005364418, y: 0.41928583, z: 0.0000013113022}
---- !u!114 &5568297599134112960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315509864311227539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2440468de7f7a4d40a3eccbab9d5645b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KitchenCrate
-  counterTop: {fileID: 777788977320643616}
-  interactionStrategies:
-  - {fileID: 11400000, guid: 235f842a731599540aeaff272f7253e1, type: 2}
-  child: {fileID: 0}
-  crateObject: {fileID: 11400000, guid: 5837ab51cd15817499c8c8d8ccc65ba4, type: 2}
---- !u!114 &8155617661109284471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315509864311227539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a63efc3978dedc4496ecfcf56c529d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KitchenCrateVisual
-  openingAudio: {fileID: 11400000, guid: ae33d58eadb201c449c0550ee3598beb, type: 2}
-  mySprite: {fileID: 0}
-  myCrate: {fileID: 5568297599134112960}
-  anim: {fileID: 2794795458806840447}
-  spriteRenderer: {fileID: 7827219795026535626}
-  audioSource: {fileID: 1685522011758676454}
 --- !u!82 &1685522011758676454
 AudioSource:
   m_ObjectHideFlags: 0
@@ -349,6 +296,59 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5129885172439288769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315509864311227539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4382a43f733b681439c5cf1bc9cc7514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PulsatingVisual
+  selectedVisual: {fileID: 3436925788383347447}
+  pulsingTime: 1
+  fadeInTime: 0.25
+  fadeOutTime: 0.25
+  lowerFadeAmount: 0.45
+  upperFadeAmount: 0.85
+--- !u!114 &8155617661109284471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315509864311227539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a63efc3978dedc4496ecfcf56c529d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenCrateVisual
+  counterTop: {fileID: 777788977320643616}
+  visual: {fileID: 5129885172439288769}
+  openingAudio: {fileID: 11400000, guid: ae33d58eadb201c449c0550ee3598beb, type: 2}
+  mySprite: {fileID: 0}
+  anim: {fileID: 2794795458806840447}
+  spriteRenderer: {fileID: 7827219795026535626}
+  audioSource: {fileID: 1685522011758676454}
+--- !u!114 &7916789309038393225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315509864311227539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce0089703a61cf4795987ce464177a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ContainerController
+  view: {fileID: 8155617661109284471}
+  interactionStrategies:
+  - {fileID: 11400000, guid: 235f842a731599540aeaff272f7253e1, type: 2}
+  KitchenObjectSO: {fileID: 0}
 --- !u!1 &2036768763049425259
 GameObject:
   m_ObjectHideFlags: 0

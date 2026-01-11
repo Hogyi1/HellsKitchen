@@ -23,7 +23,7 @@ public class SimpleSwapStrategy : BaseCounterStrategy
                 return true;
         }
 
-        if (counter is IObjectHolder<KitchenObject> holder)
+        if (counter is IObjectHolder<KitchenObjectController> holder)
             return holder.CanRelease() && holder.CanPlace(playerKo);
 
         return false;
@@ -57,7 +57,7 @@ public class SimpleSwapStrategy : BaseCounterStrategy
 
         ownKo.SwapParent(playerKo);
 
-        if (counter is IObjectHolder<KitchenObject> holder)
+        if (counter is IObjectHolder<KitchenObjectController> holder)
             holder.OnPlace(counter.GetModel().GetChild());
         return InteractionResult.Ok("Switched items with counter");
     }

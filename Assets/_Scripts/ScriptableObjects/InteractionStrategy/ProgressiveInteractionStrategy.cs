@@ -7,7 +7,7 @@ public class ProgressiveInteractionStrategy : BaseCounterStrategy
     {
         var ownKo = counter.GetModel().GetChild();
         var playerKo = context.TryGetKitchenObject();
-        return (ownKo != null && playerKo == null && counter is IProgressiveInteraction);
+        return (ownKo != null && playerKo == null && counter is IProgressiveInteraction progress && progress.CanAct());
     }
 
     public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)

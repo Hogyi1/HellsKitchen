@@ -22,7 +22,7 @@ public class SimpleTakeStrategy : BaseCounterStrategy
         if (ownKo == null)
             return InteractionResult.Fail("Could not execute SimpleTakeStrategy");
 
-        if (counter is IObjectHolder<KitchenObject> holder)
+        if (counter is IObjectHolder<KitchenObjectController> holder)
             holder.OnRelease();
         ownKo.SetParent(context);
         return InteractionResult.Ok("Player picked up item from counter");
