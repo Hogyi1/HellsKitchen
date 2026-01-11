@@ -1,17 +1,17 @@
 public class GroundedState : PlayerBaseState
 {
-    public GroundedState(PlayerController controller) : base(controller) { }
+    public GroundedState(PlayerMovementController controller) : base(controller) { }
 }
 
 public class JumpingState : PlayerBaseState
 {
-    public JumpingState(PlayerController controller) : base(controller) { }
+    public JumpingState(PlayerMovementController controller) : base(controller) { }
 }
 
 public class FallingState : PlayerBaseState
 {
     CountDownTimer timer;
-    public FallingState(PlayerController controller, ref CountDownTimer coyoteTimer) : base(controller)
+    public FallingState(PlayerMovementController controller, ref CountDownTimer coyoteTimer) : base(controller)
     {
         this.timer = coyoteTimer;
     }
@@ -25,12 +25,12 @@ public class FallingState : PlayerBaseState
 
 public class RisingState : PlayerBaseState
 {
-    public RisingState(PlayerController controller) : base(controller) { }
+    public RisingState(PlayerMovementController controller) : base(controller) { }
     public override void OnExit() => controller.verticalVelocity = 0;
 }
 
 public class SlidingState : PlayerBaseState
 {
-    public SlidingState(PlayerController controller) : base(controller) { }
+    public SlidingState(PlayerMovementController controller) : base(controller) { }
 }
 

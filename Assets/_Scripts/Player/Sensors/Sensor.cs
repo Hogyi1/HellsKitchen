@@ -19,7 +19,7 @@ public abstract class Sensor : MonoBehaviour, ISensor
         if (targetTransform != null)
             this.targetTransform = targetTransform;
         else
-            this.targetTransform = transform;
+            Debug.LogError("Sensor needs a target transform to work properly!");
     }
 
     // Manual casting for better performance

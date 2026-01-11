@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5031254399493037957}
   - component: {fileID: 6018649753562409191}
-  - component: {fileID: 6759402858981351005}
   - component: {fileID: 4099975151944895750}
+  - component: {fileID: 3350812826056617739}
+  - component: {fileID: 8272081789434793240}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -64,54 +65,6 @@ CharacterController:
   m_SkinWidth: 0.001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6759402858981351005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651984837982598434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff75df637c95b29429bd20a85d06fa57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input: {fileID: 0}
-  mover: {fileID: 4099975151944895750}
-  cameraTransform: {fileID: 6493469596926826638}
-  runningSpeed: 8.5
-  walkingSpeed: 5.5
-  crouchSpeed: 3.5
-  timeToCrouch: 0.25
-  moveAcceleration: 50
-  moveDeceleration: 70
-  gravity: -21.333334
-  gravityMultiplier: 1.5
-  _antiBump: -0.5
-  verticalVelocity: 0
-  initialJumpVelocity: 8
-  maxJumpHeight: 1.5
-  maxJumpTime: 0.75
-  firstPerson: {fileID: 374426839068712838}
-  thirdPerson: {fileID: 0}
-  isFirstPerson: 1
-  runningFov: 80
-  normalFov: 60
-  crouchingVignette: 0.25
-  rotationSmoothTime: 0.05
-  lookSensitivity: 0.1
-  upperCameraLimit: 60
-  lowerCameraLimit: 60
-  IsDebugModeOn: 1
-  currentState: 
-  isRising: 0
-  isFalling: 0
-  isReallyGrounded: 0
-  isSliding: 0
-  isJumpingDebug: 0
-  isCoyoteActive: 0
-  isCoyoteFinished: 0
-  ceilingHit: 0
 --- !u!114 &4099975151944895750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,13 +79,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ceilingDetector: {fileID: 1563794963414745324}
   groundSensor: {fileID: 8501604586044667683}
-  characterController: {fileID: 0}
-  slopeLimit: 0
+  characterController: {fileID: 6018649753562409191}
   useExtendedRange: 0
   baseRange: 0.5
   extendedRange: 0.5
   crouchingHeight: 1.5
-  standingHeight: 0
+--- !u!114 &3350812826056617739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651984837982598434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71b1615a1806124d83446fa3084add1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCameraController
+  cameraTransform: {fileID: 6493469596926826638}
+  firstPersonCamera: {fileID: 374426839068712838}
+  input: {fileID: 11400000, guid: 6827cf3379792274a825aa60c5e62565, type: 2}
+  cameraSettings: {fileID: 11400000, guid: 76377e038c4865e42a95b21d2670a2c1, type: 2}
+  cameraRotation: {x: 0, y: 0}
+--- !u!114 &8272081789434793240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651984837982598434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d5b62b8c4b9a04e815d3c29999f88b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementController
+  input: {fileID: 11400000, guid: 6827cf3379792274a825aa60c5e62565, type: 2}
+  mover: {fileID: 4099975151944895750}
+  cameraController: {fileID: 3350812826056617739}
+  cameraTransform: {fileID: 6493469596926826638}
+  settings: {fileID: 11400000, guid: 9d77f10998539254c9ca9b12c63ad196, type: 2}
+  smoothing: 15
+  verticalVelocity: 0
+  IsDebugModeOn: 0
+  currentState: 
+  isRising: 0
+  isFalling: 0
+  isReallyGrounded: 0
+  isSliding: 0
+  isJumpingDebug: 0
+  isCoyoteActive: 0
+  isCoyoteFinished: 0
+  ceilingHit: 0
 --- !u!1 &2105668735290018294
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 2702434564990864414}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.53}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -357,6 +354,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -378,6 +377,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -444,6 +444,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -465,6 +467,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -535,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1964cc0f3aa08649a2497ba5ef6396c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 0}
+  input: {fileID: 11400000, guid: 6827cf3379792274a825aa60c5e62565, type: 2}
 --- !u!114 &6494452258700202472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054461307e316fb499f4608eaac88878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 898390908073228359}
+  targetTransform: {fileID: 6493469596926826638}
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -581,7 +584,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.754386, y: 4.7619047, z: 4.347826}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6493469596926826638}

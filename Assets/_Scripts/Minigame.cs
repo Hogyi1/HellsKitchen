@@ -8,13 +8,12 @@ public class Minigame : MonoBehaviour, IInteractable
     [SerializeField] CinemachineCamera cam;
     [SerializeField] InputHandler input;
 
-    public void OnInteract()
+    public void OnInteract(Interactor interactor)
     {
         // Can interact etc
         input.SwitchToMap(InputHandler.ActionMap.Minigame);
         input.Exit += StopInteraction;
         input.MyInteract += Handle;
-        CameraController.Instance.RequestFocus(cam);
         Debug.Log("OnInteract");
     }
 
@@ -24,7 +23,6 @@ public class Minigame : MonoBehaviour, IInteractable
         input.Exit -= StopInteraction;
         input.MyInteract -= Handle;
 
-        CameraController.Instance.Over(); // Ez még változhat
 
         StartCoroutine(WaitForBlend()); // Érdemes megvárni míg visszamegy a kamera annak érdekében hogy ne mozoghassunk el ameddig nem tért vissza a kamera
     }
