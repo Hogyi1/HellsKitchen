@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d756f3e5be6fd44882b4200040fbea, type: 3}
+  m_Name: CuttedBun
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
+  Name: CuttedBun
+  Icon: {fileID: 0}
+  Prefab: {fileID: 2781500773046254329, guid: 60d4aa1b526b6bf4fa957a2f0dff84da, type: 3}
+  VisualOffset: 0.205
+  Splittable: 1
+  BottomPrefab: {fileID: 4183788893305234516, guid: 6afcb785ac25c7445bd5dd94ddeb6e41, type: 3}
+  TopPrefab: {fileID: 4705081178201969313, guid: 7af2f2eafc758634c938e2330b062fdf, type: 3}
+  SplitVisualOffset: 0.1
+  TopVisualOffset: 0.1

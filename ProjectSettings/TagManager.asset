@@ -13,6 +13,8 @@ TagManager:
   - Water
   - UI
   - Interactable
+  - PaticleCollision
+  - AlwaysOnTop
   - Wall/Obstacle
   - Enemy
   - 

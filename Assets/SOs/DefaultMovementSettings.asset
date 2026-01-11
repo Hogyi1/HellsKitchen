@@ -19,7 +19,7 @@ MonoBehaviour:
   moveAcceleration: 50
   moveDeceleration: 70
   gravity: -32
-  gravityMultiplier: 1
+  gravityMultiplier: 1.5
   _antiBump: -0.5
   coyoteTime: 0.2
   initialJumpVelocity: 8

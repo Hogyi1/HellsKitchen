@@ -12,6 +12,8 @@ public class SpherecastSensor : Sensor
 
     public override void Cast()
     {
+        hitInfo = new RaycastHit();
+
         Vector3 worldOrigin = targetTransform.TransformPoint(origin);
         Vector3 worldDirection = GetRaycastDirection();
 
