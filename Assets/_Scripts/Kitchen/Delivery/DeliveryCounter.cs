@@ -42,7 +42,6 @@ public class DeliveryCounter : CounterModel
             return;
 
         _plateBeingDelivered = plate;
-
     }
 
     public void FinishedDelivery()
