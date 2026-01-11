@@ -17,7 +17,7 @@ public class DeliveryCounterView : CounterView
         Model.OnPlateDelivered += DeliveryCounter_OnPlateDelivered;
         Model.OnPlateReleased += DeliveryCounter_OnPlateReleased;
 
-        _slideDuration = Model.DeliveryDelay * 3f;
+        _slideDuration = Model.DeliveryDelay;
     }
 
     protected override void SetupComponents()
