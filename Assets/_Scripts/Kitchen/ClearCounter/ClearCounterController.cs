@@ -13,12 +13,7 @@ public class ClearCounterController : CounterController, IObjectHolder<KitchenOb
     protected override void Initialize()
     {
         model = new BaseCounter();
-
-        var emptyAndEmpty = new ContextualPredicate<PlayerController>((context) =>
-        {
-            return !(context.TryGetKitchenObject() == null && !model.HasChild());
-        });
-        predicateList.Add(emptyAndEmpty);
+        predicateList.Add(new EmptyAndEmptyPredicate(this));
     }
 
     /// <summary>

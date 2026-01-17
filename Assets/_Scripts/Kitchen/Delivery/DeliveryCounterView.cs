@@ -7,6 +7,7 @@ using UnityEngine;
 public class DeliveryCounterView : CounterView
 {
     [SerializeField] Transform counterEnd;
+    [SerializeField] AudioSource audioSource;
     float _slideDuration;
 
     public DeliveryCounter Model => GetModel<DeliveryCounter>();
@@ -24,6 +25,7 @@ public class DeliveryCounterView : CounterView
     protected override void SetupComponents()
     {
         counterEnd = counterEnd != null ? counterEnd : transform;
+        audioSource = audioSource != null ? audioSource : GetComponentInChildren<AudioSource>();
     }
 
     private void DeliveryCounter_OnPlateDelivered(KitchenObjectController ko)
@@ -31,6 +33,9 @@ public class DeliveryCounterView : CounterView
         var po = ko as PlateObjectController;
         if (po == null)
             return;
+
+        var placeAudio = ko.GetKitchenObjectSO().PlaceSound;
+        AudioManager.Instance.PlaySFX(placeAudio, audioSource);
 
         if (activeTweens.ContainsKey(po))
         {

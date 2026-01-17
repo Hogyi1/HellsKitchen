@@ -105,7 +105,7 @@ public class WorldSpaceUI_Canvas : MonoBehaviour, IUI
     }
 
     // Write my own Animation folder for multiple animation strategies
-    private IEnumerator FadeScaleRoutine(bool show)
+    public IEnumerator FadeScaleRoutine(bool show)
     {
         float duration = 0.25f;
         float time = 0f;

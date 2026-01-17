@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(40)]
-public abstract class KitchenObjectController : MonoBehaviour, IObjectChild, IHoldableItem
+public abstract class KitchenObjectController : MonoBehaviour, IObjectChild, IHoldableItem, IDisposable
 {
     protected KitchenObjectModel model;
     [SerializeField] protected KitchenObjectView view;
@@ -72,4 +72,12 @@ public abstract class KitchenObjectController : MonoBehaviour, IObjectChild, IHo
     /// In start 
     /// </summary>
     public abstract void Initialize();
+
+    public AudioSO GetPlaceAudio() => GetKitchenObjectSO().PlaceSound;
+
+    public AudioSO GetPickUpAudio() => GetKitchenObjectSO().PickUpSound;
+
+    public bool IsTwoHanded() => GetKitchenObjectSO().IsTwoHanded;
+
+    public abstract void Dispose();
 }

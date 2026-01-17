@@ -27,6 +27,8 @@ public class ContainerController : CounterController, ISpawner<KitchenObjectCont
 
         var isReady = new FunctionPredicate(() => IsReady());
         predicateList.Add(isReady);
+
+        SetChild(SpawnObject(this, GetTransform()));
     }
 
     /// <summary>
@@ -49,7 +51,7 @@ public class ContainerController : CounterController, ISpawner<KitchenObjectCont
     /// <returns>True if the container is ready, false otherwise.</returns>
     public bool IsReady() => !_timer.IsRunning;
 
-    public KitchenObjectController GetSpawnerObject() => SpawnObject(this, GetSpawnPosition());
+    public KitchenObjectController GetSpawnerObject() => GetChild();
 
     public Transform GetSpawnPosition() => view.GetTransformPosition();
 

@@ -49,7 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlateObject
   view: {fileID: 1975313766215391117}
   so: {fileID: 11400000, guid: 7dce2b39554a00b4f988e78e50a12182, type: 2}
-  recipeSO: {fileID: 11400000, guid: 63a3b5628488a1347a512b0aabb5c6a3, type: 2}
 --- !u!114 &1975313766215391117
 MonoBehaviour:
   m_ObjectHideFlags: 0

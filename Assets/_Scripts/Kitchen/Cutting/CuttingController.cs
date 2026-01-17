@@ -58,7 +58,7 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObjectC
     {
         Model.ResetCutting();
         _timer.Reset();
-        Model.CurrentRecipe = KitchenSODatabase.Instance.GetCuttingRecipeWithInput(other);
+        Model.CurrentRecipe = KitchenSODatabase.GetCuttingRecipeWithInput(other);
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObjectC
     /// </summary>
     /// <param name="other">The KitchenObject to find a recipe for.</param>
     /// <returns>The CuttingRecipeSO if found, otherwise null.</returns>
-    private CuttingRecipeSO GetRecipeFor(KitchenObjectController other) => KitchenSODatabase.Instance.GetCuttingRecipeWithInput(other);
+    private CuttingRecipeSO GetRecipeFor(KitchenObjectController other) => KitchenSODatabase.GetCuttingRecipeWithInput(other);
 
     /// <summary>
     /// Determines whether the timer is ready for use.
@@ -96,7 +96,7 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObjectC
     private void SpawnCuttedInstance()
     {
         Model.GetChild().DestroySelf(); // Destroy the input item
-                                        // Spawn the output KitchenObject visually
+
         KitchenObjectController.SpawnKitchenObject(Model.CurrentRecipe.Output, this, view.GetTransformPosition());
         Model.OnFinishedCutting(); // Notify that cutting is finished
         (view as CuttingView).OnCuttingAnimationPlayed -= SpawnCuttedInstance;
@@ -120,6 +120,6 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObjectC
     /// </summary>
     public void OnAction() => Cut();
 
-    public bool CanAct() => Model.CurrentRecipe != null;
+    public bool CanAct(IObjectChild child) => Model.CurrentRecipe != null && child == null;
 
 }

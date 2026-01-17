@@ -4,70 +4,74 @@ using UnityEngine;
 [RequireComponent(typeof(Interactor))]
 public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 {
-    [SerializeField] Interactor interactor;
-    [SerializeField] InputHandler input;
-    [SerializeField] Transform handTransform;
-    public AudioSO pickupSound;
+    [SerializeField] Interactor _interactor;
+    [SerializeField] InputHandler _inputHandler;
+    [SerializeField] Transform _handTransform;
+    [SerializeField] PlayerMovementController _movementController;
 
-    PlayerModel playerModel;
-    public bool hasChild;
-    CountDownTimer interactionTimer;
+    private PlayerModel _playerModel;
+    private CountDownTimer _interactionTimer;
 
-    public float interactionCooldown = 0.2f;
+    public float InteractionCooldown = 0.2f;
 
     private void Awake()
     {
-        interactor = interactor != null ? interactor : GetComponentInChildren<Interactor>();
-        playerModel = new PlayerModel();
-        interactionTimer = new(interactionCooldown);
+        _interactor = _interactor != null ? _interactor : GetComponentInChildren<Interactor>();
+        _handTransform = _handTransform != null ? _handTransform : transform;
+        _movementController = _movementController != null ? _movementController : GetComponentInParent<PlayerMovementController>();
     }
 
-    private void OnEnable() => input.Interact += OnInteractionPressed;
+    private void Start()
+    {
+        _playerModel = new PlayerModel();
+        _interactionTimer = new(InteractionCooldown);
+    }
 
-    private void OnDisable() => input.Interact -= OnInteractionPressed;
+    private void OnEnable() => _inputHandler.Interact += OnInteractionPressed;
+
+    private void OnDisable() => _inputHandler.Interact -= OnInteractionPressed;
 
     void OnInteractionPressed()
     {
-        var interactable = interactor.GetInteractable();
-        if (interactable == null || interactionTimer.IsRunning) return;
+        var interactable = _interactor.GetInteractable();
+        if (interactable == null || _interactionTimer.IsRunning) return;
 
-        interactionTimer.Start();
+        _interactionTimer.Start();
         var ir = interactable.TryInteract(this);
-        Debug.Log(ir.message);
+        Debug.Log(ir.message); // Switch to UI feedback later
     }
+
+    //TODO add use button
 
     public void SetChild(IHoldableItem child)
     {
-        if (child != null)
-            AudioManager.Instance.PlaySFX(pickupSound, transform.position);
-        playerModel.Pickup(child);
+        AudioManager.Instance.PlaySFX(child?.GetPickUpAudio(), transform.position);
+
+        _playerModel.Pickup(child);
     }
 
-    public bool HasChild() => playerModel.HeldItem != null;
+    public bool HasChild() => _playerModel.HeldItem != null;
 
-    public KitchenObjectController TryGetKitchenObject()
+    public bool CanPickUpItem(IHoldableItem item)
     {
-        if (playerModel.HeldItem is KitchenObjectController kitchenObject)
-            return kitchenObject;
-        return null;
+        if (item == null)
+            return false;
+
+        var child = GetChild();
+        if (item.IsTwoHanded())
+            return child == null;
+        else
+            return child == null || !child.IsTwoHanded();
     }
 
-    public void ClearHeldItem() => playerModel.Pickup(null);
+    public void ClearHeldItem() => _playerModel.Pickup(null);
 
-    public IHoldableItem GetChild() => playerModel.HeldItem;
-
-    private void Update()
-    {
-        hasChild = HasChild();
-    }
+    public IHoldableItem GetChild() => _playerModel.HeldItem;
 
     public void SetChild(IObjectChild child) => SetChild((IHoldableItem)child);
     IObjectChild IObjectParent.GetChild() => GetChild();
 
-    public void ClearChild()
-    {
-        SetChild(null);
-    }
+    public void ClearChild() => SetChild(null);
 
-    public Transform GetTransform() => handTransform;
+    public Transform GetTransform() => _handTransform;
 }

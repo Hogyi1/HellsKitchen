@@ -31,7 +31,6 @@ public class KitchenObjectView : MonoBehaviour
 
         transform.SetParent(tr, true);
 
-        // Create a sequence to animate local position and rotation to the parent's origin.
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOLocalMove(Vector3.zero, 0.2f).SetEase(Ease.InOutSine));
         sequence.Join(transform.DOLocalRotateQuaternion(Quaternion.identity, 0.2f).SetEase(Ease.InOutSine));

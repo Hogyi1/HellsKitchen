@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,10 +26,11 @@ public class RandomEventSpawner : MonoBehaviour
 
         randomEventTimer = new LoopTimer(RandomEventInterval, -1);
         randomEventTimer.OnLoop += (loopCount) => HandleRandomEvents();
+
+        StartEvent();
     }
 
-    private void OnEnable() => randomEventTimer?.Start();
-    private void OnDisable() => randomEventTimer?.Stop();
+    private void OnDisable() => StopEvent();
 
     private void HandleRandomEvents()
     {
@@ -65,5 +67,6 @@ public class RandomEventSpawner : MonoBehaviour
 
         return RandomEvent.None;
     }
-
+    public void StartEvent() => randomEventTimer.Start();
+    public void StopEvent() => randomEventTimer.Stop();
 }

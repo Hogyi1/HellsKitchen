@@ -13,7 +13,22 @@ public abstract class BaseTool : IHoldableItem, IUsableItem
         throw new System.NotImplementedException();
     }
 
+    public AudioSO GetPickUpAudio()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public AudioSO GetPlaceAudio()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public abstract void Hold();
+
+    public bool IsTwoHanded()
+    {
+        throw new System.NotImplementedException();
+    }
 
     public void SetParent(IObjectParent parent)
     {

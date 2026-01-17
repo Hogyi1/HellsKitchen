@@ -3,7 +3,7 @@ public class EmptyAndEmptyPredicate : ContextualPredicate<PlayerController>
     public EmptyAndEmptyPredicate(CounterController counter) : base(
         (context) =>
         {
-            if (context.TryGetKitchenObject() == null && !counter.GetModel().HasChild())
+            if (context.GetChild() as KitchenObjectController == null && !counter.GetModel().HasChild())
             {
                 return false;
             }

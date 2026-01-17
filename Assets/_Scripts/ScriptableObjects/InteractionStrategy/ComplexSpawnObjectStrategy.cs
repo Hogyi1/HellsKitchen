@@ -5,36 +5,28 @@ public class ComplexSpawnObjectStrategy : BaseCounterStrategy
 {
     public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        if (counter is not ISpawner<KitchenObjectController>)
-            return false;
-
-        return true;
+        return counter is ISpawner<KitchenObjectController>;
     }
 
     public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        if (counter is not ISpawner<KitchenObjectController> spawner)
-        {
-            return InteractionResult.Fail("Counter is not a valid spawner.");
-        }
+        var playerKo = context.GetChild() as KitchenObjectController;
+        var spawner = counter as ISpawner<KitchenObjectController>;
+        var spawnerKo = spawner.GetSpawnerObject();
 
-        var playerKo = context.TryGetKitchenObject();
-
-        if (playerKo == null)
+        if (playerKo == null && context.CanPickUpItem(spawnerKo))
         {
             spawner.SpawnObject(context, context.GetTransform());
             return InteractionResult.Ok("Took an item from spawner.");
         }
 
-        var spawnedKo = spawner.SpawnObject(counter, counter.GetTransform());
-
         // Check if spawned object can act on player's object (e.g. plate taking ingredient)
-        foreach (var interaction in spawnedKo.Interactions)
+        foreach (var interaction in spawnerKo.Interactions)
         {
             if (interaction.CanExecute(playerKo))
             {
                 interaction.Execute(playerKo);
-                spawnedKo.SetParent(context);
+                spawner.SpawnObject(context, context.GetTransform());
                 return InteractionResult.Ok("Spawned object interacted with player's item.");
             }
         }
@@ -42,14 +34,13 @@ public class ComplexSpawnObjectStrategy : BaseCounterStrategy
         // Check if player's object can act on spawned object (e.g. knife cutting cabbage)
         foreach (var interaction in playerKo.Interactions)
         {
-            if (interaction.CanExecute(spawnedKo))
+            if (interaction.CanExecute(spawnerKo))
             {
-                interaction.Execute(spawnedKo);
+                interaction.Execute(spawnerKo);
                 return InteractionResult.Ok("Player's item interacted with spawned object.");
             }
         }
 
-        spawnedKo.DestroySelf();
         return InteractionResult.Fail("Player's item cannot interact with spawned object.");
     }
 }

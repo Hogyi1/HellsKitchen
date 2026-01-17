@@ -19,7 +19,7 @@ public class DeliveryController : CounterController, IObjectHolder<KitchenObject
         var hasPlateAndNotEmpty = new ContextualPredicate<PlayerController>(
             (PlayerController context) =>
             {
-                var heldObject = context.TryGetKitchenObject();
+                var heldObject = context.GetChild() as KitchenObjectController;
                 if (heldObject is PlateObjectController plate)
                 {
                     return !plate.IsEmpty();

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d3a3a63e05ca242957fa246e798da5, type: 3}
+  m_Name: CheeseRecipe
+  m_EditorClassIdentifier: Assembly-CSharp::CuttingRecipeSO
+  cuttingTimes: 3
+  Input: {fileID: 11400000, guid: 9816f229461c5454885aa9acbf7594e0, type: 2}
+  Output: {fileID: 11400000, guid: 4867aa19e1ed2e14e963eb28ac4ea996, type: 2}

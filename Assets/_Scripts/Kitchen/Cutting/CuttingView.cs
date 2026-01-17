@@ -12,6 +12,7 @@ public class CuttingView : CounterView
     /// The Audio ScriptableObject to play during cutting actions.
     /// </summary>
     public AudioSO cuttingSound;
+
     /// <summary>
     /// Animator hash for the "Cutting" animation parameter.
     /// </summary>
@@ -58,9 +59,14 @@ public class CuttingView : CounterView
     private void OnItemChanged(KitchenObjectController ko)
     {
         if (ko != null)
+        {
+            var placeAudio = ko.GetKitchenObjectSO().PlaceSound;
             cuttingUIHandler.TurnOn();
-        else
-            cuttingUIHandler.TurnOff();
+            AudioManager.Instance.PlaySFX(placeAudio, audioSource);
+            return;
+        }
+
+        cuttingUIHandler.TurnOff();
     }
 
     /// <summary>

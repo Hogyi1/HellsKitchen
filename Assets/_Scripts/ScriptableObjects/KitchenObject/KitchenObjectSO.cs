@@ -20,4 +20,8 @@ public class KitchenObjectSO : ScriptableObject
     public AudioSO PlaceSound;
     public AudioSO PickUpSound;
     public AudioSO DisposeSound;
+
+    [Header("Other")]
+    public Sprite Sprite;
+    public bool IsTwoHanded = true;
 }

@@ -1,21 +1,47 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(DispenserController))]
 public class DispenserView : CounterView
 {
     [SerializeField] Animator anim;
+    [SerializeField] AudioSource audioSoruce;
+    [SerializeField] ParticleSystem particles;
+    [SerializeField] AudioSO refillAudio;
 
-    public float plateHeight = 0.1f; // Adjusted for a more realistic stacking
-    public float time = 0.2f;
+    public float PlateHeight = 0.05f;
+    public float MoveTime = 0.2f;
+    public float ParticleDuration = 1.0f;
     private DispenserModel _myModel => GetModel<DispenserModel>();
+    private CountDownTimer _particleTimer;
 
     protected override void SetupComponents()
     {
         anim = anim != null ? anim : gameObject.AddComponent<Animator>();
+        audioSoruce = audioSoruce != null ? audioSoruce : GetComponentInChildren<AudioSource>();
+        particles = particles != null ? particles : GetComponentInChildren<ParticleSystem>();
+
+        _particleTimer = new(ParticleDuration);
+        _particleTimer.OnTimerStop += () =>
+        {
+            particles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        };
+
+        particles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    protected override void Initialize()
+    {
+        _myModel.OnPlateAdded += PlayRefill;
+    }
+
+    private void PlayRefill(PlateObjectController controller)
+    {
+        AudioManager.Instance.PlaySFX(refillAudio, audioSoruce);
+        particles.Play();
+        _particleTimer.Start();
     }
 
     public void AdjustPlateheight()
@@ -25,9 +51,9 @@ public class DispenserView : CounterView
         for (int i = 0; i < plates.Count; i++)
         {
             var targetPosition = new Vector3(plates[i].transform.localPosition.x,
-                                             plateHeight * i,
+                                             PlateHeight * i,
                                              plates[i].transform.localPosition.z);
-            plates[i].transform.DOLocalMove(targetPosition, time).SetEase(Ease.OutQuad);
+            plates[i].transform.DOLocalMove(targetPosition, MoveTime).SetEase(Ease.OutQuad);
         }
     }
 }

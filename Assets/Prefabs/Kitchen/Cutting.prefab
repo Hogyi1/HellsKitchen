@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8581841231879068992}
   - component: {fileID: 2240593528703135524}
   - component: {fileID: 7275832381449741638}
+  - component: {fileID: 2131016615292798589}
   m_Layer: 6
   m_Name: Cutting
   m_TagString: Untagged
@@ -216,6 +217,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &2131016615292798589
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333493865991763054}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0031173, y: 1.0817245, z: 1.6194524}
+  m_Center: {x: 0, y: 0.542237, z: 0.12}
 --- !u!1 &619195516765776152
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,5 +21,6 @@ public enum RecipeName
 {
     Default,
     Burger,
-    HotDog
+    HotDog,
+    None
 }

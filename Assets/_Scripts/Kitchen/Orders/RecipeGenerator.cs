@@ -2,14 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class RecipeGenerator : MonoBehaviour
+public class RecipeGenerator
 {
-    [SerializeField] List<RecipeSO> Recipes = new();
-    RecipeSO activeRecipe;
+    private RecipeSO activeRecipe;
+    private float minTime;
+    private float maxTime;
 
-    private void Awake()
+    public RecipeGenerator(RecipeSO activeRecipe)
     {
-        if (activeRecipe == null) SetRecipeTemplate(RecipeName.Default);
+        this.activeRecipe = activeRecipe;
+
+        CalculateRandomTime();
     }
 
     public Recipe GenerateRecipe()
@@ -17,7 +20,9 @@ public class RecipeGenerator : MonoBehaviour
         if (activeRecipe == null)
             return null;
 
-        float expirationTime = activeRecipe.AveragePrepareTime + UnityEngine.Random.Range(-5, 6);
+        int ingredientCount = 0;
+
+        float expirationTime = activeRecipe.AveragePrepareTime + UnityEngine.Random.Range(-minTime, maxTime);
         Recipe newRecipe = new Recipe(expirationTime);
 
         Dictionary<KitchenObjectSO, int> ingredientCounts = new Dictionary<KitchenObjectSO, int>();
@@ -31,22 +36,22 @@ public class RecipeGenerator : MonoBehaviour
 
         foreach (var ingredients in ingredientCounts)
         {
-            float chance = UnityEngine.Random.Range(0f, 1f);
-            if (chance <= 0.5f)
+            float chance = Random.Range(0f, 1f);
+            if (chance <= 0.65f)
             {
-                int count = UnityEngine.Random.Range(1, ingredients.Value + 1);
+                int count = Random.Range(1, ingredients.Value + 1);
                 newRecipe.AddIngredient(ingredients.Key, count);
+                ingredientCount += count;
             }
         }
 
+        newRecipe.AddTime(ingredientCount * 2f);
         return newRecipe;
     }
 
-    public void SetRecipeTemplate(RecipeName activeRecipeTemplate)
+    private void CalculateRandomTime()
     {
-        if (activeRecipeTemplate == RecipeName.Default)
-            activeRecipe = Recipes.First();
-        else
-            activeRecipe = Recipes.FirstOrDefault(r => r.RecipeName == activeRecipeTemplate);
+        minTime = activeRecipe.AveragePrepareTime * 0.15f;
+        maxTime = activeRecipe.AveragePrepareTime * 0.25f;
     }
 }
