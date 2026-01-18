@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,6 +77,9 @@ public class WorldSpaceUI_Canvas : MonoBehaviour, IUI
             else
                 Activate();
         }
+
+        if (target != null)
+            transform.position = target.position;
     }
 
     public void Activate()
@@ -87,6 +91,7 @@ public class WorldSpaceUI_Canvas : MonoBehaviour, IUI
         }
 
         canvas.enabled = true;
+        currentRoutine = StartCoroutine(FadeScaleRoutine(true));
         LayoutRebuilder.ForceRebuildLayoutImmediate(canvas.GetComponent<RectTransform>());
     }
 
@@ -95,6 +100,7 @@ public class WorldSpaceUI_Canvas : MonoBehaviour, IUI
         if (!canvas.enabled) return;
 
         canvas.enabled = false;
+        currentRoutine = StartCoroutine(FadeScaleRoutine(false));
     }
 
     private void OnValidate()

@@ -89,7 +89,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     ""name"": ""PlayerInputActions"",
     ""maps"": [
         {
-            ""name"": ""FirstPerson"",
+            ""name"": ""DayTime"",
             ""id"": ""6595710e-ddaf-4abe-b4e8-c13a47f29ac1"",
             ""actions"": [
                 {
@@ -109,42 +109,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Crouch"",
-                    ""type"": ""Button"",
-                    ""id"": ""f784a6d8-ad2a-4119-a4b0-fda4ed7d8250"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""CrouchToggle"",
-                    ""type"": ""Button"",
-                    ""id"": ""ecfc8ada-44ed-4644-a233-226eacf07e33"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""8fbc1b96-1245-4e71-9ec6-38d2a4a504e9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Sprint"",
-                    ""type"": ""Button"",
-                    ""id"": ""da038e68-7bb0-4557-ad87-8807b3e50f89"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Interact"",
@@ -291,94 +255,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3f05dc31-0866-4e42-b8e1-2a82389850ea"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""04dfd8f9-e858-41e8-952a-1e2e03d03c24"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6a458cb6-a088-4b30-a0b8-04dc0255a80f"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7b4660d8-b14a-4445-bc41-061baa89e0b8"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2a344d58-d435-40db-b72d-9c02a72ab92f"",
-                    ""path"": ""<XRController>/secondaryButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""98fbdfed-7cd9-4202-a42b-502d11486bfe"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""162d3c22-ea61-4f4d-9cc1-e09c9a92e78e"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""12909722-23d2-4876-8906-fd55ecdd37a6"",
-                    ""path"": ""<XRController>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""51ed7e45-6b23-49bb-898d-b12f5bb6d1f2"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -431,69 +307,90 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""823fdd63-fe40-49ac-9cc5-a428cc30f6ae"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CrouchToggle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
-            ""name"": ""ThirdPerson"",
-            ""id"": ""e1963403-fa39-4ba3-95cc-4f544bd7ca51"",
+            ""name"": ""NightTime"",
+            ""id"": ""09671727-95b9-420f-b493-d1f386af0d93"",
             ""actions"": [
                 {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""bbbc3dec-4d4b-42a7-a665-347a353595c3"",
+                    ""id"": ""feee529c-cef0-42c1-8010-6eb0b4763248"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""e9e2d1ed-70dc-4b37-a406-79ec77cee2a4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b05b128-ea90-409e-a64e-cfd91b6201b6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CrouchToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e3cfe2a-12e8-414a-8d2c-3e652600fd18"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb463de9-5734-4c39-a0d9-c144de9689ad"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa14840e-74b4-4920-8ebd-415b824a4841"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
-                    ""id"": ""e9b5a6fc-c04f-4b88-873b-f408ead1ff37"",
+                    ""id"": ""28251d59-fbca-465f-9485-14b6e208c56d"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""f9fc5bec-4356-47de-a6b0-86398930488b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""c4cb4ca9-0cef-47f7-8302-6c888e25876f"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f75bc760-1229-453c-bfd2-81d1516cdfd3"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""75f90eea-ed3c-4553-8f89-454e3fb6a998"",
+                    ""id"": ""3c866214-a989-4b38-b195-d2ee2b71ee97"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -504,7 +401,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""WASD"",
-                    ""id"": ""3459d87f-877f-4658-80a2-4d0fc61998ec"",
+                    ""id"": ""45276a0e-5610-43cc-9494-e571926557d2"",
                     ""path"": ""Dpad"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -515,7 +412,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""8f615ba3-d451-41d2-8b64-48c82c0eea83"",
+                    ""id"": ""328376ff-34a4-4c7c-846c-9e6d00e42b06"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -526,7 +423,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""5da74c3f-a663-45da-928b-8184b0987b9e"",
+                    ""id"": ""b12b2607-9cf3-441b-9657-1a8e4535bcaf"",
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -537,7 +434,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""28fd3ec0-0415-4598-bf7e-d3a6f88ef3a4"",
+                    ""id"": ""dfdc0d80-d7fd-4a79-aad3-80dc6e1579eb"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -548,7 +445,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""66399798-1079-48ec-8b29-d3f27979ddde"",
+                    ""id"": ""8fa0b90f-3cc2-4540-a209-33a1cc39041f"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -559,7 +456,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""e8d45f3e-b72b-4387-9f71-5fe52e43eaf7"",
+                    ""id"": ""4f99a8cd-9d8b-4024-9763-171e4fa7399e"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -570,7 +467,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""93aa6ca5-d551-450a-8ccb-4af9365f1d87"",
+                    ""id"": ""0098e4e4-28b5-4499-a2b1-d0ff87c79133"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -581,7 +478,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""6263a81f-d210-484e-a60f-013de14bd631"",
+                    ""id"": ""681703d9-92e4-4345-a6de-f211a86ca56f"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -592,7 +489,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""196caad5-e05b-4ecb-81f5-228d6dd8f04e"",
+                    ""id"": ""f49578f1-2bc4-4185-a60f-becbb68bae53"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -603,7 +500,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""888ee848-bdf8-40d2-b752-c2af4017daef"",
+                    ""id"": ""75327b9c-17a0-4e7c-82eb-d9a4d8e29675"",
                     ""path"": ""<XRController>/{Primary2DAxis}"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -614,12 +511,177 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f6702995-8301-477d-a34c-31bf0bafaa3f"",
+                    ""id"": ""7dad55ee-0823-4172-a067-9c57cace2b90"",
                     ""path"": ""<Joystick>/stick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a951def-9873-4648-a859-28b6145ce2c1"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75b7703c-a3fc-43fa-9e2c-922b403fd482"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eada5ce8-8f6e-41ab-a7a1-7943c9a70ef7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""493696ad-2ca3-4fd6-845f-b8eea99d296d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03013984-3d64-4278-8feb-59f3c5a3d316"",
+                    ""path"": ""<XRController>/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e076d39f-49d3-4cc9-ad61-c7369aef492b"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc935efb-c563-4d8a-8718-3850d590a875"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6b6e67c-622f-4f5d-9e07-26c8d52a0c58"",
+                    ""path"": ""<XRController>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6258545-f5e5-46d9-9016-6c3a8e6b3721"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0483d200-dc69-4642-b4a2-435d2052b12e"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d398be5b-40fa-4ada-b515-de4311177e53"",
+                    ""path"": ""<Joystick>/{Hatswitch}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34077fbf-41c5-4528-bc72-04294a9056ed"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ead71a3b-3791-4923-a4ea-d4b966f20c67"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a77c0d6c-c7b3-4605-b132-6587258b5067"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CrouchToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ce35c15-0105-4edf-b8a7-49bdad0f0f2d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1212,19 +1274,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // FirstPerson
-        m_FirstPerson = asset.FindActionMap("FirstPerson", throwIfNotFound: true);
-        m_FirstPerson_Move = m_FirstPerson.FindAction("Move", throwIfNotFound: true);
-        m_FirstPerson_Look = m_FirstPerson.FindAction("Look", throwIfNotFound: true);
-        m_FirstPerson_Crouch = m_FirstPerson.FindAction("Crouch", throwIfNotFound: true);
-        m_FirstPerson_CrouchToggle = m_FirstPerson.FindAction("CrouchToggle", throwIfNotFound: true);
-        m_FirstPerson_Jump = m_FirstPerson.FindAction("Jump", throwIfNotFound: true);
-        m_FirstPerson_Sprint = m_FirstPerson.FindAction("Sprint", throwIfNotFound: true);
-        m_FirstPerson_Interact = m_FirstPerson.FindAction("Interact", throwIfNotFound: true);
-        // ThirdPerson
-        m_ThirdPerson = asset.FindActionMap("ThirdPerson", throwIfNotFound: true);
-        m_ThirdPerson_Move = m_ThirdPerson.FindAction("Move", throwIfNotFound: true);
-        m_ThirdPerson_Interact = m_ThirdPerson.FindAction("Interact", throwIfNotFound: true);
+        // DayTime
+        m_DayTime = asset.FindActionMap("DayTime", throwIfNotFound: true);
+        m_DayTime_Move = m_DayTime.FindAction("Move", throwIfNotFound: true);
+        m_DayTime_Look = m_DayTime.FindAction("Look", throwIfNotFound: true);
+        m_DayTime_Interact = m_DayTime.FindAction("Interact", throwIfNotFound: true);
+        // NightTime
+        m_NightTime = asset.FindActionMap("NightTime", throwIfNotFound: true);
+        m_NightTime_Move = m_NightTime.FindAction("Move", throwIfNotFound: true);
+        m_NightTime_Look = m_NightTime.FindAction("Look", throwIfNotFound: true);
+        m_NightTime_Crouch = m_NightTime.FindAction("Crouch", throwIfNotFound: true);
+        m_NightTime_CrouchToggle = m_NightTime.FindAction("CrouchToggle", throwIfNotFound: true);
+        m_NightTime_Jump = m_NightTime.FindAction("Jump", throwIfNotFound: true);
+        m_NightTime_Sprint = m_NightTime.FindAction("Sprint", throwIfNotFound: true);
+        m_NightTime_Interact = m_NightTime.FindAction("Interact", throwIfNotFound: true);
+        m_NightTime_Use = m_NightTime.FindAction("Use", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1246,8 +1310,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 
     ~@PlayerInputActions()
     {
-        UnityEngine.Debug.Assert(!m_FirstPerson.enabled, "This will cause a leak and performance issues, PlayerInputActions.FirstPerson.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_ThirdPerson.enabled, "This will cause a leak and performance issues, PlayerInputActions.ThirdPerson.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_DayTime.enabled, "This will cause a leak and performance issues, PlayerInputActions.DayTime.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_NightTime.enabled, "This will cause a leak and performance issues, PlayerInputActions.NightTime.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInputActions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Minigame.enabled, "This will cause a leak and performance issues, PlayerInputActions.Minigame.Disable() has not been called.");
     }
@@ -1322,59 +1386,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // FirstPerson
-    private readonly InputActionMap m_FirstPerson;
-    private List<IFirstPersonActions> m_FirstPersonActionsCallbackInterfaces = new List<IFirstPersonActions>();
-    private readonly InputAction m_FirstPerson_Move;
-    private readonly InputAction m_FirstPerson_Look;
-    private readonly InputAction m_FirstPerson_Crouch;
-    private readonly InputAction m_FirstPerson_CrouchToggle;
-    private readonly InputAction m_FirstPerson_Jump;
-    private readonly InputAction m_FirstPerson_Sprint;
-    private readonly InputAction m_FirstPerson_Interact;
+    // DayTime
+    private readonly InputActionMap m_DayTime;
+    private List<IDayTimeActions> m_DayTimeActionsCallbackInterfaces = new List<IDayTimeActions>();
+    private readonly InputAction m_DayTime_Move;
+    private readonly InputAction m_DayTime_Look;
+    private readonly InputAction m_DayTime_Interact;
     /// <summary>
-    /// Provides access to input actions defined in input action map "FirstPerson".
+    /// Provides access to input actions defined in input action map "DayTime".
     /// </summary>
-    public struct FirstPersonActions
+    public struct DayTimeActions
     {
         private @PlayerInputActions m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public FirstPersonActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public DayTimeActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "FirstPerson/Move".
+        /// Provides access to the underlying input action "DayTime/Move".
         /// </summary>
-        public InputAction @Move => m_Wrapper.m_FirstPerson_Move;
+        public InputAction @Move => m_Wrapper.m_DayTime_Move;
         /// <summary>
-        /// Provides access to the underlying input action "FirstPerson/Look".
+        /// Provides access to the underlying input action "DayTime/Look".
         /// </summary>
-        public InputAction @Look => m_Wrapper.m_FirstPerson_Look;
+        public InputAction @Look => m_Wrapper.m_DayTime_Look;
         /// <summary>
-        /// Provides access to the underlying input action "FirstPerson/Crouch".
+        /// Provides access to the underlying input action "DayTime/Interact".
         /// </summary>
-        public InputAction @Crouch => m_Wrapper.m_FirstPerson_Crouch;
-        /// <summary>
-        /// Provides access to the underlying input action "FirstPerson/CrouchToggle".
-        /// </summary>
-        public InputAction @CrouchToggle => m_Wrapper.m_FirstPerson_CrouchToggle;
-        /// <summary>
-        /// Provides access to the underlying input action "FirstPerson/Jump".
-        /// </summary>
-        public InputAction @Jump => m_Wrapper.m_FirstPerson_Jump;
-        /// <summary>
-        /// Provides access to the underlying input action "FirstPerson/Sprint".
-        /// </summary>
-        public InputAction @Sprint => m_Wrapper.m_FirstPerson_Sprint;
-        /// <summary>
-        /// Provides access to the underlying input action "FirstPerson/Interact".
-        /// </summary>
-        public InputAction @Interact => m_Wrapper.m_FirstPerson_Interact;
+        public InputAction @Interact => m_Wrapper.m_DayTime_Interact;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_FirstPerson; }
+        public InputActionMap Get() { return m_Wrapper.m_DayTime; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -1382,9 +1426,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="FirstPersonActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="DayTimeActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(FirstPersonActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(DayTimeActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -1392,11 +1436,154 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="FirstPersonActions" />
-        public void AddCallbacks(IFirstPersonActions instance)
+        /// <seealso cref="DayTimeActions" />
+        public void AddCallbacks(IDayTimeActions instance)
         {
-            if (instance == null || m_Wrapper.m_FirstPersonActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_FirstPersonActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_DayTimeActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DayTimeActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="DayTimeActions" />
+        private void UnregisterCallbacks(IDayTimeActions instance)
+        {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="DayTimeActions.UnregisterCallbacks(IDayTimeActions)" />.
+        /// </summary>
+        /// <seealso cref="DayTimeActions.UnregisterCallbacks(IDayTimeActions)" />
+        public void RemoveCallbacks(IDayTimeActions instance)
+        {
+            if (m_Wrapper.m_DayTimeActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="DayTimeActions.AddCallbacks(IDayTimeActions)" />
+        /// <seealso cref="DayTimeActions.RemoveCallbacks(IDayTimeActions)" />
+        /// <seealso cref="DayTimeActions.UnregisterCallbacks(IDayTimeActions)" />
+        public void SetCallbacks(IDayTimeActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DayTimeActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DayTimeActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="DayTimeActions" /> instance referencing this action map.
+    /// </summary>
+    public DayTimeActions @DayTime => new DayTimeActions(this);
+
+    // NightTime
+    private readonly InputActionMap m_NightTime;
+    private List<INightTimeActions> m_NightTimeActionsCallbackInterfaces = new List<INightTimeActions>();
+    private readonly InputAction m_NightTime_Move;
+    private readonly InputAction m_NightTime_Look;
+    private readonly InputAction m_NightTime_Crouch;
+    private readonly InputAction m_NightTime_CrouchToggle;
+    private readonly InputAction m_NightTime_Jump;
+    private readonly InputAction m_NightTime_Sprint;
+    private readonly InputAction m_NightTime_Interact;
+    private readonly InputAction m_NightTime_Use;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "NightTime".
+    /// </summary>
+    public struct NightTimeActions
+    {
+        private @PlayerInputActions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public NightTimeActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/Move".
+        /// </summary>
+        public InputAction @Move => m_Wrapper.m_NightTime_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_NightTime_Look;
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/Crouch".
+        /// </summary>
+        public InputAction @Crouch => m_Wrapper.m_NightTime_Crouch;
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/CrouchToggle".
+        /// </summary>
+        public InputAction @CrouchToggle => m_Wrapper.m_NightTime_CrouchToggle;
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/Jump".
+        /// </summary>
+        public InputAction @Jump => m_Wrapper.m_NightTime_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/Sprint".
+        /// </summary>
+        public InputAction @Sprint => m_Wrapper.m_NightTime_Sprint;
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/Interact".
+        /// </summary>
+        public InputAction @Interact => m_Wrapper.m_NightTime_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/Use".
+        /// </summary>
+        public InputAction @Use => m_Wrapper.m_NightTime_Use;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_NightTime; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="NightTimeActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(NightTimeActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="NightTimeActions" />
+        public void AddCallbacks(INightTimeActions instance)
+        {
+            if (instance == null || m_Wrapper.m_NightTimeActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_NightTimeActionsCallbackInterfaces.Add(instance);
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -1418,6 +1605,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Use.started += instance.OnUse;
+            @Use.performed += instance.OnUse;
+            @Use.canceled += instance.OnUse;
         }
 
         /// <summary>
@@ -1426,8 +1616,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="FirstPersonActions" />
-        private void UnregisterCallbacks(IFirstPersonActions instance)
+        /// <seealso cref="NightTimeActions" />
+        private void UnregisterCallbacks(INightTimeActions instance)
         {
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
@@ -1450,15 +1640,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Use.started -= instance.OnUse;
+            @Use.performed -= instance.OnUse;
+            @Use.canceled -= instance.OnUse;
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="FirstPersonActions.UnregisterCallbacks(IFirstPersonActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="NightTimeActions.UnregisterCallbacks(INightTimeActions)" />.
         /// </summary>
-        /// <seealso cref="FirstPersonActions.UnregisterCallbacks(IFirstPersonActions)" />
-        public void RemoveCallbacks(IFirstPersonActions instance)
+        /// <seealso cref="NightTimeActions.UnregisterCallbacks(INightTimeActions)" />
+        public void RemoveCallbacks(INightTimeActions instance)
         {
-            if (m_Wrapper.m_FirstPersonActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_NightTimeActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -1468,128 +1661,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="FirstPersonActions.AddCallbacks(IFirstPersonActions)" />
-        /// <seealso cref="FirstPersonActions.RemoveCallbacks(IFirstPersonActions)" />
-        /// <seealso cref="FirstPersonActions.UnregisterCallbacks(IFirstPersonActions)" />
-        public void SetCallbacks(IFirstPersonActions instance)
+        /// <seealso cref="NightTimeActions.AddCallbacks(INightTimeActions)" />
+        /// <seealso cref="NightTimeActions.RemoveCallbacks(INightTimeActions)" />
+        /// <seealso cref="NightTimeActions.UnregisterCallbacks(INightTimeActions)" />
+        public void SetCallbacks(INightTimeActions instance)
         {
-            foreach (var item in m_Wrapper.m_FirstPersonActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_NightTimeActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_FirstPersonActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_NightTimeActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="FirstPersonActions" /> instance referencing this action map.
+    /// Provides a new <see cref="NightTimeActions" /> instance referencing this action map.
     /// </summary>
-    public FirstPersonActions @FirstPerson => new FirstPersonActions(this);
-
-    // ThirdPerson
-    private readonly InputActionMap m_ThirdPerson;
-    private List<IThirdPersonActions> m_ThirdPersonActionsCallbackInterfaces = new List<IThirdPersonActions>();
-    private readonly InputAction m_ThirdPerson_Move;
-    private readonly InputAction m_ThirdPerson_Interact;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "ThirdPerson".
-    /// </summary>
-    public struct ThirdPersonActions
-    {
-        private @PlayerInputActions m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public ThirdPersonActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "ThirdPerson/Move".
-        /// </summary>
-        public InputAction @Move => m_Wrapper.m_ThirdPerson_Move;
-        /// <summary>
-        /// Provides access to the underlying input action "ThirdPerson/Interact".
-        /// </summary>
-        public InputAction @Interact => m_Wrapper.m_ThirdPerson_Interact;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_ThirdPerson; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="ThirdPersonActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(ThirdPersonActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="ThirdPersonActions" />
-        public void AddCallbacks(IThirdPersonActions instance)
-        {
-            if (instance == null || m_Wrapper.m_ThirdPersonActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_ThirdPersonActionsCallbackInterfaces.Add(instance);
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="ThirdPersonActions" />
-        private void UnregisterCallbacks(IThirdPersonActions instance)
-        {
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ThirdPersonActions.UnregisterCallbacks(IThirdPersonActions)" />.
-        /// </summary>
-        /// <seealso cref="ThirdPersonActions.UnregisterCallbacks(IThirdPersonActions)" />
-        public void RemoveCallbacks(IThirdPersonActions instance)
-        {
-            if (m_Wrapper.m_ThirdPersonActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="ThirdPersonActions.AddCallbacks(IThirdPersonActions)" />
-        /// <seealso cref="ThirdPersonActions.RemoveCallbacks(IThirdPersonActions)" />
-        /// <seealso cref="ThirdPersonActions.UnregisterCallbacks(IThirdPersonActions)" />
-        public void SetCallbacks(IThirdPersonActions instance)
-        {
-            foreach (var item in m_Wrapper.m_ThirdPersonActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_ThirdPersonActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="ThirdPersonActions" /> instance referencing this action map.
-    /// </summary>
-    public ThirdPersonActions @ThirdPerson => new ThirdPersonActions(this);
+    public NightTimeActions @NightTime => new NightTimeActions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -1904,11 +1990,40 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     /// </summary>
     public MinigameActions @Minigame => new MinigameActions(this);
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "FirstPerson" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "DayTime" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="FirstPersonActions.AddCallbacks(IFirstPersonActions)" />
-    /// <seealso cref="FirstPersonActions.RemoveCallbacks(IFirstPersonActions)" />
-    public interface IFirstPersonActions
+    /// <seealso cref="DayTimeActions.AddCallbacks(IDayTimeActions)" />
+    /// <seealso cref="DayTimeActions.RemoveCallbacks(IDayTimeActions)" />
+    public interface IDayTimeActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteract(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "NightTime" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="NightTimeActions.AddCallbacks(INightTimeActions)" />
+    /// <seealso cref="NightTimeActions.RemoveCallbacks(INightTimeActions)" />
+    public interface INightTimeActions
     {
         /// <summary>
         /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -1959,28 +2074,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "ThirdPerson" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="ThirdPersonActions.AddCallbacks(IThirdPersonActions)" />
-    /// <seealso cref="ThirdPersonActions.RemoveCallbacks(IThirdPersonActions)" />
-    public interface IThirdPersonActions
-    {
         /// <summary>
-        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Use" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMove(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnInteract(InputAction.CallbackContext context);
+        void OnUse(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

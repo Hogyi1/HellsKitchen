@@ -5,7 +5,7 @@ using static PlayerInputActions;
 
 [DefaultExecutionOrder(-3)]
 [CreateAssetMenu(fileName = "NewInputHandler", menuName = "Game/Input")]
-public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonActions, IUIActions, IMinigameActions, IInputReader
+public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions, IUIActions, IMinigameActions, IInputReader
 {
     #region Properties
     public event UnityAction<Vector2> Move = delegate { };
@@ -14,6 +14,7 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
     public event UnityAction<bool> Sprint = delegate { };
     public event UnityAction<bool> Crouch = delegate { };
     public event UnityAction Interact = delegate { };
+    public event UnityAction Use = delegate { };
 
     private PlayerInputActions inputActions;
 
@@ -23,19 +24,20 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
     public bool IsCrouchPressed => inputActions.FindAction("Crouch").IsPressed() || crouchToggled;
     public bool IsSprintPressed => inputActions.FindAction("Sprint").IsPressed();
     public bool IsInteractPressed => inputActions.FindAction("Interact").IsPressed();
+    public bool IsUsePressed => inputActions.FindAction("Use").IsPressed();
     #endregion
 
     #region Actionmaps
     public void SwitchToUI() => SwitchToMap(ActionMap.UI);
-    public void SwitchToFirstPerson() => SwitchToMap(ActionMap.FirstPerson);
-    public void SwitchToThirdPerson() => SwitchToMap(ActionMap.ThirdPerson);
+    public void SwitchToFirstPerson() => SwitchToMap(ActionMap.NightTime);
+    public void SwitchToThirdPerson() => SwitchToMap(ActionMap.NightTime);
     public void EnableActions()
     {
         if (inputActions == null)
         {
             inputActions = new PlayerInputActions();
-            inputActions.FirstPerson.SetCallbacks(this);
-            inputActions.ThirdPerson.SetCallbacks(this);
+            inputActions.DayTime.SetCallbacks(this);
+            inputActions.NightTime.SetCallbacks(this);
             inputActions.UI.SetCallbacks(this);
             inputActions.Minigame.SetCallbacks(this); // FONTOS így fogja ez a szkript megkapni az eventeket
         }
@@ -56,12 +58,12 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
                 inputActions.UI.Enable();
                 Cursor.lockState = CursorLockMode.None;
                 break;
-            case ActionMap.FirstPerson:
-                inputActions.FirstPerson.Enable();
+            case ActionMap.NightTime:
+                inputActions.NightTime.Enable();
                 Cursor.lockState = CursorLockMode.Locked;
                 break;
-            case ActionMap.ThirdPerson:
-                inputActions.ThirdPerson.Enable();
+            case ActionMap.DayTime:
+                inputActions.DayTime.Enable();
                 Cursor.lockState = CursorLockMode.Locked;
                 break;
             case ActionMap.Minigame:
@@ -130,8 +132,13 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
                 break;
         }
     }
-    #endregion
 
+    public void OnUse(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+            Use.Invoke();
+    }
+    #endregion
 
     #region UI actions
     public void OnNavigate(InputAction.CallbackContext context) { }
@@ -196,8 +203,8 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
 
     public enum ActionMap
     {
-        FirstPerson,
-        ThirdPerson,
+        NightTime,
+        DayTime,
         UI,
         None,
         Minigame

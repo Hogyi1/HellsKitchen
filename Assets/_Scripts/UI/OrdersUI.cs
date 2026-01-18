@@ -14,7 +14,7 @@ public class OrdersUI : MonoBehaviour
     [SerializeField] Color finish = new Color(115, 175, 111);
     [SerializeField] Color start = new Color(220, 0, 0);
 
-    private VisualElement _ordersInstance;
+    private VisualElement _ordersContainer;
     private Dictionary<Recipe, VisualElement> _activeOrders = new Dictionary<Recipe, VisualElement>();
 
     private void OnEnable()
@@ -22,12 +22,7 @@ public class OrdersUI : MonoBehaviour
         uiDocument = uiDocument != null ? uiDocument : GetComponent<UIDocument>();
         _orderManager = _orderManager != null ? _orderManager : GetComponent<OrderManager>();
 
-        _ordersInstance = uiDocument.rootVisualElement.Q<VisualElement>("OrderContainer");
-        if (_ordersInstance == null)
-        {
-            Debug.LogError("OrdersContainer not found in UIDocument root. Check UXML element name=\"OrdersContainer\".");
-            return;
-        }
+        _ordersContainer = uiDocument.rootVisualElement.Q<VisualElement>("OrderContainer");
 
         _orderManager.OnNewOrder += HandleNewOrder;
         _orderManager.OnOrderRemoved += HandleOrderRemoved;
@@ -35,11 +30,8 @@ public class OrdersUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if (_orderManager != null)
-        {
-            _orderManager.OnNewOrder -= HandleNewOrder;
-            _orderManager.OnOrderRemoved -= HandleOrderRemoved;
-        }
+        _orderManager.OnNewOrder -= HandleNewOrder;
+        _orderManager.OnOrderRemoved -= HandleOrderRemoved;
     }
 
     private void HandleNewOrder(Recipe recipe)
@@ -89,7 +81,7 @@ public class OrdersUI : MonoBehaviour
         _barMask.SetBinding("style.width", widthBinding);
         _barMask.SetBinding("style.backgroundColor", colorBinding);
 
-        _ordersInstance.Add(instance);
+        _ordersContainer.Add(instance);
         _activeOrders.Add(recipe, instance);
     }
 
@@ -97,7 +89,7 @@ public class OrdersUI : MonoBehaviour
     {
         if (_activeOrders.TryGetValue(recipe, out VisualElement element))
         {
-            _ordersInstance.Remove(element);
+            _ordersContainer.Remove(element);
             _activeOrders.Remove(recipe);
         }
     }

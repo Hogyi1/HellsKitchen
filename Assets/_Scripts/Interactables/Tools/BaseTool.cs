@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Under construction
-public abstract class BaseTool : IHoldableItem, IUsableItem
+public abstract class BaseTool : IUsableItem
 {
     public void ClearParent()
     {
@@ -26,6 +26,11 @@ public abstract class BaseTool : IHoldableItem, IUsableItem
     public abstract void Hold();
 
     public bool IsTwoHanded()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public UseResult OnUse(PlayerController context)
     {
         throw new System.NotImplementedException();
     }

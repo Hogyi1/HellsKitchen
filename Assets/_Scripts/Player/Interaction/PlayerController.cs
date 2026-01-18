@@ -11,8 +11,10 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 
     private PlayerModel _playerModel;
     private CountDownTimer _interactionTimer;
+    private CountDownTimer _useTimer;
 
     public float InteractionCooldown = 0.2f;
+    public float UseCooldown = 0.2f;
 
     private void Awake()
     {
@@ -25,13 +27,22 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
     {
         _playerModel = new PlayerModel();
         _interactionTimer = new(InteractionCooldown);
+        _useTimer = new(UseCooldown);
     }
 
-    private void OnEnable() => _inputHandler.Interact += OnInteractionPressed;
+    private void OnEnable()
+    {
+        _inputHandler.Interact += OnInteractionPressed;
+        _inputHandler.Use += OnUsePressed;
+    }
 
-    private void OnDisable() => _inputHandler.Interact -= OnInteractionPressed;
+    private void OnDisable()
+    {
+        _inputHandler.Interact -= OnInteractionPressed;
+        _inputHandler.Use -= OnUsePressed;
+    }
 
-    void OnInteractionPressed()
+    private void OnInteractionPressed()
     {
         var interactable = _interactor.GetInteractable();
         if (interactable == null || _interactionTimer.IsRunning) return;
@@ -41,7 +52,15 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
         Debug.Log(ir.message); // Switch to UI feedback later
     }
 
-    //TODO add use button
+    private void OnUsePressed()
+    {
+        var useable = GetChild() as IUsableItem;
+        if (useable == null || _useTimer.IsRunning) return;
+
+        _useTimer.Start();
+        var ur = useable.OnUse(this);
+        Debug.Log(ur.message); // Switch to UI feedback later
+    }
 
     public void SetChild(IHoldableItem child)
     {

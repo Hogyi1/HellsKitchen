@@ -41,6 +41,6 @@ public abstract class PersistentSingleton<T> : MonoBehaviour, ISingleton<T> wher
         }
     }
 
-    public abstract void BaseAwake();
+    public virtual void BaseAwake() { }
     public T GetInstance() => Instance;
 }
