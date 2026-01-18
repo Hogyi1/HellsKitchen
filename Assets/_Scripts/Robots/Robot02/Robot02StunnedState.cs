@@ -13,11 +13,11 @@ public class Robot02StunnedState : Robot02BaseState
 
     public override void OnEnter()
     {
-        agent.isStopped= true;
+        agent.isStopped = true;
         coolDownTimer.Start();
         animator.CrossFade(FlashedAnimation, crossFadeDuration);
     }
-
+     
     public override void Update()
     {
         coolDownTimer.Tick();

@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class Robot01JumpscareState : Robot01BaseState
 {
     private readonly PlayerDetector player;
-    //private readonly Action onPlayerKilled;
     private readonly NavMeshAgent agent;
     private readonly CinemachineCamera jumpscareCamera;
 
@@ -20,18 +19,16 @@ public class Robot01JumpscareState : Robot01BaseState
     public override void OnEnter()
     {
         agent.isStopped = true;
-
-        animator.CrossFade(JumpScareAnimation, 0.15f);
-
         KillPlayer();
+        animator.CrossFade(JumpScareAnimation, 0.15f);
     }
 
     private void KillPlayer()
     {
-        //stops every action from the player
-
-        //PlayerController.KillPlayer();
-        
         Debug.Log("Meghaltál");
+
+        PlayerController.Instance.DisableMovement();
+        CameraController.Instance.RequestFocus(jumpscareCamera);
+        enemy.OnKill();
     }
 }

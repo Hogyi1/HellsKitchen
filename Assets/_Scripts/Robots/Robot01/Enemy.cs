@@ -17,10 +17,13 @@ public class Enemy : MonoBehaviour, IShotable
     [SerializeField] public Transform lightsOutWaypointParent;
     [SerializeField] PlayerDetector playerDetector;
 
+    [SerializeField] private AudioSO retreatConfig;
+    [SerializeField] private AudioSource retreatAudio;
+
     private Transform[] waypoints;
     private Transform[] lightsOutWaypoints;
 
-    private bool isSpawned = true;
+    private bool isSpawned = false;
     private bool isHit = false;
     public bool isIdle = false;
     private bool isJumpscare = false;
@@ -34,6 +37,7 @@ public class Enemy : MonoBehaviour, IShotable
     CinemachineCamera jumpscareCam;
 
     public event Action Despawned = delegate { };
+    public event Action OnKillPlayer = delegate { };
 
     void Awake()
     {
@@ -127,6 +131,11 @@ public class Enemy : MonoBehaviour, IShotable
         
     }
 
+    public void OnKill()
+    {
+        OnKillPlayer?.Invoke();
+    }
+
     public void MoveUp(Transform spawn)
     {
         isSpawned = true;
@@ -135,8 +144,11 @@ public class Enemy : MonoBehaviour, IShotable
 
     public void MoveDown()
     {
+        agent.isStopped = true;
+        agent.enabled = false;
+        AudioManager.Instance.PlaySFX(retreatConfig, retreatAudio);
+        transform.position = waypoints[waypoints.Length - 1].position - new Vector3(0, 100, 0);
+        Despawned.Invoke();
         isSpawned = false;
-        transform.position = waypoints[waypoints.Length-1].position - new Vector3(0,100,0);
-        Despawned?.Invoke();
     }
 }

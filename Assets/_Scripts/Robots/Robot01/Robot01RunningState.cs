@@ -15,9 +15,9 @@ public class Robot01RunningState : Robot01BaseState
     public override void OnEnter()
     {
         Debug.Log("Chase");
-        agent.speed = 5.5f;
-        agent.angularSpeed = 400;
-        agent.acceleration = 9;
+        agent.speed = 5f;
+        agent.angularSpeed = 550;
+        agent.acceleration = 150;
         player = detector.Player;
         animator.CrossFade(RunningAnimation, crossFadeDuration);
     }

@@ -10,7 +10,7 @@ public class Robot02WalkingState : Robot02BaseState
     {
         this.agent = agent;
         this.player = player;
-    }
+    } 
     public override void OnEnter()
     {
         Debug.Log("walking");

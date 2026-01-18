@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class FlashlightScript : MonoBehaviour
 {
-    [Header("Flashlight Settings")]
     [SerializeField] private Light flashlight;
     [SerializeField] private float maxBatteryTime = 100f;
     [SerializeField] private float rayDistance = 10f;
@@ -11,12 +10,10 @@ public class FlashlightScript : MonoBehaviour
     private float currentBattery;
     private bool isOn = false;
     private LoopTimer rayLoop;
-
-
     void Start()
     {
         currentBattery = maxBatteryTime;
-        rayLoop = new LoopTimer(1,99999);
+        rayLoop = new LoopTimer(1,9999);
         rayLoop.OnLoop += OnLoop;
     }
 
@@ -25,7 +22,7 @@ public class FlashlightScript : MonoBehaviour
         if (Input.GetKeyDown(inputKey))
         {
             ToggleFlashlight();
-            Debug.Log($"A zseblámpa bekapcsolva és {currentBattery}% battery-nk van.");
+            
         }
     }
 
@@ -33,13 +30,13 @@ public class FlashlightScript : MonoBehaviour
     {
         if (isOn && currentBattery > 0f)
         {
-            currentBattery -= 1.25f;
+            currentBattery -= 1f;
 
             if (currentBattery <= 0f)
             {
                 currentBattery = 0f;
                 TurnOff();
-                Debug.Log("A zseblámpa lemerült!");
+                
             }
 
 
@@ -47,7 +44,7 @@ public class FlashlightScript : MonoBehaviour
             Vector3 origin = transform.position;
             Vector3 direction = transform.forward;
 
-            Debug.Log($"A zseblámpa tickelt és {currentBattery} % battery-nk van.");
+            
             if (Physics.Raycast(origin, direction, out hit, rayDistance, enemyLayer))
             {
 

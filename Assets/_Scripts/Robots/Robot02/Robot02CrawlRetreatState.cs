@@ -10,14 +10,25 @@ public class Robot02CrawlRetreatState : Robot02BaseState
         this.retreatTarget = retreatTarget;
         this.agent = agent;
     }
-
+     
     public override void OnEnter()
     {
-        Debug.Log("CrawlRetreating");
-        agent.speed = 1f;
-        agent.angularSpeed = 160;
+        Debug.Log("Retreating");
+        agent.speed = 6f;
+        agent.angularSpeed = 250;
         agent.acceleration = 9;
+        agent.autoBraking = true;
+        agent.autoRepath = true;
         agent.SetDestination(retreatTarget.position);
         animator.CrossFade(CrawlAnimation, crossFadeDuration);
+    }
+    public override void Update()
+    {
+
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+
+            enemy.MoveDown();
+        }
     }
 }

@@ -1122,6 +1122,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Hiding",
+            "id": "b2316dc4-5d9a-40d8-9571-2314b487212e",
+            "actions": [
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "9ca45405-af46-4ca9-bd42-685a7b640c27",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8a8eec67-7cae-4293-849f-ca8097362528",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

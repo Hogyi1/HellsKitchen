@@ -24,7 +24,7 @@ public class Robot01WalkingState : Robot01BaseState
     {
         Debug.Log("Walking");
         agent.speed = 1.2f;
-        agent.angularSpeed = 150;
+        agent.angularSpeed = 250;
         agent.acceleration = 7;
         animator.CrossFade(WalkAnimation, 0.15f);
         currentIndex = GetClosestWaypointIndex();

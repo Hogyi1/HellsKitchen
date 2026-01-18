@@ -11,6 +11,7 @@ public class Robot01StopState : Robot01BaseState
 
     public override void OnEnter()
     {
+        Debug.Log("Not moving");
         agent.enabled = false;
         animator.CrossFade(StopAnimation,crossFadeDuration);
     }

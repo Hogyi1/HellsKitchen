@@ -163,6 +163,7 @@ public class DelayedTimer : Timer
 public class LoopTimer : Timer
 {
     public Action<int> OnLoop = delegate { };
+   
     public LoopTimer(float value, int loopAmount) : base(value)
     {
         if (loopAmount <= 0)
@@ -170,9 +171,9 @@ public class LoopTimer : Timer
         else
             this.loopAmount = loopAmount;
     }
+
     private int loopCount;
     private int loopAmount;
-
     public override bool IsFinished => loopCount >= loopAmount;
 
     public override void Tick()

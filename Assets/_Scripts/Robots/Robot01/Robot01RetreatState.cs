@@ -14,9 +14,11 @@ public class Robot01RetreatState : Robot01BaseState
     public override void OnEnter()
     {
         Debug.Log("Retreating");
-        agent.speed = 1.2f;
-        agent.angularSpeed = 170;
-        agent.acceleration = 9;
+        agent.speed = 8f;
+        agent.angularSpeed = 250;
+        agent.acceleration = 15;
+        agent.autoBraking = true;
+        agent.autoRepath = true;
         agent.SetDestination(retreatTarget.position);
         animator.CrossFade(WalkAnimation, crossFadeDuration);
     }

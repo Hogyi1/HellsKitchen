@@ -9,7 +9,7 @@ public abstract class Robot02BaseState:IState
 
     public static int WalkAnimation = Animator.StringToHash("Walking");
     public static int JumpScareAnimation = Animator.StringToHash("Jumpscare");
-    public static int StopAnimation = Animator.StringToHash("Stop");
+    public static int StopAnimation = Animator.StringToHash("stop");
     public static int DeathAnimation = Animator.StringToHash("Death");
 
     public static int CrawlAnimation = Animator.StringToHash("crawl");

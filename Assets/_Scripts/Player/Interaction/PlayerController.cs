@@ -2,11 +2,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Interactor))]
-public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
+public class PlayerController : Singleton<PlayerController>, IObjectParent<IHoldableItem>
 {
     [SerializeField] Interactor interactor;
     [SerializeField] InputHandler input;
     [SerializeField] Transform handTransform;
+    [SerializeField] PlayerMovementController movementController;
     public AudioSO pickupSound;
 
     PlayerModel playerModel;
@@ -15,7 +16,7 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 
     public float interactionCooldown = 0.2f;
 
-    private void Awake()
+    public override void BaseAwake()
     {
         interactor = interactor != null ? interactor : GetComponentInChildren<Interactor>();
         playerModel = new PlayerModel();
@@ -25,6 +26,12 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
     private void OnEnable() => input.Interact += OnInteractionPressed;
 
     private void OnDisable() => input.Interact -= OnInteractionPressed;
+    
+    public void DisableMovement()
+    {
+        input.Interact -= OnInteractionPressed;
+        input.SwitchToUI();
+    }
 
     void OnInteractionPressed()
     {

@@ -2,17 +2,16 @@
 
 public class PlayerDetector : MonoBehaviour
 {
-    [SerializeField] float detectionAngle = 200f;
-    [SerializeField] float detectionRadius = 1f;
-    [SerializeField] float innerDetectionRadius = 0.5f;
-    [SerializeField] float detectionCooldown = 1.5f;
-    [SerializeField] float aggroTime = 3.5f;
-    [SerializeField] LayerMask layerMask;
-    
+    [SerializeField] private float detectionAngle = 200f;
+    [SerializeField] private float detectionRadius = 1f;
+    [SerializeField] private float innerDetectionRadius = 0.5f;
+    [SerializeField] private float aggroTime = 6f;
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private Wardrobe wardrobe;
 
     public Transform Player {  get; private set; }
-    CountDownTimer detectionTimer;
-    CountDownTimer aggroTimer; 
+    private CountDownTimer aggroTimer;
+    private bool isHiding = false;
 
     IdetectionStrategy detectionStrategy;
     private void Awake()
@@ -21,24 +20,23 @@ public class PlayerDetector : MonoBehaviour
     }
     void Start()
     {
-        detectionTimer = new CountDownTimer(detectionCooldown);
+        wardrobe.OnHide += WardrobeOnHide;
         aggroTimer = new CountDownTimer(aggroTime);
         detectionStrategy = new ConeDetectionStrategy(detectionAngle, detectionRadius,innerDetectionRadius,layerMask);
     }
 
-   
-    void Update()
+    private void WardrobeOnHide(bool hidingParam)
     {
-        detectionTimer.Tick();
-        aggroTimer.Tick();
+        isHiding = hidingParam;
     }
-
     public bool CanDetectPlayer()
     {
+        if(isHiding)
+            return false;
         if (aggroTimer.IsRunning)
             return true;
 
-        if (detectionStrategy.Execute(Player, transform, detectionTimer))
+        if (detectionStrategy.Execute(Player, transform))
         {
             aggroTimer.Start();
             return true;
@@ -46,7 +44,7 @@ public class PlayerDetector : MonoBehaviour
 
         return false;
     }
-    
+    /*    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -59,4 +57,5 @@ public class PlayerDetector : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + forwarConeDirection);
         Gizmos.DrawLine(transform.position, transform.position + backwardConeDirection);
     }
+    */
 }
