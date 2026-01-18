@@ -19,6 +19,7 @@ public class Robot01RunningState : Robot01BaseState
         agent.angularSpeed = 550;
         agent.acceleration = 150;
         player = detector.Player;
+        enemy.EnemySpotted();
         animator.CrossFade(RunningAnimation, crossFadeDuration);
     }
 

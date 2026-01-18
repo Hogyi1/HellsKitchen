@@ -2223,8 +2223,10 @@ MonoBehaviour:
   lightsOutWaypointParent: {fileID: 1701275322}
   playerDetector: {fileID: 216678265}
   retreatConfig: {fileID: 11400000, guid: aec6d52a5bf5a1245ba8cde41051f257, type: 2}
+  jumpscareSound: {fileID: 11400000, guid: 7004862986c54574b831baaed459f573, type: 2}
   retreatAudio: {fileID: 1801687599}
   isIdle: 0
+  isPlayerHiding: 0
   isRetreating: 0
 --- !u!114 &216678265
 MonoBehaviour:
@@ -2245,7 +2247,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 529
-  wardrobe: {fileID: 0}
+  wardrobe: {fileID: 889022011}
 --- !u!136 &216678266
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2599,7 +2601,7 @@ Transform:
   m_GameObject: {fileID: 325239065}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.414, y: 0.2293, z: 0.54}
+  m_LocalPosition: {x: 37.112, y: 0.2293, z: 0.558}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2649,9 +2651,11 @@ MonoBehaviour:
   retreatConfig: {fileID: 11400000, guid: aec6d52a5bf5a1245ba8cde41051f257, type: 2}
   retreatAudio: {fileID: 1801687599}
   jumpscareCam: {fileID: 486300205}
-  wardrobe: {fileID: 889022011}
   wardrobeJumpscarePos: {fileID: 841262901}
+  jumpscareSound: {fileID: 11400000, guid: 28715653c16ec3c48a4d158d854943e4, type: 2}
   isStunned: 0
+  isPlayerHiding: 0
+  isAtKillingPos: 0
 --- !u!136 &325239071
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3136,6 +3140,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: a6e5390738d51c64ea85faa443305e0a, type: 2}
   spawnSource: {fileID: 1801687599}
   spawnConfig: {fileID: 11400000, guid: 7ad80a1012f6a154787031d6280565ba, type: 2}
+  wardrobe: {fileID: 889022011}
 --- !u!1 &517773387
 GameObject:
   m_ObjectHideFlags: 0
@@ -3508,7 +3513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RandomEventSpawner
   randomEvents:
   - Event: 0
-    Weight: 11
+    Weight: 21
   - Event: 3
     Weight: 1
   - Event: 2
@@ -3584,7 +3589,7 @@ Transform:
   m_GameObject: {fileID: 841262900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.88, z: -1.76}
+  m_LocalPosition: {x: 0, y: -2.576, z: -3.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7227,8 +7232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightManager
   lightParent: {fileID: 1732318746}
-  powerOutConfig: {fileID: 0}
-  powerBackConfig: {fileID: 0}
+  powerOutConfig: {fileID: 11400000, guid: e64c6e6d6f16b7b4d9125166ab1936d8, type: 2}
+  powerBackConfig: {fileID: 11400000, guid: 94c3acd18e5a3cc40a7cab6f7382e86c, type: 2}
   audioSource: {fileID: 888501441}
 --- !u!4 &1198828674
 Transform:
@@ -11498,6 +11503,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1701275322}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1920885151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1920885152}
+  m_Layer: 0
+  m_Name: SafePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1920885152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920885151}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 35.81551, y: 0.553, z: 4.93352}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1934187552
 GameObject:
@@ -44326,6 +44362,7 @@ SceneRoots:
   - {fileID: 1198828674}
   - {fileID: 1950449296}
   - {fileID: 1963953125}
+  - {fileID: 111773934}
   - {fileID: 80941961}
   - {fileID: 1530903992}
   - {fileID: 1102209487}
@@ -44345,10 +44382,10 @@ SceneRoots:
   - {fileID: 367661775}
   - {fileID: 2106990267}
   - {fileID: 417432770}
-  - {fileID: 111773934}
   - {fileID: 1801687600}
   - {fileID: 127860419}
   - {fileID: 1672023915}
   - {fileID: 1199012408}
   - {fileID: 1663261378}
   - {fileID: 888501442}
+  - {fileID: 1920885152}

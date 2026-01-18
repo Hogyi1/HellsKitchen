@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5a7e1a51a62284c8d414c456f758c5, type: 3}
   m_Name: DespawnConfig
   m_EditorClassIdentifier: Assembly-CSharp::AudioSO
-  Clips: []
+  Clips:
+  - {fileID: 8300000, guid: ee8bc9571c715d94e84f643b56235a2f, type: 3}
   Output: {fileID: 0}
   Volume: 0.6
-  PitchMin: 1
-  PitchMax: 1
+  PitchMin: 0.8
+  PitchMax: 0.8
   Loop: 0
   Fade: 0
   fadeTime: 0

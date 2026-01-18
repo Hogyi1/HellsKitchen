@@ -23,12 +23,12 @@ public class LightManager : MonoBehaviour
     }
     public void FadeOut()
     {
-        StartCoroutine(FadeRoutine(0));
+        StartCoroutine(FadeRoutine(0f));
     }
 
     public void FadeIn()
     {
-        StartCoroutine(FadeRoutine(1));
+        StartCoroutine(FadeRoutine(1f));
     }
     private IEnumerator FadeRoutine(float target)
     {

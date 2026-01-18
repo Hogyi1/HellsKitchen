@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f5a7e1a51a62284c8d414c456f758c5, type: 3}
-  m_Name: SpawnConfig
+  m_Name: ShotgunFireAndReload
   m_EditorClassIdentifier: Assembly-CSharp::AudioSO
   Clips:
-  - {fileID: 8300000, guid: b7c4249443c5efe458178711e9ea14c3, type: 3}
+  - {fileID: 8300000, guid: 17e445936c36ac3439a8b101d4286ae0, type: 3}
   Output: {fileID: 0}
-  Volume: 0.3
-  PitchMin: 0.8
-  PitchMax: 1.1
+  Volume: 1
+  PitchMin: 1
+  PitchMax: 1
   Loop: 0
   Fade: 0
   fadeTime: 0

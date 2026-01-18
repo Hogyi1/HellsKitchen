@@ -8,16 +8,18 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(PlayerDetector))]
 public class Enemy : MonoBehaviour, IShotable
-{
-
+{ 
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator animator;
     [SerializeField] public Transform root;
     [SerializeField] public Transform waypointParent;
     [SerializeField] public Transform lightsOutWaypointParent;
     [SerializeField] PlayerDetector playerDetector;
-
+    
     [SerializeField] private AudioSO retreatConfig;
+    [SerializeField] private AudioSO jumpscareSound;
+    [SerializeField] private AudioSO spottedSound;
+    [SerializeField] private AudioSO stepSound;
     [SerializeField] private AudioSource retreatAudio;
 
     private Transform[] waypoints;
@@ -27,6 +29,7 @@ public class Enemy : MonoBehaviour, IShotable
     private bool isHit = false;
     public bool isIdle = false;
     private bool isJumpscare = false;
+    public bool isPlayerHiding = false;
 
     public bool isRetreating = false; 
 
@@ -58,7 +61,7 @@ public class Enemy : MonoBehaviour, IShotable
         var chasestate = new Robot01RunningState(this, animator, agent, playerDetector);
         var deathstate = new RobotDeathState(this, animator, agent);
         var idlestate = new Robot01IdleState(this,animator,agent);
-        var jumpscarestate = new Robot01JumpscareState(this, animator, agent, playerDetector,jumpscareCam);
+        var jumpscarestate = new Robot01JumpscareState(this, animator, agent, playerDetector,jumpscareCam, jumpscareSound, retreatAudio);
         var stopstate = new Robot01StopState(this,animator,agent);
         var retreatstate = new Robot01RetreatState(this, animator, waypoints[waypoints.Length-1],agent);
 
@@ -124,11 +127,16 @@ public class Enemy : MonoBehaviour, IShotable
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player") && !isPlayerHiding)
         {
             isJumpscare = true;
         }
         
+    }
+
+    public void EnemySpotted()
+    {
+        AudioManager.Instance.PlaySFX(spottedSound, retreatAudio);
     }
 
     public void OnKill()
@@ -138,8 +146,8 @@ public class Enemy : MonoBehaviour, IShotable
 
     public void MoveUp(Transform spawn)
     {
-        isSpawned = true;
         transform.position = spawn.position;
+        isSpawned = true;
     }
 
     public void MoveDown()

@@ -14,6 +14,7 @@ public class Enemy2:MonoBehaviour, IShotable, ICrawlable,IStunnable
     [SerializeField] private AudioSource retreatAudio;
     [SerializeField] private CinemachineCamera jumpscareCam;
     [SerializeField] private Transform wardrobeJumpscarePos;
+    [SerializeField] private AudioSO jumpscareSound;
 
     private bool isSpawned = false;
 
@@ -45,11 +46,11 @@ public class Enemy2:MonoBehaviour, IShotable, ICrawlable,IStunnable
 
         var wanderstate = new Robot02WalkingState(this,animator,agent,player);
         var deathstate = new Robot02DeathState(this, animator, agent);
-        var jumpscarestate = new Robot02JumpscareState(this, animator,agent,jumpscareCam);
+        var jumpscarestate = new Robot02JumpscareState(this, animator,agent,jumpscareCam, jumpscareSound, retreatAudio);
         var stopstate = new Robot02StopState(this, animator, agent);
         var crawlstate = new Robot02CrawlState(this, animator,agent,player);
         var crawlstunnedstate = new Robot02CrawlStunnedState(this, animator,agent);
-        var crawljumpscarestate = new Robot02CrawlJumpscare(this,animator,agent,jumpscareCam);
+        var crawljumpscarestate = new Robot02CrawlJumpscare(this,animator,agent,jumpscareCam,jumpscareSound, retreatAudio);
         var stunnedstate = new Robot02StunnedState(this,animator,agent);
         var retreatstate = new Robot02RetreatState(this, animator,retreatTarget,agent);
         var crawlretreatstate = new Robot02CrawlRetreatState(this, animator, retreatTarget, agent);
@@ -150,8 +151,9 @@ public class Enemy2:MonoBehaviour, IShotable, ICrawlable,IStunnable
 
     public void MoveUp(Transform spawn)
     {
-        isSpawned = true;
         transform.position = spawn.position;
+        isSpawned = true;
+        flashes = 0;
     }
     
 

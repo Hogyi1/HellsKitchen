@@ -41,10 +41,10 @@ public class Wardrobe : MonoBehaviour, IInteractable
         {
             StartCoroutine(ResetAnim(false));
             
-            CameraController.Instance.ReleaseFocus(hidingCam);
             StartCoroutine(Wait());
-            inputHandler.Exit -= Exit;
+            inputHandler.Exit -= Exit;          
             OnHide?.Invoke(false);
+            
             timer.Start();
         }
     }
@@ -52,8 +52,8 @@ public class Wardrobe : MonoBehaviour, IInteractable
 
     private IEnumerator Wait()
     {
-        yield return new WaitForSeconds(1.8f);
-        
+        yield return new WaitForSeconds(1.2f);
+        CameraController.Instance.ReleaseFocus(hidingCam);
         inputHandler.SwitchToFirstPerson();
     }
 
@@ -61,11 +61,12 @@ public class Wardrobe : MonoBehaviour, IInteractable
     {
         animator.SetBool("CanOpenAndClose", true);
         AudioManager.Instance.PlaySFX(openCloseConfig, source);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1f);
         if(entering)
         {
             CameraController.Instance.RequestFocus(hidingCam);
         }
+        
         animator.SetBool("CanOpenAndClose", false);
     }
     public bool CanInteract(PlayerController context)

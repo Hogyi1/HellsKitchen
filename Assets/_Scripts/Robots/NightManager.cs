@@ -13,7 +13,6 @@ public class NightManager : MonoBehaviour
     }
     void Start()
     {
-        enemyManager.IsEnabled = true;
         breakerbox.isActive = false;
         eventSpawner.OnEventTriggered += EventSpawnerOnEventTriggered;
         outageEvent.PowerOutage += OnPowerOutage;
@@ -49,7 +48,7 @@ public class NightManager : MonoBehaviour
                 break;
             case TimeManager.RandomEvent.SpawnRobot:
                 Debug.Log("Nightmanager: robot spawned");
-                enemyManager.Spawn();
+                StartCoroutine(enemyManager.Spawn());
                 break;
         }
     }

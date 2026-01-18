@@ -14,7 +14,6 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private AudioSO spawnConfig;
     [SerializeField] private Wardrobe wardrobe;
 
-
     private System.Random random;
     private double randValue = 0;
     private bool EnemyOneIsOnField = false;
@@ -23,14 +22,10 @@ public class EnemyManager : MonoBehaviour
     private bool HasStartedRetreating = false;
     private CountDownTimer countDownEnemyOne;
     private LoopTimer enemyCheck;
-    
-
-    public bool IsEnabled {get;set;}
 
     private void Start()
     {
         random = new System.Random();
-        IsEnabled = false;
         enemyCheck = new LoopTimer(5,9999);
         enemyCheck.OnLoop += UpdatingEnemyStatus;
         enemyCheck.Start();
@@ -57,6 +52,7 @@ public class EnemyManager : MonoBehaviour
 
     private void WardrobeOnHide(bool hidingParam)
     {
+        robotOne.isPlayerHiding = hidingParam;
         robotTwo.isPlayerHiding = hidingParam;
     }
 
@@ -93,82 +89,73 @@ public class EnemyManager : MonoBehaviour
     {
         //var index = GameManager.Instance.CurrentDays;
 
-        var type = enemyData.Days[5]; // index kell
+        var type = enemyData.Days[4]; // index kell
 
         switch (type)
         {
             case EnemyType.TypeA:
-
+                Debug.Log("A");
                 if (!EnemyOneIsOnField)
                 {
-                    AudioManager.Instance.PlaySFX(spawnConfig,spawnSource);
-                    
-                    robotOne.MoveUp(spawnPoint);
+                    SpawnEnemyOne();
                 }
 
                 break;
             case EnemyType.TypeB:
-
+                Debug.Log("B");
                 if (!EnemyTwoIsOnField)
                 {
-                    AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-                    robotTwo.MoveUp(spawnPoint);
+                    SpawnEnemyTwo();
                 }
                 break;
             case EnemyType.Both:
                 randValue = random.NextDouble();
+                Debug.Log("C");
                 if (randValue < 0.002 && !EnemyOnField)
                 {
+                   
                     
-                    if (!EnemyOneIsOnField)
-                    {
-                        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-                        robotOne.MoveUp(spawnPoint);
-                        EnemyOnField = true;
-                    }
-                    yield return new WaitForSeconds(15);
-                    if (!EnemyTwoIsOnField)
-                    {
-                        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-                        robotTwo.MoveUp(spawnPoint);
-                        EnemyOnField = true;
-                    }
+                    SpawnEnemyOne();
+                    
+                    yield return new WaitForSeconds(7);
+                    
+                    SpawnEnemyTwo();
+                    
                 }
-                else if (randValue > 0.002 && randValue < 0.5)
+                else if (randValue > 0.002 && randValue <= 0.5)
                 {
                     if (!EnemyOneIsOnField)
                     {
-                        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-                        robotOne.MoveUp(spawnPoint);
-                        EnemyOnField = true;
+                        SpawnEnemyOne();
                     }
                 }
                 else if (randValue > 0.5)
                 {
                     if (!EnemyTwoIsOnField)
                     {
-                        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-                        robotTwo.MoveUp(spawnPoint);
-                        EnemyOnField = true;
-                    }
-                }
-                else
-                {
-                    if(EnemyOneIsOnField)
-                    {
-                        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-                        robotTwo.MoveUp(spawnPoint);
-                    }
-                    else
-                    {
-                        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-                        robotOne.MoveUp(spawnPoint);
+                        SpawnEnemyTwo();
                     }
                 }
                 break;
         }
             
 
+    }
+
+    private void SpawnEnemyOne()
+    {
+        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
+        EnemyOneIsOnField = true;
+        EnemyOnField = true;
+        robotOne.MoveUp(spawnPoint);
+    }
+
+    private void SpawnEnemyTwo()
+    {
+        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
+        EnemyTwoIsOnField = true;
+        EnemyOnField = true;
+        robotTwo.MoveUp(spawnPoint);
     }
 }
 
