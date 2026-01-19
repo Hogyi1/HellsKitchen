@@ -6,7 +6,7 @@ public class OvenClick : MonoBehaviour, IPointerClickHandler
 {
     public Sprite dirtyOvenSprite;
     public Sprite cleanOvenSprite;
-
+    private bool clicked = false;
     Image img;
     OvenCleaning cleaning;
 
@@ -20,6 +20,10 @@ public class OvenClick : MonoBehaviour, IPointerClickHandler
     {
         Debug.Log("TEST OVEN CLICK");
         img.sprite = dirtyOvenSprite;
-        if (cleaning != null) cleaning.ResetCleaning();
+        if (cleaning != null && !clicked)
+        {
+            cleaning.ResetCleaning();
+            clicked = true;
+        }
     }
 }

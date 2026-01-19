@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 public class CloseWashingMachine : MonoBehaviour, IPointerClickHandler
 {
     public Sprite closedWM;
-    public LoaderDrop loader; // Drag your Loader GameObject here
-    public Vector2 closedPosition = Vector2.zero; // Set this in Inspector
+    public LoaderDrop loader; 
+    public Vector2 closedPosition = Vector2.zero; 
     
     Image img;
     RectTransform rect;
@@ -31,7 +31,7 @@ public class CloseWashingMachine : MonoBehaviour, IPointerClickHandler
         if (canClick)
         {
             img.sprite = closedWM;
-            rect.anchoredPosition = closedPosition; // Move to your position
+            rect.anchoredPosition = closedPosition; 
         }
     }
 }

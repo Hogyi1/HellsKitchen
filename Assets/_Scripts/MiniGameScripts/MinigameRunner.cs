@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class MinigameRunner : MonoBehaviour
     [SerializeField] InputHandler input;
 
     IMinigame activeMinigame;
+    private CinemachineCamera cam;
 
     void Awake()
     {
@@ -27,28 +29,24 @@ public class MinigameRunner : MonoBehaviour
             Instance = null;
     }
 
-    public void StartGame(IMinigame minigame) => StartCoroutine(StartMinigame(minigame));
-    public void EndGame(IMinigame minigame) => StartCoroutine(EndMinigame());
+    public void StartGame(MonoBehaviour minigame) => StartCoroutine(StartMinigame(minigame));
+    public void EndGame(MonoBehaviour minigame) => StartCoroutine(EndMinigame());
 
     /// <summary>
     /// Starts the specified minigame, transitioning the input system and camera as needed.
     /// </summary>
-    /// <remarks>This method ensures that only one minigame can be active at a time. If a minigame is already
-    /// active, the method exits immediately. If the specified minigame provides a custom camera, the camera system
-    /// transitions to focus on it before starting the minigame. The input system is switched to the Minigame action map
-    /// during the transition.</remarks>
-    /// <param name="minigame">The minigame to start. Must implement the <see cref="IMinigame"/> interface.</param>
-    /// <returns>An enumerator that can be used to control the coroutine execution.</returns>
-    IEnumerator StartMinigame(IMinigame minigame)
+    
+    IEnumerator StartMinigame(MonoBehaviour minigame)
     {
         if (activeMinigame != null) yield break;
-
-        activeMinigame = minigame;
+        if(minigame is not PatternMinigame newMiniGame) yield break;
+        activeMinigame = newMiniGame;
         var camController = CameraController.Instance;
-
+        
         input.SwitchToMap(InputHandler.ActionMap.Minigame);
         if (activeMinigame.GetCamera() != null)
         {
+            cam = activeMinigame.GetCamera();
             camController.RequestFocus(activeMinigame.GetCamera());
             yield return new WaitUntil(() => !camController.IsBlending());
         }
@@ -59,19 +57,17 @@ public class MinigameRunner : MonoBehaviour
     /// <summary>
     /// Ends the currently active minigame and transitions back to the first-person view.
     /// </summary>
-    /// <remarks>This method finalizes the active minigame by invoking its <see cref="Minigame.EndGame"/>
-    /// method. If the minigame has an associated camera, the focus is released, and the method waits for the camera
-    /// transition to complete before switching the input mode to first-person. If no minigame is active, the method
-    /// exits immediately.</remarks>
-    /// <returns></returns>
+    
     IEnumerator EndMinigame()
     {
         if (activeMinigame == null) yield break;
         activeMinigame.EndGame();
         var camController = CameraController.Instance;
-        if (activeMinigame.GetCamera() != null)
+        if (cam != null)
         {
-            camController.ReleaseFocus(activeMinigame.GetCamera());
+            Debug.Log("asd");
+           
+            camController.ReleaseFocus(cam);
             yield return new WaitUntil(() => !camController.IsBlending());
         }
         input.SwitchToNight();
