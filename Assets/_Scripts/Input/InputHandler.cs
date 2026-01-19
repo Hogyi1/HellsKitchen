@@ -5,7 +5,7 @@ using static PlayerInputActions;
 
 [DefaultExecutionOrder(-3)]
 [CreateAssetMenu(fileName = "NewInputHandler", menuName = "Game/Input")]
-public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions, IUIActions, IMinigameActions, IInputReader
+public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions, IHidingActions, IUIActions, IMinigameActions, IInputReader
 {
     #region Properties
     public event UnityAction<Vector2> Move = delegate { };
@@ -31,6 +31,7 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
     public void SwitchToUI() => SwitchToMap(ActionMap.UI);
     public void SwitchToNight() => SwitchToMap(ActionMap.NightTime);
     public void SwitchToDay() => SwitchToMap(ActionMap.DayTime);
+    public void SwitchToHiding() => SwitchToMap(ActionMap.Hiding);
     public void EnableActions()
     {
         if (inputActions == null)

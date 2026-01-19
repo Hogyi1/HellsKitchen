@@ -25,11 +25,11 @@ public class PlayerController : Singleton<PlayerController>, IObjectParent<IHold
 
     public void DisableMovement()
     {
-        input.Interact -= OnInteractionPressed;
-        input.SwitchToUI();
+        _inputHandler.Interact -= OnInteractionPressed;
+        _inputHandler.SwitchToUI();
     }
 
-    void OnInteractionPressed()
+    void Start()
     {
         _playerModel = new PlayerModel();
         _interactionTimer = new(InteractionCooldown);
