@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour, IShotable
     CinemachineCamera jumpscareCam;
 
     public event Action Despawned = delegate { };
-    public event Action OnKillPlayer = delegate { };
+    public event Action<EnemyType> OnKillPlayer = delegate { };
 
     void Awake()
     {
@@ -141,7 +141,7 @@ public class Enemy : MonoBehaviour, IShotable
 
     public void OnKill()
     {
-        OnKillPlayer?.Invoke();
+        OnKillPlayer?.Invoke(EnemyType.TypeA);
     }
 
     public void MoveUp(Transform spawn)

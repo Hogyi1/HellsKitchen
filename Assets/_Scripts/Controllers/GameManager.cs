@@ -18,7 +18,7 @@ public class GameManager : PersistentSingleton<GameManager>
     void Start()
     {
         ApplySettings();
-        input.SwitchToUI();
+        input.SwitchToNight();
     }
 
     public void StartNewGame()

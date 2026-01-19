@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=019bff60e29d5a1428b92d9bd92b5b28&amp;type=3#MainMenu" />
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:Button text="Continnue" name="Continnue" class="main-menu-button" style="-unity-text-align: middle-center; top: 25px; right: auto; width: auto; height: 35%;" />
+        <ui:Button text="Quit game" class="main-menu-button" style="top: 50px; height: 35%; width: auto;" />
+    </ui:VisualElement>
+</ui:UXML>
