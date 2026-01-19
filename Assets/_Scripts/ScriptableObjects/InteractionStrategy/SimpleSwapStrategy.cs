@@ -6,7 +6,7 @@ public class SimpleSwapStrategy : BaseCounterStrategy
     public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
         var ownKo = counter.GetModel().GetChild();
-        var playerKo = context.TryGetKitchenObject();
+        var playerKo = context.GetChild() as KitchenObjectController;
 
         if (ownKo == null || playerKo == null)
             return false;
@@ -32,7 +32,7 @@ public class SimpleSwapStrategy : BaseCounterStrategy
     public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
         var ownKo = counter.GetModel().GetChild();
-        var playerKo = context.TryGetKitchenObject();
+        var playerKo = context.GetChild() as KitchenObjectController;
 
         if (ownKo == null || playerKo == null)
             return InteractionResult.Fail("No items to swap");

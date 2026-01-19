@@ -20,7 +20,7 @@ public class ContainerView : CounterView
     /// <summary>
     /// The sprite to display for this container.
     /// </summary>
-    public Sprite mySprite;
+    private Sprite mySprite;
 
     /// <summary>
     /// Gets the associated KitchenContainer model.
@@ -45,7 +45,7 @@ public class ContainerView : CounterView
     /// <param name="ko">The KitchenObject involved in the interaction.</param>
     private void InteractedWith(KitchenObjectController ko)
     {
-        if (ko != Model.GetChild())
+        if (ko != null)
         {
             anim.Play(OpenClose);
             AudioManager.Instance.PlaySFX(openingAudio, audioSource);
@@ -61,9 +61,6 @@ public class ContainerView : CounterView
         anim = anim != null ? anim : gameObject.GetComponent<Animator>();
         spriteRenderer = spriteRenderer != null ? spriteRenderer : gameObject.GetComponentInChildren<SpriteRenderer>();
         audioSource = audioSource != null ? audioSource : gameObject.GetComponentInChildren<AudioSource>();
-
-        if (spriteRenderer != null)
-            spriteRenderer.sprite = mySprite;
     }
 
     /// <summary>
@@ -72,8 +69,12 @@ public class ContainerView : CounterView
     protected override void Initialize()
     {
         Model.OnObjectSpawned += InteractedWith;
+        mySprite = Model.CrateObject.Sprite;
 
         anim.StopPlayback();
         AudioManager.Instance.StopSFX(audioSource);
+
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = mySprite;
     }
 }

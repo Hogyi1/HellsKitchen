@@ -21,8 +21,8 @@ public class IdleState : StoveBaseState
 
     public override InteractionResult TryInteract(PlayerController context)
     {
-        var ko = context.TryGetKitchenObject();
-        var fr = KitchenSODatabase.Instance.GetFryingRecipeWithInput(ko);
+        var ko = context.GetChild() as KitchenObjectController;
+        var fr = KitchenSODatabase.GetFryingRecipeWithInput(ko);
         if (fr != null)
         {
             ko.SetParent(stoveCounter);
@@ -90,8 +90,8 @@ public class FriedState : StoveBaseState
     public override InteractionResult TryInteract(PlayerController context)
     {
         var ownKo = stoveCounter.GetChild();
-        var playerKo = context.TryGetKitchenObject();
-        var fr = KitchenSODatabase.Instance.GetFryingRecipeWithInput(playerKo);
+        var playerKo = context.GetChild() as KitchenObjectController;
+        var fr = KitchenSODatabase.GetFryingRecipeWithInput(playerKo);
 
         if (fr != null)
         {
@@ -100,7 +100,7 @@ public class FriedState : StoveBaseState
             return InteractionResult.Ok("Swapped item on stove with player's item and started cooking.");
         }
 
-        if (playerKo == null)
+        if (playerKo == null && context.CanPickUpItem(ownKo))
         {
             ownKo.SetParent(context);
             stoveCounter.ResetStove();
@@ -133,8 +133,8 @@ public class BurnedState : StoveBaseState
     public override InteractionResult TryInteract(PlayerController context)
     {
         var ownKo = stoveCounter.GetChild();
-        var playerKo = context.TryGetKitchenObject();
-        var fr = KitchenSODatabase.Instance.GetFryingRecipeWithInput(playerKo);
+        var playerKo = context.GetChild() as KitchenObjectController;
+        var fr = KitchenSODatabase.GetFryingRecipeWithInput(playerKo);
 
         if (fr != null)
         {
@@ -143,7 +143,7 @@ public class BurnedState : StoveBaseState
             return InteractionResult.Ok("Swapped item on stove with player's item and started cooking.");
         }
 
-        if (playerKo == null)
+        if (playerKo == null && context.CanPickUpItem(ownKo))
         {
             ownKo.SetParent(context);
             stoveCounter.ResetStove();

@@ -6,7 +6,7 @@ public class SimplePlaceStrategy : BaseCounterStrategy
     public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
         var holder = counter as IObjectHolder<KitchenObjectController>;
-        var playerKo = context.TryGetKitchenObject();
+        var playerKo = context.GetChild() as KitchenObjectController;
 
         if (holder == null)
             return false;
@@ -19,7 +19,7 @@ public class SimplePlaceStrategy : BaseCounterStrategy
     public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
         var ownKo = counter.GetModel().GetChild();
-        var playerKo = context.TryGetKitchenObject();
+        var playerKo = context.GetChild() as KitchenObjectController;
         var holder = counter as IObjectHolder<KitchenObjectController>;
 
         if (playerKo == null)

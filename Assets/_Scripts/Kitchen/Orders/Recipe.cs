@@ -1,32 +1,100 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Unity.Properties;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [Serializable]
-public class Recipe
+public class Recipe : INotifyBindablePropertyChanged
 {
-    public List<RecipeIngredient> ingredientList;
-    public float expirationTime;
+    public event EventHandler<BindablePropertyChangedEventArgs> propertyChanged = delegate { };
+
+    private List<RecipeIngredient> _ingredientList;
+    private float _expirationTime;
+    private float _passedTime;
+    private float _expirationProgress;
+    public bool IsExpired => ExpirationTime <= PassedTime;
+
+    [CreateProperty]
+    public float ExpirationProgress
+    {
+        get => _expirationProgress;
+        set
+        {
+            if (_expirationProgress == value)
+                return;
+
+            _expirationProgress = value;
+            Notify();
+        }
+    }
+
+    public float PassedTime
+    {
+        get => _passedTime;
+        set
+        {
+            if (_passedTime == value)
+                return;
+
+            _passedTime = value;
+            ExpirationProgress = 1f - (_expirationTime > 0f ? _passedTime / _expirationTime : 1f);
+        }
+    }
+
+    public float ExpirationTime
+    {
+        get => _expirationTime;
+        set
+        {
+            if (_expirationTime == value)
+                return;
+
+            _expirationTime = value;
+        }
+    }
+
+    [CreateProperty]
+    public List<RecipeIngredient> Ingredients
+    {
+        get => _ingredientList;
+        set
+        {
+            if (_ingredientList == value)
+                return;
+
+            _ingredientList = value;
+            Notify();
+        }
+    }
 
     public Recipe(float expirationTime)
     {
-        ingredientList = new List<RecipeIngredient>();
-        this.expirationTime = expirationTime;
+        _ingredientList = new List<RecipeIngredient>();
+        this.ExpirationTime = expirationTime;
     }
 
-    public void AddTime(float extraTime)
+    public void AddTime(float extraTime) => ExpirationTime += extraTime;
+    public void AddIngredient(RecipeIngredient recipeIngredient)
     {
-        expirationTime += extraTime;
+        int existingIndex = _ingredientList.FindIndex(t => t.KitchenObjectSO == recipeIngredient.KitchenObjectSO);
+
+        if (existingIndex != -1)
+            _ingredientList[existingIndex] = new RecipeIngredient
+            {
+                KitchenObjectSO = recipeIngredient.KitchenObjectSO,
+                Quantity = _ingredientList[existingIndex].Quantity + recipeIngredient.Quantity
+            };
+        else
+            _ingredientList.Add(recipeIngredient);
     }
 
     public void AddIngredient(KitchenObjectSO ingredient, int quantity)
     {
-        ingredientList.Add(new RecipeIngredient { KitchenObjectSO = ingredient, Quantity = quantity });
-    }
-
-    public void AddIngredient(RecipeIngredient recipeIngredient)
-    {
-        ingredientList.Add(recipeIngredient);
+        var ri = new RecipeIngredient { KitchenObjectSO = ingredient, Quantity = quantity };
+        AddIngredient(ri);
     }
 
     public float CalculateMatch(List<KitchenObjectSO> providedIngredients)
@@ -53,7 +121,7 @@ public class Recipe
 
         Dictionary<KitchenObjectSO, int> requiredCounts = new Dictionary<KitchenObjectSO, int>();
         int totalRequiredQuantity = 0;
-        foreach (var ri in ingredientList)
+        foreach (var ri in _ingredientList)
         {
             requiredCounts[ri.KitchenObjectSO] = ri.Quantity;
             totalRequiredQuantity += ri.Quantity;
@@ -110,5 +178,9 @@ public class Recipe
 
         // Ensure the final score is between 0 and 1.
         return Mathf.Clamp01(matchScore);
+    }
+    void Notify([CallerMemberName] string property = null)
+    {
+        propertyChanged?.Invoke(this, new BindablePropertyChangedEventArgs(property));
     }
 }

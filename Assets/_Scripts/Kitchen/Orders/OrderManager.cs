@@ -2,37 +2,78 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(RecipeGenerator))]
 public class OrderManager : Singleton<OrderManager>
 {
     public List<Recipe> debugRecipe;
-    Queue<Recipe> orderQueue;
-    Recipe activeRecipe;
-
     [SerializeField] RecipeName activeRecipeTemplate;
-    [SerializeField] float extraOrderTime = 15f;
-    RecipeGenerator recipeGenerator;
+    [SerializeField] int maximumOrders = 5;
+    [SerializeField] float startingTime = 10f;
+
+    Recipe activeRecipe;
+    RecipeSO activeRecipeSO;
+    int recipesGenerated = 0; // Pure stats
+
+    private RecipeGenerator _recipeGenerator;
+    private Queue<Recipe> _orderQueue;
+    private LoopTimer _orderTimer;
+    private float extraOrderTime;
 
     public event Action<Recipe> OnNewOrder = delegate { };
     public event Action<Recipe> OnActiveOrder = delegate { };
+    public event Action<Recipe> OnOrderRemoved = delegate { };
+    public event Action<Recipe> OnOrderExpiration = delegate { };
 
-
-    //Debug
-    LoopTimer debugTimer;
+    public override void BaseAwake()
+    {
+        _orderQueue = new(maximumOrders);
+        var so = SetRecipeSO(activeRecipeTemplate);
+        _recipeGenerator = new(so);
+        extraOrderTime = so.AveragePrepareTime * 0.75f;
+        _orderTimer = new(so.AveragePrepareTime * 0.5f, -1);
+        _orderTimer.OnLoop += GenerateOrder;
+    }
 
     private void Start()
     {
-        GenerateOrder();
-        activeRecipe = orderQueue.Peek();
+        var timer = new CountDownTimer(startingTime);
+        timer.OnTimerStop += () => SelectActiveRecipe();
+        timer.Start();
+        _orderTimer.Start();
     }
 
-    public void GenerateOrder()
+    public void GenerateOrder(int round)
     {
-        Recipe newRecipe = recipeGenerator.GenerateRecipe();
-        newRecipe.AddTime(orderQueue.Count * extraOrderTime);
-        orderQueue.Enqueue(newRecipe);
+        if (_orderQueue.Count >= maximumOrders) return;
+
+        Recipe newRecipe = _recipeGenerator.GenerateRecipe();
+        newRecipe.AddTime(_orderQueue.Count * extraOrderTime);
+        _orderQueue.Enqueue(newRecipe);
         debugRecipe.Add(newRecipe);
         OnNewOrder?.Invoke(newRecipe);
+        recipesGenerated++;
+    }
+
+    private void Update()
+    {
+        foreach (var recipe in _orderQueue)
+        {
+            recipe.PassedTime += Time.deltaTime;
+
+            if (recipe.IsExpired)
+            {
+                OnExpiration(recipe);
+                break;
+            }
+        }
+    }
+
+    private void OnExpiration(Recipe recipe)
+    {
+        _orderQueue.TryDequeue(out Recipe expiredRecipe);
+        debugRecipe.Remove(expiredRecipe);
+        OnOrderRemoved?.Invoke(expiredRecipe);
+        SelectActiveRecipe();
+        Debug.Log("Order expired!");
     }
 
     private float ScoreOrder(Dictionary<KitchenObjectSO, int> incoming) =>
@@ -43,34 +84,35 @@ public class OrderManager : Singleton<OrderManager>
         float score = ScoreOrder(incoming);
         Debug.Log($"Order completed with score: {score}");
 
+
+        _orderQueue.TryDequeue(out Recipe recipe);
+        OnOrderRemoved?.Invoke(recipe);
+
+        SelectActiveRecipe();
+
+        Debug.Log("Dish has been scored: " + score);
+        // IDK money vagy something
         debugRecipe.Remove(activeRecipe);
+    }
 
-        if (orderQueue.Count > 0)
-            orderQueue.Dequeue();
+    private RecipeSO SetRecipeSO(RecipeName activeRecipeTemplate)
+    {
+        KitchenSODatabase.SetRecipeName(activeRecipeTemplate);
+        activeRecipeSO = KitchenSODatabase.GetRecipeByName(activeRecipeTemplate);
+        return activeRecipeSO;
+    }
 
-        if (orderQueue.Count > 0)
+    private void SelectActiveRecipe()
+    {
+        if (_orderQueue.Count > 0)
         {
-            activeRecipe = orderQueue.Peek();
+            activeRecipe = _orderQueue.Peek();
             OnActiveOrder?.Invoke(activeRecipe);
         }
         else
         {
-            GenerateOrder();
-            activeRecipe = orderQueue.Peek();
+            GenerateOrder(recipesGenerated);
+            activeRecipe = _orderQueue.Peek();
         }
-
-        Debug.Log("Dish has been scored: " + score);
-        // IDK money vagy something
-    }
-
-    public override void BaseAwake()
-    {
-        orderQueue = new Queue<Recipe>();
-
-        recipeGenerator = GetComponent<RecipeGenerator>();
-        recipeGenerator.SetRecipeTemplate(activeRecipeTemplate);
-
-        debugTimer = new(20f, -1);
-        debugTimer.OnLoop += (loop) => GenerateOrder();
     }
 }

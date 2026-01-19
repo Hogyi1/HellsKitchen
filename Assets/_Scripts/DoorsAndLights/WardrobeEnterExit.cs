@@ -20,11 +20,11 @@ public class Wardrobe : MonoBehaviour, IInteractable
     public event Action<bool> OnHide = delegate { };
     public InteractionResult TryInteract(PlayerController context)
     {
-       
-        if(!timer.IsRunning)
+
+        if (!timer.IsRunning)
         {
             StartCoroutine(ResetAnim(true));
-            
+
             inputHandler.SwitchToHiding();
             inputHandler.Exit += Exit;
 
@@ -32,7 +32,7 @@ public class Wardrobe : MonoBehaviour, IInteractable
             timer.Start();
         }
         return InteractionResult.Ok(" ");
-        
+
     }
 
     private void Exit()
@@ -40,11 +40,11 @@ public class Wardrobe : MonoBehaviour, IInteractable
         if (!timer.IsRunning && !isDying)
         {
             StartCoroutine(ResetAnim(false));
-            
+
             StartCoroutine(Wait());
-            inputHandler.Exit -= Exit;          
+            inputHandler.Exit -= Exit;
             OnHide?.Invoke(false);
-            
+
             timer.Start();
         }
     }
@@ -54,7 +54,7 @@ public class Wardrobe : MonoBehaviour, IInteractable
     {
         yield return new WaitForSeconds(1.2f);
         CameraController.Instance.ReleaseFocus(hidingCam);
-        inputHandler.SwitchToFirstPerson();
+        inputHandler.SwitchToNight();
     }
 
     private IEnumerator ResetAnim(bool entering)
@@ -62,11 +62,11 @@ public class Wardrobe : MonoBehaviour, IInteractable
         animator.SetBool("CanOpenAndClose", true);
         AudioManager.Instance.PlaySFX(openCloseConfig, source);
         yield return new WaitForSeconds(1f);
-        if(entering)
+        if (entering)
         {
             CameraController.Instance.RequestFocus(hidingCam);
         }
-        
+
         animator.SetBool("CanOpenAndClose", false);
     }
     public bool CanInteract(PlayerController context)

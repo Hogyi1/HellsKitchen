@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc09453aa515ca2448be2666195adab3, type: 3}
+  m_Name: HamburgerRecipe
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
+  RecipeName: 1
+  MainIngredient:
+  - KitchenObjectSO: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
+    Quantity: 1
+  - KitchenObjectSO: {fileID: 11400000, guid: d539eb1747736ba45a3eee4580b23e89, type: 2}
+    Quantity: 1
+  IngredientsToChooseFrom:
+  - KitchenObjectSO: {fileID: 11400000, guid: a631967c29967f848b8dcaec0590102d, type: 2}
+    Quantity: 2
+  - KitchenObjectSO: {fileID: 11400000, guid: d539eb1747736ba45a3eee4580b23e89, type: 2}
+    Quantity: 2
+  - KitchenObjectSO: {fileID: 11400000, guid: 98cc7740d4c76c04ea0e8ed43aa29715, type: 2}
+    Quantity: 2
+  - KitchenObjectSO: {fileID: 11400000, guid: 4867aa19e1ed2e14e963eb28ac4ea996, type: 2}
+    Quantity: 2
+  - KitchenObjectSO: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
+    Quantity: 1
+  AveragePrepareTime: 75
+  MaxIngredientCount: 6

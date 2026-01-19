@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,20 +24,20 @@ public class RandomEventSpawner : MonoBehaviour
             totalWeight += weightedEvent.Weight;
         }
 
-        randomEventTimer = new LoopTimer(RandomEventInterval, 9999);
+        randomEventTimer = new LoopTimer(RandomEventInterval, -1);
         randomEventTimer.OnLoop += HandleRandomEvents;
-        randomEventTimer.Start();
+
+        StartEvent();
     }
 
-    private void OnEnable() => randomEventTimer?.Start();
-    private void OnDisable() => randomEventTimer?.Stop();
+    private void OnDisable() => StopEvent();
 
     private void HandleRandomEvents(int i)
     {
         RandomEvent randomEvent = GetRandomEvent();
         if (randomEvent == RandomEvent.None)
             return;
-        
+
         // Keep track of events if we want to limit frequency or for analytics
         if (playedEvents.ContainsKey(randomEvent))
             playedEvents[randomEvent]++;
@@ -52,7 +53,7 @@ public class RandomEventSpawner : MonoBehaviour
             return RandomEvent.None;
 
         float roll = UnityEngine.Random.Range(0f, totalWeight);
-        
+
         float cumulativeWeight = 0f;
 
         foreach (var weightedEvent in randomEvents)
@@ -66,5 +67,6 @@ public class RandomEventSpawner : MonoBehaviour
 
         return RandomEvent.None;
     }
-
+    public void StartEvent() => randomEventTimer.Start();
+    public void StopEvent() => randomEventTimer.Stop();
 }

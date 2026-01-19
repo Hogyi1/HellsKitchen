@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/MainMenu.unity.meta
+guid: cf7b31ce59889f64ea1a24f5228b650b
+========
 guid: e35e4fd40056d654a8796021fa7a453a
 folderAsset: yes
+>>>>>>>> development:Assets/3DGameModels/Textures/shotgunTextures.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

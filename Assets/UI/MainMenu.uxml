@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=019bff60e29d5a1428b92d9bd92b5b28&amp;type=3#MainMenu" />
+    <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+        <ui:VisualElement name="ButtonContainer" style="align-items: flex-start; padding-left: 50px;">
+            <ui:VisualElement name="LogoPlaceholder" style="width: 356px; height: 240px; margin-bottom: 30px; background-color: rgba(55, 55, 55, 0); -unity-background-image-tint-color: rgba(255, 255, 255, 0.5); -unity-slice-left: 1; -unity-slice-top: 1; -unity-slice-right: 1; -unity-slice-bottom: 1; background-image: url(&quot;project://database/Assets/Images/MainMenu/title.png?fileID=2800000&amp;guid=334fc50ba8528f44d885eec82019ea45&amp;type=3#title&quot;); position: relative; top: 78px; left: -66px;" />
+            <ui:Button text="New Game" name="new-game-button" class="main-menu-button" style="-unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;); font-size: 25px; width: 200px; height: 50px;" />
+            <ui:Button text="Settings" name="settings-button" class="main-menu-button" style="-unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;); font-size: 25px; width: 200px; height: 50px;" />
+            <ui:Button text="Quit Game" name="quit-game-button" class="main-menu-button" style="-unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;); font-size: 25px; width: 200px; height: 50px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

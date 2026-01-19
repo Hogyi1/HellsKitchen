@@ -6,9 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(PlateObjectView))]
 public class PlateObjectController : KitchenObjectController, IDisposable
 {
-    [SerializeField] RecipeSO recipeSO;
-
-    // A convenience property to access the model as PlateObjectModel
     private PlateObjectModel PlateModel => model as PlateObjectModel;
 
     public bool IsEmpty() => PlateModel.IsEmpty();
@@ -33,7 +30,7 @@ public class PlateObjectController : KitchenObjectController, IDisposable
         PlateModel.RemoveIngredient(kitchenObject, count);
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         if (PlateModel.HasIngredients())
         {
@@ -53,7 +50,7 @@ public class PlateObjectController : KitchenObjectController, IDisposable
 
     public override void Initialize()
     {
-        model = new PlateObjectModel(so, recipeSO);
+        model = new PlateObjectModel(so, KitchenSODatabase.GetCurrentRecipe());
         Interactions.Add(new PlaceOntoPlateAction(this));
     }
 

@@ -12,18 +12,6 @@ public class DispenserController : CounterController, ISpawner<PlateObjectContro
 
     private LoopTimer _refillTimer;
 
-    [Header("Debug")]
-    public int debugPlateCount;
-    public List<PlateObjectController> plates;
-    public KitchenObjectController child;
-
-    private void LateUpdate()
-    {
-        debugPlateCount = Model.PlateCount;
-        plates = Model.GetPlates();
-        child = Model.GetChild();
-    }
-
     public DispenserModel Model => GetModel<DispenserModel>();
 
     public PlateObjectController GetSpawnerObject() => Model.TakePlate();
