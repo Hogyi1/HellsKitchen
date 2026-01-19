@@ -5,14 +5,12 @@ public class SimpleSpawnObjectStrategy : BaseCounterStrategy
 {
     public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        var playerKo = context.TryGetKitchenObject();
-        return (playerKo == null && counter is ISpawner<KitchenObjectController>);
+        return (counter is ISpawner<KitchenObjectController> spawner && context.CanPickUpItem(spawner.GetSpawnerObject()));
     }
 
     public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        var playerKo = context.TryGetKitchenObject();
-        if (playerKo != null)
+        if (context.CanPickUpItem(counter.GetChild()))
             return InteractionResult.Fail("Player has no space");
 
         var spawner = counter as ISpawner<KitchenObjectController>;

@@ -30,15 +30,7 @@ public class StoveController : CounterController
         _fryingTimer = new(1f);
         _burnTimer = new(1f);
 
-        var emptyAndEmpty = new ContextualPredicate<PlayerController>((context) =>
-        {
-            if (context.TryGetKitchenObject() == null && !model.HasChild())
-            {
-                return false;
-            }
-            return true;
-        });
-        predicateList.Add(emptyAndEmpty);
+        predicateList.Add(new EmptyAndEmptyPredicate(this));
 
         SetupStateMachine();
     }

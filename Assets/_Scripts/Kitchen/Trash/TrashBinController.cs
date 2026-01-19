@@ -5,25 +5,21 @@ using UnityEngine;
 /// It follows the Counter pattern for interaction but with custom logic to delete items.
 /// </summary>
 [RequireComponent(typeof(TrashBinView))] // Requires a basic view for the interaction point.
-public class TrashBinController : CounterController, IDisposer
+public class TrashBinController : CounterController, IDisposer<KitchenObjectController>
 {
+
     /// <summary>
     /// Initializes the counter's model and sets up interaction predicates.
     /// </summary>
     protected override void Initialize()
     {
         model = new TrashBinModel();
-
-        var emptyAndEmpty = new ContextualPredicate<PlayerController>((context) =>
-        {
-            return !(context.TryGetKitchenObject() == null && !model.HasChild());
-        });
-        predicateList.Add(emptyAndEmpty);
+        predicateList.Add(new EmptyAndEmptyPredicate(this));
     }
-    public void OnDispose(IDisposable ko)
+    public void OnDispose(KitchenObjectController ko)
     {
-        var bin = model as TrashBinModel;
-        bin.SetChild(ko as KitchenObjectController);
+        var bin = GetModel<TrashBinModel>();
+        bin.SetChild(ko);
         ko.Dispose();
     }
 }

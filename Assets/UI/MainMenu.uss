@@ -1,0 +1,55 @@
+/* Main menu + shared menu transitions */
+
+.main-menu-button {
+    width: 220px;
+    height: 52px;
+
+    margin-top: 6px;
+    margin-bottom: 6px;
+
+    border-radius: 12px;
+
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+
+    border-left-color: rgba(255, 255, 255, 0.10);
+    border-right-color: rgba(255, 255, 255, 0.10);
+    border-top-color: rgba(255, 255, 255, 0.10);
+    border-bottom-color: rgba(255, 255, 255, 0.10);
+
+    color: rgb(68, 68, 68);
+    background-color: rgb(234, 231, 230);
+
+    -unity-font-style: bold;
+    font-size: 24px;
+
+    scale: 1;
+    transition-property: background-color, scale;
+    transition-duration: 0.12s;
+    transition-timing-function: ease-in-out;
+}
+
+.main-menu-button:hover {
+    scale: 1.05;
+    background-color: rgb(250, 248, 247);
+}
+
+.main-menu-button:active {
+    scale: 0.98;
+}
+
+/* ---------- Screen fade (used by MenuManager.cs) ---------- */
+.menu-screen {
+    flex-grow: 1;
+    opacity: 1;
+
+    transition-property: opacity;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+}
+
+.menu-screen--hidden {
+    opacity: 0;
+}

@@ -25,6 +25,7 @@ public class AudioSO : ScriptableObject
 
     [Tooltip("Should the sound loop? Looping sounds from the pool must be manually stopped and returned.")]
     public bool Loop = false;
+    public bool IsMusic = false;
 
     public bool Fade = false;
     public float fadeTime = 0f;

@@ -1,4 +1,6 @@
-﻿using UnityEngine.Events;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class DeliveryCounter : CounterModel
 {
@@ -17,6 +19,14 @@ public class DeliveryCounter : CounterModel
         set => _plateBeingDelivered = value;
     }
 
+    private PlateObjectController _lastPlate;
+
+    public PlateObjectController LastPlate
+    {
+        get => _lastPlate;
+        set => _lastPlate = value;
+    }
+
     public event UnityAction<PlateObjectController> OnPlateDelivered = delegate { };
     public event UnityAction<PlateObjectController> OnPlateReleased = delegate { };
 
@@ -29,16 +39,12 @@ public class DeliveryCounter : CounterModel
 
     public void ReleaseChild()
     {
-        if (HasChild())
-            GetChild().SetParent(null);
-
-        OnPlateReleased.Invoke(_plateBeingDelivered);
-        ResetDelivery();
+        GetChild().SetParent(null);
     }
 
     public void StartDelivery(PlateObjectController plate)
     {
-        if (_plateBeingDelivered == null)
+        if (_plateBeingDelivered != null)
             return;
 
         _plateBeingDelivered = plate;
@@ -47,10 +53,14 @@ public class DeliveryCounter : CounterModel
     public void FinishedDelivery()
     {
         OnPlateDelivered.Invoke(_plateBeingDelivered);
+        _lastPlate = _plateBeingDelivered;
+        _plateBeingDelivered = null;
     }
 
     public void ResetDelivery()
     {
+        OnPlateReleased.Invoke(_plateBeingDelivered);
+        _lastPlate = null;
         _plateBeingDelivered = null;
     }
 }

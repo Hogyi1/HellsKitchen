@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ using UnityEngine;
 public class DeliveryCounterView : CounterView
 {
     [SerializeField] Transform counterEnd;
+    [SerializeField] AudioSource audioSource;
     float _slideDuration;
 
     public DeliveryCounter Model => GetModel<DeliveryCounter>();
@@ -14,19 +16,27 @@ public class DeliveryCounterView : CounterView
 
     protected override void Initialize()
     {
-        Model.OnPlateDelivered += DeliveryCounter_OnPlateDelivered;
+        Model.OnItemChanged += DeliveryCounter_OnPlateDelivered;
         Model.OnPlateReleased += DeliveryCounter_OnPlateReleased;
 
-        _slideDuration = Model.DeliveryDelay;
+        _slideDuration = Model.DeliveryDelay * 2f;
     }
 
     protected override void SetupComponents()
     {
         counterEnd = counterEnd != null ? counterEnd : transform;
+        audioSource = audioSource != null ? audioSource : GetComponentInChildren<AudioSource>();
     }
 
-    private void DeliveryCounter_OnPlateDelivered(PlateObjectController po)
+    private void DeliveryCounter_OnPlateDelivered(KitchenObjectController ko)
     {
+        var po = ko as PlateObjectController;
+        if (po == null)
+            return;
+
+        var placeAudio = ko.GetKitchenObjectSO().PlaceSound;
+        AudioManager.Instance.PlaySFX(placeAudio, audioSource);
+
         if (activeTweens.ContainsKey(po))
         {
             activeTweens[po].Kill();
@@ -38,10 +48,11 @@ public class DeliveryCounterView : CounterView
                          counterEnd.position,
                          _slideDuration)
             .SetEase(Ease.Linear)
+            .SetDelay(0.2f)
             .OnComplete(() =>
             {
                 activeTweens.Remove(po);
-                Destroy(po.gameObject);
+                po.DestroySelf();
             });
 
         activeTweens[po] = deliveryTween;

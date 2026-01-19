@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Under construction
-public abstract class BaseTool : IHoldableItem, IUsableItem
+public abstract class BaseTool : IUsableItem
 {
     public void ClearParent()
     {
@@ -13,7 +13,27 @@ public abstract class BaseTool : IHoldableItem, IUsableItem
         throw new System.NotImplementedException();
     }
 
+    public AudioSO GetPickUpAudio()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public AudioSO GetPlaceAudio()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public abstract void Hold();
+
+    public bool IsTwoHanded()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public UseResult OnUse(PlayerController context)
+    {
+        throw new System.NotImplementedException();
+    }
 
     public void SetParent(IObjectParent parent)
     {

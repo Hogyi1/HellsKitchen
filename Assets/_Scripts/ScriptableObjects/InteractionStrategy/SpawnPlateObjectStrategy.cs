@@ -5,7 +5,7 @@ public class SpawnPlateObjectStrategy : BaseCounterStrategy
 {
     public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        var playerKo = context.TryGetKitchenObject();
+        var playerKo = context.GetChild() as KitchenObjectController;
 
         if (counter is not ISpawner<PlateObjectController> || counter.GetModel() is not DispenserModel)
             return false;
@@ -21,7 +21,7 @@ public class SpawnPlateObjectStrategy : BaseCounterStrategy
 
     public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        var playerKo = context.TryGetKitchenObject();
+        var playerKo = context.GetChild() as KitchenObjectController;
         var spawner = counter as ISpawner<PlateObjectController>;
         var plateDispenser = counter.GetModel() as DispenserModel;
 

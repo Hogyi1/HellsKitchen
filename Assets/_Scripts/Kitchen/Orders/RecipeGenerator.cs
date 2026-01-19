@@ -2,14 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class RecipeGenerator : MonoBehaviour
+public class RecipeGenerator
 {
-    [SerializeField] List<RecipeSO> Recipes = new();
-    RecipeSO activeRecipe;
+    private RecipeSO activeRecipe;
+    private float minTime;
+    private float maxTime;
 
-    private void Awake()
+    public RecipeGenerator(RecipeSO activeRecipe)
     {
-        if (activeRecipe == null) SetRecipeTemplate(RecipeName.Default);
+        this.activeRecipe = activeRecipe;
+
+        CalculateRandomTime();
     }
 
     public Recipe GenerateRecipe()
@@ -17,36 +20,51 @@ public class RecipeGenerator : MonoBehaviour
         if (activeRecipe == null)
             return null;
 
-        float expirationTime = activeRecipe.AveragePrepareTime + UnityEngine.Random.Range(-5, 6);
+        int ingredientCount = 0;
+
+        float expirationTime = activeRecipe.AveragePrepareTime + UnityEngine.Random.Range(-minTime, maxTime);
         Recipe newRecipe = new Recipe(expirationTime);
 
         Dictionary<KitchenObjectSO, int> ingredientCounts = new Dictionary<KitchenObjectSO, int>();
         foreach (var ingredient in activeRecipe.IngredientsToChooseFrom)
             ingredientCounts[ingredient.KitchenObjectSO] = ingredient.Quantity;
 
-        newRecipe.AddIngredient(activeRecipe.MainIngredient);
-
-        if (ingredientCounts.ContainsKey(activeRecipe.MainIngredient.KitchenObjectSO))
-            ingredientCounts.Remove(activeRecipe.MainIngredient.KitchenObjectSO);
-
-        foreach (var ingredients in ingredientCounts)
+        foreach (var ing in activeRecipe.MainIngredient)
         {
-            float chance = UnityEngine.Random.Range(0f, 1f);
-            if (chance <= 0.5f)
+            newRecipe.AddIngredient(ing);
+            if (ingredientCounts.ContainsKey(ing.KitchenObjectSO))
             {
-                int count = UnityEngine.Random.Range(1, ingredients.Value + 1);
-                newRecipe.AddIngredient(ingredients.Key, count);
+                ingredientCounts[ing.KitchenObjectSO] -= ing.Quantity;
+                if (ingredientCounts[ing.KitchenObjectSO] <= 0)
+                    ingredientCounts.Remove(ing.KitchenObjectSO);
             }
         }
 
+        foreach (var ingredients in ingredientCounts)
+        {
+            int remaining = activeRecipe.MaxIngredientCount - ingredientCount;
+            if (remaining <= 0) break;
+
+            float chance = Random.Range(0f, 1f);
+            if (chance <= 0.65f)
+            {
+                int maxAdd = Mathf.Min(ingredients.Value, remaining);
+                if (maxAdd <= 0) continue;
+
+                int count = Random.Range(1, maxAdd + 1);
+
+                newRecipe.AddIngredient(ingredients.Key, count);
+                ingredientCount += count;
+            }
+        }
+
+        newRecipe.AddTime(ingredientCount * 2f);
         return newRecipe;
     }
 
-    public void SetRecipeTemplate(RecipeName activeRecipeTemplate)
+    private void CalculateRandomTime()
     {
-        if (activeRecipeTemplate == RecipeName.Default)
-            activeRecipe = Recipes.First();
-        else
-            activeRecipe = Recipes.FirstOrDefault(r => r.RecipeName == activeRecipeTemplate);
+        minTime = activeRecipe.AveragePrepareTime * 0.15f;
+        maxTime = activeRecipe.AveragePrepareTime * 0.25f;
     }
 }

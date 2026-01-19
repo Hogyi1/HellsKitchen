@@ -1,0 +1,202 @@
+/* Settings menu styling */
+
+.settings-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* A centered "card" look so it matches the main menu aesthetic */
+.options-container {
+    width: 720px;
+
+    background-color: rgba(30, 30, 30, 0.82);
+    border-radius: 16px;
+
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 0.10);
+    border-right-color: rgba(255, 255, 255, 0.10);
+    border-top-color: rgba(255, 255, 255, 0.10);
+    border-bottom-color: rgba(255, 255, 255, 0.10);
+
+    padding-top: 22px;
+    padding-bottom: 22px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.value-label{
+    font-size: 16px;
+    -unity-font-style: bold;
+    color: rgb(210, 210, 210);
+    padding-left: 8px;
+}
+
+.title {
+    font-size: 52px;
+    -unity-font-style: bold;
+    color: rgb(234, 231, 230);
+
+    margin-bottom: 16px;
+}
+
+.category-title {
+    font-size: 22px;
+    -unity-font-style: bold;
+    color: rgb(210, 210, 210);
+
+    margin-top: 18px;
+    margin-bottom: 10px;
+
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+    padding-bottom: 6px;
+}
+
+.option-row {
+    flex-direction: row;
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+.option-label {
+    width: 220px;
+    font-size: 18px;
+    color: rgb(235, 235, 235);
+
+    margin-right: 12px;
+}
+
+/* ---------- Slider ---------- */
+.option-slider {
+    flex-grow: 1;
+    height: 22px;
+}
+
+.option-slider .unity-slider__track {
+    height: 8px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+.option-slider .unity-slider__track-fill {
+    background-color: rgba(250, 248, 247, 0.85);
+    border-radius: 999px;
+}
+
+.option-slider .unity-slider__dragger {
+    width: 18px;
+    height: 18px;
+    margin-top: -5px;
+
+    border-radius: 999px;
+    background-color: rgb(234, 231, 230);
+
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(0, 0, 0, 0.25);
+    border-right-color: rgba(0, 0, 0, 0.25);
+    border-top-color: rgba(0, 0, 0, 0.25);
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Dropdown ---------- */
+.option-dropdown {
+    flex-grow: 1;
+    height: 32px;
+}
+
+.option-dropdown .unity-base-field__input {
+    background-color: rgba(255, 255, 255, 0.10);
+    border-radius: 10px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(255, 255, 255, 0.14);
+    border-right-color: rgba(255, 255, 255, 0.14);
+    border-top-color: rgba(255, 255, 255, 0.14);
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+    padding-left: 10px;
+}
+
+.option-dropdown .unity-base-field__text {
+    color: rgb(235, 235, 235);
+    font-size: 16px;
+}
+
+/* ---------- Toggle ---------- */
+.option-toggle {
+    margin-left: 4px;
+}
+
+.option-toggle .unity-toggle__input {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+}
+
+.option-toggle .unity-toggle__checkmark {
+    background-color: rgba(250, 248, 247, 0.85);
+    border-radius: 6px;
+}
+
+/* ---------- Footer ---------- */
+.spacer {
+    height: 14px;
+}
+
+.settings-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+.settings-footer > Button {
+    width: 220px;
+}
+/* --------------- Scrollbar (Settings) --------------- */
+
+/* Teljes scrollbar sáv */
+#SettingsScrollView .unity-scroller--vertical {
+    width: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+/* Nyilak elrejtése */
+#SettingsScrollView .unity-scroller__low-button,
+#SettingsScrollView .unity-scroller__high-button {
+    display: none;
+}
+
+/* Görgetősáv pályája (belső háttér) */
+#SettingsScrollView .unity-slider__background {
+    background-color: rgba(0, 0, 0, 0.25); /* halvány átlátszó fekete */
+    border-radius: 6px;
+}
+
+/* A húzható rész (dragger) */
+#SettingsScrollView .unity-slider__dragger {
+    background-color: rgba(255, 255, 255, 0.55); /* jól látható */
+    border-radius: 6px;
+}
+
+/* Hover állapot – picit erősebb kontraszt */
+#SettingsScrollView .unity-slider__dragger:hover {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCameraSettings : ScriptableObject
 {
     [Header("Camera settings")]
-    [Range(0.1f, 10f)] public float lookSensitivity = 0.1f;
+    [Range(0.1f, 1f)] public float lookSensitivity = 0.1f;
     [Range(1f, 90f)] public float upperCameraLimit = 60f;
     [Range(1f, 90f)] public float lowerCameraLimit = 60f;
 

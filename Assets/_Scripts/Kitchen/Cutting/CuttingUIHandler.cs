@@ -48,7 +48,7 @@ public class CuttingUIHandler : MonoBehaviour, IDataBinder
             dataSourcePath = new PropertyPath(nameof(cuttingBoard.CuttingProgress)),
             bindingMode = BindingMode.ToTarget
         };
-        colorBinding.sourceToUiConverters.AddConverter((ref float value) => { Debug.Log(value); return new StyleColor(Color.Lerp(start, finish, value)); });
+        colorBinding.sourceToUiConverters.AddConverter((ref float value) => { return new StyleColor(Color.Lerp(start, finish, value)); });
 
         _barMask.SetBinding("style.width", widthBinding);
         _barMask.SetBinding("style.backgroundColor", colorBinding);

@@ -12,7 +12,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] PlayerMover mover;
     [SerializeField] PlayerCameraController cameraController;
     [SerializeField] Transform cameraTransform;
-    [SerializeField] PlayerMovementSettings settings;
+
+    private PlayerMovementSettings settings;
 
     StateMachine stateMachine;
     CountDownTimer coyoteTimer;
@@ -30,11 +31,11 @@ public class PlayerMovementController : MonoBehaviour
     #region Unity methods
     private void Awake()
     {
+        settings = GameManager.PlayerSettings.movementSettings;
         stateMachine = new StateMachine();
         coyoteTimer = new CountDownTimer(settings.coyoteTime);
         mover = mover != null ? mover : GetComponentInChildren<PlayerMover>();
         cameraController = cameraController != null ? cameraController : GetComponentInChildren<PlayerCameraController>();
-        settings = settings != null ? settings : ScriptableObject.CreateInstance<PlayerMovementSettings>();
 
         SetupJumpVariables();
         SetupStateMachine();

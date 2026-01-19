@@ -1,4 +1,4 @@
-public interface IDisposer
+public interface IDisposer<T>
 {
-    void OnDispose(IDisposable ko);
+    void OnDispose(T ko);
 }
