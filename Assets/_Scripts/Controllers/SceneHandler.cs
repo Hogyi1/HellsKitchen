@@ -14,6 +14,9 @@ public class SceneHandler : MonoBehaviour
     public SceneName LastScene { get; private set; }
     public List<SceneTransitionData> SceneHistory { get; private set; } = new List<SceneTransitionData>();
 
+    public event Action<SceneName, SceneName> OnSceneChanged = delegate { };
+    public event Action<SceneName> OnSceneLoaded = delegate { };
+
     public string Default = "Default";
     public string MainMenu = "MainMenu";
     public string KitchenScene = "KitchenScene";
@@ -77,6 +80,7 @@ public class SceneHandler : MonoBehaviour
     {
         if (isLoading || !sceneNameMap.ContainsKey(sceneName)) return;
 
+        OnSceneChanged?.Invoke(ActiveScene, sceneNameMap[sceneName]);
         StartCoroutine(LoadSceneCoroutine(sceneName));
     }
 
@@ -109,6 +113,7 @@ public class SceneHandler : MonoBehaviour
         ActiveScene = targetSceneEnum;
         timeSinceSceneLoad = 0f;
 
+        OnSceneLoaded?.Invoke(ActiveScene);
         isLoading = false;
     }
 }

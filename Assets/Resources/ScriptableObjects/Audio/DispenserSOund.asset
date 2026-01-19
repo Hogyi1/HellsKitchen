@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5a7e1a51a62284c8d414c456f758c5, type: 3}
+  m_Name: DispenserSOund
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSO
+  Clips:
+  - {fileID: 8300000, guid: c1a9422d58d020e489882295d538c5e9, type: 3}
+  Output: {fileID: 8474396079281171191, guid: 4798e78c9613aad44bfdb78455886aca, type: 2}
+  Volume: 1
+  PitchMin: 0.89
+  PitchMax: 1.05
+  Loop: 0
+  IsMusic: 0
+  Fade: 0
+  fadeTime: 0

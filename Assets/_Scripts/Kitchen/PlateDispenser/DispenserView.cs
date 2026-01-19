@@ -6,7 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(DispenserController))]
 public class DispenserView : CounterView
 {
-    [SerializeField] Animator anim;
     [SerializeField] AudioSource audioSoruce;
     [SerializeField] ParticleSystem particles;
     [SerializeField] AudioSO refillAudio;
@@ -19,7 +18,6 @@ public class DispenserView : CounterView
 
     protected override void SetupComponents()
     {
-        anim = anim != null ? anim : gameObject.AddComponent<Animator>();
         audioSoruce = audioSoruce != null ? audioSoruce : GetComponentInChildren<AudioSource>();
         particles = particles != null ? particles : GetComponentInChildren<ParticleSystem>();
 
