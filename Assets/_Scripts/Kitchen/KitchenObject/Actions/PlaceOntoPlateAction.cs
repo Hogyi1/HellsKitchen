@@ -1,19 +1,19 @@
 public class PlaceOntoPlateAction : IKitchenObjectAction
 {
-    private PlateObject plate;
-    public PlaceOntoPlateAction(PlateObject plate)
+    private PlateObjectController plate;
+    public PlaceOntoPlateAction(PlateObjectController plate)
     {
         this.plate = plate;
     }
 
-    public bool CanExecute(KitchenObject other)
+    public bool CanExecute(KitchenObjectController other)
     {
-        if (other is Ingredient ingredient)
+        if (other is IngredientController ingredient)
             return plate.CanAddIngredient(ingredient);
         return false;
     }
 
-    public void Execute(KitchenObject other)
+    public void Execute(KitchenObjectController other)
     {
         plate.AddIngredient(other);
         other.DestroySelf();

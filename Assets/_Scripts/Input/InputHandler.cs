@@ -5,7 +5,7 @@ using static PlayerInputActions;
 
 [DefaultExecutionOrder(-3)]
 [CreateAssetMenu(fileName = "NewInputHandler", menuName = "Game/Input")]
-public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonActions, IUIActions, IMinigameActions, IInputReader
+public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonActions, IUIActions, IMinigameActions, IInputReader,IHidingActions
 {
     #region Properties
     public event UnityAction<Vector2> Move = delegate { };
@@ -29,6 +29,7 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
     public void SwitchToUI() => SwitchToMap(ActionMap.UI);
     public void SwitchToFirstPerson() => SwitchToMap(ActionMap.FirstPerson);
     public void SwitchToThirdPerson() => SwitchToMap(ActionMap.ThirdPerson);
+    public void SwitchToHiding() => SwitchToMap(ActionMap.Hiding);
     public void EnableActions()
     {
         if (inputActions == null)
@@ -38,6 +39,7 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
             inputActions.ThirdPerson.SetCallbacks(this);
             inputActions.UI.SetCallbacks(this);
             inputActions.Minigame.SetCallbacks(this); // FONTOS így fogja ez a szkript megkapni az eventeket
+            inputActions.Hiding.SetCallbacks(this);
         }
 
         SwitchToFirstPerson();
@@ -66,6 +68,11 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
                 break;
             case ActionMap.Minigame:
                 inputActions.Minigame.Enable();
+                Cursor.lockState = CursorLockMode.None;
+                break;
+            case ActionMap.Hiding:
+                inputActions.Hiding.Enable();
+                Cursor.lockState = CursorLockMode.Locked;
                 break;
             default:
                 inputActions.Disable();
@@ -200,7 +207,8 @@ public class InputHandler : ScriptableObject, IFirstPersonActions, IThirdPersonA
         ThirdPerson,
         UI,
         None,
-        Minigame
+        Minigame,
+        Hiding
     }
 }
 

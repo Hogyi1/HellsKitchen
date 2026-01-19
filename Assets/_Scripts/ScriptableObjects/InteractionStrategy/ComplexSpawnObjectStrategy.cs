@@ -3,17 +3,17 @@
 [CreateAssetMenu(fileName = "NewComplexSpawnStrategy", menuName = "Game/Strategy/CounterStrategy/SpawnStrategy/ComplexSpawn")]
 public class ComplexSpawnObjectStrategy : BaseCounterStrategy
 {
-    public override bool CanExecuteOnCounter(PlayerController context, BaseCounter counter)
+    public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        if (counter is not ISpawner<KitchenObject>)
+        if (counter is not ISpawner<KitchenObjectController>)
             return false;
 
         return true;
     }
 
-    public override InteractionResult ExecuteOnCounter(PlayerController context, BaseCounter counter)
+    public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        if (counter is not ISpawner<KitchenObject> spawner)
+        if (counter is not ISpawner<KitchenObjectController> spawner)
         {
             return InteractionResult.Fail("Counter is not a valid spawner.");
         }
@@ -22,11 +22,11 @@ public class ComplexSpawnObjectStrategy : BaseCounterStrategy
 
         if (playerKo == null)
         {
-            spawner.SpawnObject(context);
+            spawner.SpawnObject(context, context.GetTransform());
             return InteractionResult.Ok("Took an item from spawner.");
         }
 
-        var spawnedKo = spawner.SpawnObject(counter);
+        var spawnedKo = spawner.SpawnObject(counter, counter.GetTransform());
 
         // Check if spawned object can act on player's object (e.g. plate taking ingredient)
         foreach (var interaction in spawnedKo.Interactions)

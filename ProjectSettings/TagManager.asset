@@ -4,7 +4,7 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Sponge
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,11 +13,11 @@ TagManager:
   - Water
   - UI
   - Interactable
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PaticleCollision
+  - AlwaysOnTop
+  - Wall/Obstacle
+  - Enemy
+  - Invisible
   - 
   - 
   - 

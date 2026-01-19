@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -5,7 +6,7 @@ using UnityEngine;
 /// Creates a globally accessible instance and ensures only one exists.
 /// </summary>
 /// <typeparam name="T">The type of the component to create a singleton for.</typeparam>
-public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class Singleton<T> : MonoBehaviour, ISingleton<T> where T : MonoBehaviour
 {
     /// <summary>
     /// The static instance of the singleton.
@@ -27,7 +28,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
 
         Instance = this as T;
-        DontDestroyOnLoad(gameObject);
+        BaseAwake();
     }
 
     /// <summary>
@@ -40,4 +41,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             Instance = null;
         }
     }
+
+    public virtual void BaseAwake() { }
+    public T GetInstance() => Instance;
 }

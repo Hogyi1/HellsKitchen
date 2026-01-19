@@ -2,11 +2,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Interactor))]
-public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
+public class PlayerController : Singleton<PlayerController>, IObjectParent<IHoldableItem>
 {
     [SerializeField] Interactor interactor;
     [SerializeField] InputHandler input;
     [SerializeField] Transform handTransform;
+    [SerializeField] PlayerMovementController movementController;
+    public AudioSO pickupSound;
 
     PlayerModel playerModel;
     public bool hasChild;
@@ -14,7 +16,7 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
 
     public float interactionCooldown = 0.2f;
 
-    private void Awake()
+    public override void BaseAwake()
     {
         interactor = interactor != null ? interactor : GetComponentInChildren<Interactor>();
         playerModel = new PlayerModel();
@@ -24,6 +26,12 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
     private void OnEnable() => input.Interact += OnInteractionPressed;
 
     private void OnDisable() => input.Interact -= OnInteractionPressed;
+    
+    public void DisableMovement()
+    {
+        input.Interact -= OnInteractionPressed;
+        input.SwitchToUI();
+    }
 
     void OnInteractionPressed()
     {
@@ -35,18 +43,18 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
         Debug.Log(ir.message);
     }
 
-    public Transform GetParentPosition() => handTransform;
-
     public void SetChild(IHoldableItem child)
     {
+        if (child != null)
+            AudioManager.Instance.PlaySFX(pickupSound, transform.position);
         playerModel.Pickup(child);
     }
 
     public bool HasChild() => playerModel.HeldItem != null;
 
-    public KitchenObject TryGetKitchenObject()
+    public KitchenObjectController TryGetKitchenObject()
     {
-        if (playerModel.HeldItem is KitchenObject kitchenObject)
+        if (playerModel.HeldItem is KitchenObjectController kitchenObject)
             return kitchenObject;
         return null;
     }
@@ -63,4 +71,10 @@ public class PlayerController : MonoBehaviour, IObjectParent<IHoldableItem>
     public void SetChild(IObjectChild child) => SetChild((IHoldableItem)child);
     IObjectChild IObjectParent.GetChild() => GetChild();
 
+    public void ClearChild()
+    {
+        SetChild(null);
+    }
+
+    public Transform GetTransform() => handTransform;
 }

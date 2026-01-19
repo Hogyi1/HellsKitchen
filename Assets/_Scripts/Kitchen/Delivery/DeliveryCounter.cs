@@ -1,70 +1,56 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 
-public class DeliveryCounter : BaseCounter
+public class DeliveryCounter : CounterModel
 {
 
-    CountDownTimer deliveryTimer;
-    [SerializeField] float deliveryDelay = 0.5f;
-    public event UnityAction<PlateObject> OnPlateDelivered = delegate { };
-    public event UnityAction<PlateObject> OnPlateReleased = delegate { };
+    private float _deliveryDelay;
 
-    private PlateObject plateBeingDelivered;
-
-    public bool debugTimer => deliveryTimer.IsRunning;
-
-    private void Awake()
+    public float DeliveryDelay
     {
-        counterTop = counterTop != null ? counterTop : transform.Find("CounterTop");
-
-        var hasPlateAndNotEmpty = new ContextualPredicate<PlayerController>(
-            (PlayerController context) =>
-            {
-                var heldObject = context.TryGetKitchenObject();
-                if (heldObject is PlateObject plate)
-                {
-                    return !plate.IsEmpty();
-                }
-
-                return heldObject == null;
-            }
-        );
-
-        predicateList.Add(hasPlateAndNotEmpty);
-
-        deliveryTimer = new CountDownTimer(deliveryDelay);
-        deliveryTimer.OnTimerStop += ReleaseChild;
+        get => _deliveryDelay;
+        set => _deliveryDelay = value;
     }
 
-    private void ReleaseChild()
+    public PlateObjectController Plate
     {
-        OrderManager.Instance.CompleteOrder(plateBeingDelivered.GetIngredientDictionary());
+        get => _plateBeingDelivered;
+        set => _plateBeingDelivered = value;
+    }
 
+    public event UnityAction<PlateObjectController> OnPlateDelivered = delegate { };
+    public event UnityAction<PlateObjectController> OnPlateReleased = delegate { };
+
+    private PlateObjectController _plateBeingDelivered;
+
+    public DeliveryCounter(float deliveryDelay)
+    {
+        _deliveryDelay = deliveryDelay;
+    }
+
+    public void ReleaseChild()
+    {
         if (HasChild())
             GetChild().SetParent(null);
 
-        plateBeingDelivered = null;
+        OnPlateReleased.Invoke(_plateBeingDelivered);
+        ResetDelivery();
     }
 
-    public override bool CanRelease() => deliveryTimer.IsRunning;
-
-    public override bool CanPlace(KitchenObject other) => !deliveryTimer.IsRunning;
-
-    public override void OnPlace(KitchenObject other)
+    public void StartDelivery(PlateObjectController plate)
     {
-        plateBeingDelivered = (PlateObject)other;
-        deliveryTimer.Start();
-        OnPlateDelivered.Invoke(plateBeingDelivered);
+        if (_plateBeingDelivered == null)
+            return;
+
+        _plateBeingDelivered = plate;
     }
 
-    public override void OnRelease()
+    public void FinishedDelivery()
     {
-        if (plateBeingDelivered != null)
-        {
-            OnPlateReleased.Invoke(plateBeingDelivered);
-            plateBeingDelivered = null;
-        }
-        deliveryTimer.Stop();
+        OnPlateDelivered.Invoke(_plateBeingDelivered);
+    }
+
+    public void ResetDelivery()
+    {
+        _plateBeingDelivered = null;
     }
 }

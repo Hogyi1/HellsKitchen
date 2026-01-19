@@ -6,9 +6,8 @@ using UnityEngine;
 public class KitchenObjectSO : ScriptableObject
 {
     public string Name;
-    public Sprite Icon;
     public GameObject Prefab;
-    public float VisualOffset;
+    [UnityEngine.Range(-1.0f, 2.0f)] public float VisualOffset;
 
     [Header("Splittable")]
     public bool Splittable = false;
@@ -16,4 +15,9 @@ public class KitchenObjectSO : ScriptableObject
     public GameObject TopPrefab;
     public float SplitVisualOffset;
     public float TopVisualOffset;
+
+    [Header("Sounds")]
+    public AudioSO PlaceSound;
+    public AudioSO PickUpSound;
+    public AudioSO DisposeSound;
 }

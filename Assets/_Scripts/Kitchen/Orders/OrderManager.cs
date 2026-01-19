@@ -20,19 +20,6 @@ public class OrderManager : Singleton<OrderManager>
     //Debug
     LoopTimer debugTimer;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        orderQueue = new Queue<Recipe>();
-
-        recipeGenerator = GetComponent<RecipeGenerator>();
-        recipeGenerator.SetRecipeTemplate(activeRecipeTemplate);
-
-        debugTimer = new(20f, -1);
-        debugTimer.OnLoop += (loop) => GenerateOrder();
-    }
-
     private void Start()
     {
         GenerateOrder();
@@ -74,5 +61,16 @@ public class OrderManager : Singleton<OrderManager>
 
         Debug.Log("Dish has been scored: " + score);
         // IDK money vagy something
+    }
+
+    public override void BaseAwake()
+    {
+        orderQueue = new Queue<Recipe>();
+
+        recipeGenerator = GetComponent<RecipeGenerator>();
+        recipeGenerator.SetRecipeTemplate(activeRecipeTemplate);
+
+        debugTimer = new(20f, -1);
+        debugTimer.OnLoop += (loop) => GenerateOrder();
     }
 }

@@ -1,7 +1,9 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public interface ISpawner<T>
 {
-    event UnityAction<T> OnObjectSpawned;
-    T SpawnObject(IObjectParent context);
+    T SpawnObject(IObjectParent context, Transform transform);
+    T GetSpawnerObject();
+    Transform GetSpawnPosition();
 }

@@ -3,9 +3,9 @@
 [CreateAssetMenu(fileName = "NewSimpleSwapStrategy", menuName = "Game/Strategy/CounterStrategy/SwapStrategy")]
 public class SimpleSwapStrategy : BaseCounterStrategy
 {
-    public override bool CanExecuteOnCounter(PlayerController context, BaseCounter counter)
+    public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        var ownKo = counter.GetChild();
+        var ownKo = counter.GetModel().GetChild();
         var playerKo = context.TryGetKitchenObject();
 
         if (ownKo == null || playerKo == null)
@@ -23,12 +23,15 @@ public class SimpleSwapStrategy : BaseCounterStrategy
                 return true;
         }
 
-        return counter.CanRelease() && counter.CanPlace(playerKo);
+        if (counter is IObjectHolder<KitchenObjectController> holder)
+            return holder.CanRelease() && holder.CanPlace(playerKo);
+
+        return false;
     }
 
-    public override InteractionResult ExecuteOnCounter(PlayerController context, BaseCounter counter)
+    public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        var ownKo = counter.GetChild();
+        var ownKo = counter.GetModel().GetChild();
         var playerKo = context.TryGetKitchenObject();
 
         if (ownKo == null || playerKo == null)
@@ -53,7 +56,9 @@ public class SimpleSwapStrategy : BaseCounterStrategy
         }
 
         ownKo.SwapParent(playerKo);
-        counter.OnPlace(counter.GetChild());
+
+        if (counter is IObjectHolder<KitchenObjectController> holder)
+            holder.OnPlace(counter.GetModel().GetChild());
         return InteractionResult.Ok("Switched items with counter");
     }
 }

@@ -1208,6 +1208,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Hiding"",
+            ""id"": ""b2316dc4-5d9a-40d8-9571-2314b487212e"",
+            ""actions"": [
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ca45405-af46-4ca9-bd42-685a7b640c27"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8a8eec67-7cae-4293-849f-ca8097362528"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -1242,6 +1270,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Minigame_Exit = m_Minigame.FindAction("Exit", throwIfNotFound: true);
         m_Minigame_MyInteract = m_Minigame.FindAction("MyInteract", throwIfNotFound: true);
         m_Minigame_Valuebased = m_Minigame.FindAction("Valuebased", throwIfNotFound: true);
+        // Hiding
+        m_Hiding = asset.FindActionMap("Hiding", throwIfNotFound: true);
+        m_Hiding_Exit = m_Hiding.FindAction("Exit", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -1250,6 +1281,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_ThirdPerson.enabled, "This will cause a leak and performance issues, PlayerInputActions.ThirdPerson.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInputActions.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Minigame.enabled, "This will cause a leak and performance issues, PlayerInputActions.Minigame.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Hiding.enabled, "This will cause a leak and performance issues, PlayerInputActions.Hiding.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1903,6 +1935,102 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="MinigameActions" /> instance referencing this action map.
     /// </summary>
     public MinigameActions @Minigame => new MinigameActions(this);
+
+    // Hiding
+    private readonly InputActionMap m_Hiding;
+    private List<IHidingActions> m_HidingActionsCallbackInterfaces = new List<IHidingActions>();
+    private readonly InputAction m_Hiding_Exit;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Hiding".
+    /// </summary>
+    public struct HidingActions
+    {
+        private @PlayerInputActions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public HidingActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Hiding/Exit".
+        /// </summary>
+        public InputAction @Exit => m_Wrapper.m_Hiding_Exit;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Hiding; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="HidingActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(HidingActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="HidingActions" />
+        public void AddCallbacks(IHidingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_HidingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_HidingActionsCallbackInterfaces.Add(instance);
+            @Exit.started += instance.OnExit;
+            @Exit.performed += instance.OnExit;
+            @Exit.canceled += instance.OnExit;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="HidingActions" />
+        private void UnregisterCallbacks(IHidingActions instance)
+        {
+            @Exit.started -= instance.OnExit;
+            @Exit.performed -= instance.OnExit;
+            @Exit.canceled -= instance.OnExit;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="HidingActions.UnregisterCallbacks(IHidingActions)" />.
+        /// </summary>
+        /// <seealso cref="HidingActions.UnregisterCallbacks(IHidingActions)" />
+        public void RemoveCallbacks(IHidingActions instance)
+        {
+            if (m_Wrapper.m_HidingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="HidingActions.AddCallbacks(IHidingActions)" />
+        /// <seealso cref="HidingActions.RemoveCallbacks(IHidingActions)" />
+        /// <seealso cref="HidingActions.UnregisterCallbacks(IHidingActions)" />
+        public void SetCallbacks(IHidingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_HidingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_HidingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="HidingActions" /> instance referencing this action map.
+    /// </summary>
+    public HidingActions @Hiding => new HidingActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "FirstPerson" which allows adding and removing callbacks.
     /// </summary>
@@ -2088,5 +2216,20 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnValuebased(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Hiding" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="HidingActions.AddCallbacks(IHidingActions)" />
+    /// <seealso cref="HidingActions.RemoveCallbacks(IHidingActions)" />
+    public interface IHidingActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Exit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnExit(InputAction.CallbackContext context);
     }
 }

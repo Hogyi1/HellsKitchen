@@ -1,7 +1,7 @@
 public abstract class StoveBaseState : IState
 {
-    protected StoveCounter stoveCounter;
-    public StoveBaseState(StoveCounter stoveCounter) => this.stoveCounter = stoveCounter;
+    protected StoveController stoveCounter;
+    public StoveBaseState(StoveController stoveCounter) => this.stoveCounter = stoveCounter;
 
     public virtual void FixedUpdate() { }
     public virtual void Update() { }

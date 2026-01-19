@@ -6,15 +6,10 @@ public class CameraController : Singleton<CameraController>
 {
     [SerializeField] CinemachineBrain brain;
     [SerializeField] CinemachineCamera firstPersonCamera;
+
+    [SerializeField] Camera uiCamera;
+    [SerializeField] Camera mainCamera;
     readonly int activePriority = 100;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        brain = brain != null ? brain : GetComponentInChildren<CinemachineBrain>();
-        firstPersonCamera.Priority = activePriority;
-    }
 
     public void RequestFocus(CinemachineCamera camera)
     {
@@ -29,4 +24,17 @@ public class CameraController : Singleton<CameraController>
     }
 
     public bool IsBlending() => brain.IsBlending;
+
+    private void Update()
+    {
+        uiCamera.fieldOfView = mainCamera.fieldOfView;
+    }
+
+    public override void BaseAwake()
+    {
+        brain = brain != null ? brain : GetComponentInChildren<CinemachineBrain>();
+        mainCamera = mainCamera != null ? mainCamera : brain.GetComponent<Camera>();
+        uiCamera = uiCamera != null ? uiCamera : brain.GetComponentInChildren<Camera>();
+        firstPersonCamera.Priority = activePriority;
+    }
 }

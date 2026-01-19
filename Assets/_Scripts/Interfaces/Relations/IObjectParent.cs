@@ -2,7 +2,8 @@ using UnityEngine;
 
 public interface IObjectParent
 {
-    Transform GetParentPosition();
+    bool HasChild();
     void SetChild(IObjectChild child);
     IObjectChild GetChild();
+    Transform GetTransform();
 }
