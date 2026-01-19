@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.Properties;
 using UnityEngine;
@@ -76,7 +77,19 @@ public class Recipe : INotifyBindablePropertyChanged
     }
 
     public void AddTime(float extraTime) => ExpirationTime += extraTime;
-    public void AddIngredient(RecipeIngredient recipeIngredient) => _ingredientList.Add(recipeIngredient);
+    public void AddIngredient(RecipeIngredient recipeIngredient)
+    {
+        int existingIndex = _ingredientList.FindIndex(t => t.KitchenObjectSO == recipeIngredient.KitchenObjectSO);
+
+        if (existingIndex != -1)
+            _ingredientList[existingIndex] = new RecipeIngredient
+            {
+                KitchenObjectSO = recipeIngredient.KitchenObjectSO,
+                Quantity = _ingredientList[existingIndex].Quantity + recipeIngredient.Quantity
+            };
+        else
+            _ingredientList.Add(recipeIngredient);
+    }
 
     public void AddIngredient(KitchenObjectSO ingredient, int quantity)
     {

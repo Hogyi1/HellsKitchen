@@ -23,7 +23,7 @@ public class RecipeGenerator
         int ingredientCount = 0;
 
         float expirationTime = activeRecipe.AveragePrepareTime + UnityEngine.Random.Range(-minTime, maxTime);
-        Recipe newRecipe = new Recipe(expirationTime);
+        Recipe newRecipe = new(expirationTime);
 
         Dictionary<KitchenObjectSO, int> ingredientCounts = new Dictionary<KitchenObjectSO, int>();
         foreach (var ingredient in activeRecipe.IngredientsToChooseFrom)

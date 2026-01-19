@@ -20,8 +20,8 @@ public class GameManager : PersistentSingleton<GameManager>
     public void StartNewGame()
     {
         sceneHandler.LoadDayScene();
-        AudioManager.Instance.StopMusic(1f);
-        input.SwitchToNight();
+        AudioManager.Instance.StopMusic(5f);
+        input.SwitchToDay();
     }
 
     public void ApplySettings()

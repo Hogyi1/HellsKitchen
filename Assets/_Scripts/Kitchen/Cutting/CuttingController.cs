@@ -120,6 +120,6 @@ public class CuttingController : CounterController, IObjectHolder<KitchenObjectC
     /// </summary>
     public void OnAction() => Cut();
 
-    public bool CanAct(IObjectChild child) => Model.CurrentRecipe != null && child == null;
+    public bool CanAct(IObjectChild child) => Model.CurrentRecipe != null && child == null && IsReady();
 
 }

@@ -5,7 +5,11 @@ public class SimpleTakeStrategy : BaseCounterStrategy
 {
     public override bool CanExecuteOnCounter(PlayerController context, CounterController counter)
     {
-        return (context.CanPickUpItem(counter.GetChild()) && counter.HasChild());
+        bool canRelease = true;
+        if (counter is IObjectHolder<KitchenObjectController> holder)
+            canRelease = holder.CanRelease();
+
+        return (context.CanPickUpItem(counter.GetChild()) && counter.HasChild() && canRelease);
     }
 
     public override InteractionResult ExecuteOnCounter(PlayerController context, CounterController counter)
