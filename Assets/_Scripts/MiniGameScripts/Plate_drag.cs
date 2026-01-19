@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 public class PlateDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private RectTransform rt;
-    private Rigidbody2D rb;
     private Canvas canvas;
     private Vector2 originalPos;
     public GameObject loadedPlatePrefab;
@@ -14,13 +13,11 @@ public class PlateDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         rt = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
-        rb = GetComponent<Rigidbody2D>();
         originalPos = rt.anchoredPosition;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // Critical: Disable raycasts so drop zone receives events
         CanvasGroup cg = GetComponent<CanvasGroup>();
         if (cg != null) cg.blocksRaycasts = false;
         transform.SetAsLastSibling();
@@ -35,7 +32,7 @@ public class PlateDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnEndDrag(PointerEventData eventData)
     {
         CanvasGroup cg = GetComponent<CanvasGroup>();
-        if (cg != null) cg.blocksRaycasts = true; // Re-enable
+        if (cg != null) cg.blocksRaycasts = true; 
 
         if (!snapped)
         {
@@ -47,7 +44,7 @@ public class PlateDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void SnapToSlot(RectTransform slot)
     {
         transform.SetParent(slot);
-        rt.anchoredPosition = Vector2.zero; // Local position in slot
+        rt.anchoredPosition = Vector2.zero; 
         transform.SetAsLastSibling();
 
         if (loadedPlatePrefab)

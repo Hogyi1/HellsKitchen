@@ -3,8 +3,8 @@ using UnityEngine.AI;
 
 public class Robot02CrawlRetreatState : Robot02BaseState
 {
-    Transform retreatTarget;
-    NavMeshAgent agent;
+    private Transform retreatTarget;
+    private NavMeshAgent agent;
     public Robot02CrawlRetreatState(Enemy2 enemy, Animator animator, Transform retreatTarget, NavMeshAgent agent) : base(enemy, animator)
     {
         this.retreatTarget = retreatTarget;

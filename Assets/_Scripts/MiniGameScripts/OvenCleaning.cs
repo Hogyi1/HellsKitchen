@@ -1,27 +1,28 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OvenCleaning : MonoBehaviour
+public class OvenCleaning : PatternMinigame
 {
     [Range(0f, 1f)] public float cleanProgress = 0f;
     public float cleanSpeed = 0.25f;
     public Sprite cleanOvenSprite;
+    [SerializeField] private CinemachineCamera cam;
 
-    Image img;
-    bool isDirty = false;
-    bool cleanStarted = false;
-
+    private Image img;
+    private bool isDirty = false;
+    
     void Awake()
     {
         img = GetComponent<Image>();
+        parentCanvas = GetComponentInParent<Canvas>();
     }
 
     public void ResetCleaning()
     {
         cleanProgress = 0f;
         isDirty = true;
-        cleanStarted = false;
         Color c = img.color;
         c.a  = 1f;
         img.color = c;
@@ -31,15 +32,9 @@ public class OvenCleaning : MonoBehaviour
     {
         if (!other.CompareTag("Sponge") || !isDirty) return;
 
-        Debug.Log("Sponge over oven");
-        cleanProgress += cleanSpeed * Time.deltaTime;
-        cleanProgress = Mathf.Clamp01(cleanProgress);
-
-        if (cleanProgress > 0.01f && !cleanStarted)
-        {
-            cleanStarted = true;
-        }
-
+        Debug.Log("Sponge over oven " +isDirty );
+        cleanProgress = Mathf.Clamp01(cleanProgress + cleanSpeed * Time.deltaTime);
+        
         Color c = img.color;
         c.a = 1f - cleanProgress;
         img.color = c;
@@ -49,6 +44,22 @@ public class OvenCleaning : MonoBehaviour
             img.sprite = cleanOvenSprite;
             img.color = Color.white;
             isDirty = false;
+            GameCompleted();
         }
+    }
+    public override void StartGame()
+    {
+        parentCanvas.enabled = true;  
+    }
+
+    public override void EndGame()
+    {
+        parentCanvas.enabled = false;
+        ResetCleaning();
+    }
+
+    public override CinemachineCamera GetCamera()
+    {
+        return cam;
     }
 }

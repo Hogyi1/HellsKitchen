@@ -3,12 +3,14 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using Unity.Cinemachine;
+using System;
 
-public class KnifeSharpening : MonoBehaviour
+public class KnifeSharpening : PatternMinigame
 {
     public Image pointer;
     public TextMeshProUGUI counterText;
     public Image circle;
+    public CinemachineCamera cam;
 
     public Vector2 circleCenter = new Vector2(-308.69f, 105.33f);
     public float radius = 100f;
@@ -24,16 +26,21 @@ public class KnifeSharpening : MonoBehaviour
     float greenStartAngleLocal = 54f;
     float greenEndAngleLocal = 126f;
 
+    private bool activated = false;
+
+    private bool completed = false;
+
     void Start()
     {
         pointerRect = pointer.rectTransform;
         circleRect = circle.rectTransform;
-
+        parentCanvas = GetComponentInParent<Canvas>();
         counterText.text = "0/4";
     }
 
     void Update()
     {
+        if (!activated) return;
         float rad = currentAngle * Mathf.Deg2Rad;
 
         Vector2 pos = circleCenter + new Vector2(Mathf.Sin(rad), Mathf.Cos(rad)) * radius;
@@ -43,20 +50,18 @@ public class KnifeSharpening : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 180f;
         pointerRect.localEulerAngles = new Vector3(0, 0, angle);
 
-        // rotate pointer
+        
         currentAngle += rotationSpeed * Time.deltaTime;
         currentAngle %= 360f;
 
         if (Input.GetMouseButtonDown(0))
         {
-            // ------------------------------------------------
-            // REAL pointer angle from its actual screen place
-            // ------------------------------------------------
+            
             Vector2 pointerPosLocal = pointerRect.anchoredPosition - circleCenter;
             float pointerAngle = Mathf.Atan2(pointerPosLocal.y, pointerPosLocal.x) * Mathf.Rad2Deg;
             pointerAngle = (pointerAngle + 360f) % 360f;
 
-            // convert green wedge to world rotation
+            
             float greenStartWorld = (greenStartAngleLocal + circleAngle) % 360f;
             float greenEndWorld = (greenEndAngleLocal + circleAngle) % 360f;
 
@@ -68,20 +73,21 @@ public class KnifeSharpening : MonoBehaviour
                 counterText.text = $"{successCount}/4";
             }
 
-            // rotate circle
-            circleAngle = (circleAngle + Random.Range(0f, 360f)) % 360;
+            
+            circleAngle = (circleAngle + UnityEngine.Random.Range(0f, 360f)) % 360;
             circleRect.localEulerAngles = new Vector3(0, 0, circleAngle);
-        }
 
+            
+        }
+        if (successCount == 4 && !completed)
+        {
+            GameCompleted();
+            completed = true;
+        }
         if (successCount >= 2)
         {
             circleAngle = (circleAngle + circleSpeed * Time.deltaTime * ((float)(successCount / 5) + 1)) % 360;
             circleRect.localEulerAngles = new Vector3(0, 0, circleAngle);
-        }
-
-        if (successCount == 4)
-        {
-            // End the game
         }
     }
 
@@ -95,5 +101,23 @@ public class KnifeSharpening : MonoBehaviour
         }
 
         return angle >= start || angle <= end;
+    }
+
+    public override void StartGame()
+    {
+        activated = true;
+        parentCanvas.enabled = true;
+    }
+
+    public override void EndGame()
+    {
+        successCount = 0;
+        activated = false;
+        parentCanvas.enabled = false;
+    }
+
+    public override CinemachineCamera GetCamera()
+    {
+        return cam;
     }
 }
