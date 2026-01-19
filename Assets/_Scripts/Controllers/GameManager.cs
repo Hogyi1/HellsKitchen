@@ -41,7 +41,7 @@ public class GameManager : PersistentSingleton<GameManager>
         dayPhaseManager.OnDayEnd += HandleDayEnd;
     }
 
-    private void HandleDayEnd()
+    private void HandleDayEnd(KitchenDataModel dayData)
     {
 
     }
@@ -50,11 +50,17 @@ public class GameManager : PersistentSingleton<GameManager>
 public class DayPhaseManager : MonoBehaviour
 {
     public event Action OnDayStart = delegate { };
-    public event Action OnDayEnd = delegate { };
+    public event Action<KitchenDataModel> OnDayEnd = delegate { };
 
     public AudioSO DayTimeMusic;
 
     private KitchenDataModel GameData;
+
+    private void Start()
+    {
+        GameManager.Instance.RegisterDayPhaseManager(this);
+        GameData = new KitchenDataModel();
+    }
 
     public void StartDay()
     {
@@ -62,6 +68,6 @@ public class DayPhaseManager : MonoBehaviour
     }
     public void EndDay()
     {
-        OnDayEnd?.Invoke();
+        OnDayEnd?.Invoke(GameData);
     }
 }
