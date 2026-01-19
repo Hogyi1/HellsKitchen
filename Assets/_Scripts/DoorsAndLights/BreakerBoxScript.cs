@@ -1,63 +1,72 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
-public class PowerBoxScript : MonoBehaviour
+public class PowerBoxScript : MonoBehaviour, IInteractable
 {
     [Header("Settings")]
-    public KeyCode interactKey = KeyCode.E;
-    public KeyCode confirmKey = KeyCode.F;
-    public Animator animator;
-
-    public bool powerPreviouslyOut = false; 
+    [SerializeField] private Animator DoorAnimator;
+    [SerializeField] private Animator LeverAnimator;
+    [SerializeField] private AudioSO openConfig;
+    [SerializeField] private AudioSO closeConfig;
+    [SerializeField] private AudioSource openCloseSource;
 
     public event Action OnPowerRestoreEvent = delegate { };
 
-    private bool isInteracting = false;
     private bool stepOneDone = false;
-
-
-    void Update()
+    public bool isActive { get; set; }
+    private CountDownTimer timer = new CountDownTimer(4.5f);
+    private void StartInteraction()
     {
-        if (!isInteracting && Input.GetKeyDown(interactKey) && (!powerPreviouslyOut))
+        Debug.Log("Start");
+        AudioManager.Instance.PlaySFX(openConfig, openCloseSource);
+        DoorAnimator.SetTrigger("Open");
+            
+        stepOneDone = true;
+        timer.Start();
+    }
+
+
+    private IEnumerator CompleteInteraction()
+    {
+        timer.Start();
+        Debug.Log("Continnue");
+        AudioManager.Instance.PlaySFX(closeConfig, openCloseSource);
+        LeverAnimator.SetTrigger("PullDown");
+        
+        yield return new WaitForSeconds(0.6f);
+        DoorAnimator.SetTrigger("Close");
+
+        OnPowerRestoreEvent?.Invoke();
+        stepOneDone = false;
+    }
+    private IEnumerator ResetAnim(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        LeverAnimator.SetTrigger("Reset");
+        DoorAnimator.SetTrigger("Reset");
+        
+    }
+    public InteractionResult TryInteract(PlayerController context)
+    {
+        if (!stepOneDone && !timer.IsRunning)
         {
             StartInteraction();
+            return InteractionResult.Ok("Started interacting");
         }
-
-
-        if (isInteracting && stepOneDone && Input.GetKeyDown(confirmKey))
+        else if(!timer.IsRunning)
         {
-            CompleteInteraction();
+            StartCoroutine(CompleteInteraction());
+            StartCoroutine(ResetAnim(4f));
+           
+            return InteractionResult.Ok("Completed interaction");
         }
+        return InteractionResult.Fail("Too frequent clicks");
     }
 
-
-    void StartInteraction()
+    public bool CanInteract(PlayerController context)
     {
-        isInteracting = true;
-        if (animator != null)
-        {
-            animator.SetTrigger("Step1");
-        }
-    }
-
-
-    void CompleteInteraction()
-    {
-        if (animator != null)
-        {
-            animator.SetTrigger("Step2");
-        }
-       
-        OnPowerRestoreEvent?.Invoke();
-        isInteracting = false;
-        stepOneDone = false;
-        powerPreviouslyOut = true; 
-    }
-
-
-    // Ez hívható animációs eventbõl a Step1 animáció végén
-    public void OnStep1AnimationEnd()
-    {
-        stepOneDone = true;
+        return isActive;
     }
 }

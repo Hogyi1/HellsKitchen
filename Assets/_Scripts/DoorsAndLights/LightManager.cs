@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class LightManager : MonoBehaviour
 {
-    [SerializeField] Transform lightParent;
+    [SerializeField] private Transform lightParent;
+    [SerializeField] private AudioSO powerOutConfig;
+    [SerializeField] private AudioSO powerBackConfig;
+    [SerializeField] private AudioSource audioSource;
+
     private List<Light> allTheLights;
     private CountDownTimer cd;
-
-
     void Awake()
     {
         int n = lightParent.childCount;
@@ -17,40 +19,48 @@ public class LightManager : MonoBehaviour
     }
     private void Start()
     {
-        cd = new CountDownTimer(2f);
+        cd = new CountDownTimer(2.5f);
     }
     public void FadeOut()
     {
-        StartCoroutine(FadeRoutine(0));
+        StartCoroutine(FadeRoutine(0f));
     }
 
     public void FadeIn()
     {
-        StartCoroutine(FadeRoutine(1));
+        StartCoroutine(FadeRoutine(1f));
     }
     private IEnumerator FadeRoutine(float target)
     {
         cd.Start();
 
-        // playsound
-        
-        while(!cd.IsFinished)
+        float[] startIntensities = new float[allTheLights.Count];
+        for (int i = 0; i < allTheLights.Count; i++)
         {
-            float t = cd.Progress;
+            startIntensities[i] = allTheLights[i].intensity;
+        }
 
-            foreach (var l in allTheLights)
+        if (target == 0)
+            AudioManager.Instance.PlaySFX(powerOutConfig, audioSource);
+        else
+            AudioManager.Instance.PlaySFX(powerBackConfig, audioSource);
+
+        while (!cd.IsFinished)
+        {
+            float t = 1 - cd.Progress;
+
+            for (int i = 0; i < allTheLights.Count; i++)
             {
-                l.intensity = Mathf.Lerp(l.intensity, target, t);
+                allTheLights[i].intensity =
+                    Mathf.Lerp(startIntensities[i], target, t);
             }
-            yield return null;
 
+            yield return null;
         }
 
         foreach (var l in allTheLights)
-        {
             l.intensity = target;
-        }
     }
 
-   
+
 }

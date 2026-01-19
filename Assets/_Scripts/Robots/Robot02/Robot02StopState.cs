@@ -8,4 +8,15 @@ public class Robot02StopState : Robot02BaseState
     {
         this.agent = agent;
     }
+
+    public override void OnEnter()
+    {
+        Debug.Log("Not moving");
+        agent.enabled = false;
+        animator.CrossFade(StopAnimation, crossFadeDuration);
+    }
+    public override void OnExit()
+    {
+        agent.enabled = true;
+    }
 }

@@ -40,6 +40,7 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
             inputActions.NightTime.SetCallbacks(this);
             inputActions.UI.SetCallbacks(this);
             inputActions.Minigame.SetCallbacks(this); // FONTOS így fogja ez a szkript megkapni az eventeket
+            inputActions.Hiding.SetCallbacks(this);
         }
 
         SwitchToUI();
@@ -68,6 +69,11 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
                 break;
             case ActionMap.Minigame:
                 inputActions.Minigame.Enable();
+                Cursor.lockState = CursorLockMode.None;
+                break;
+            case ActionMap.Hiding:
+                inputActions.Hiding.Enable();
+                Cursor.lockState = CursorLockMode.Locked;
                 break;
             default:
                 inputActions.Disable();
@@ -207,7 +213,8 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
         DayTime,
         UI,
         None,
-        Minigame
+        Minigame,
+        Hiding
     }
 }
 

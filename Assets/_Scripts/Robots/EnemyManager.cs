@@ -4,33 +4,66 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    //Az enemy-k legyenek a scene-ben csak pálya alatt vagy le akarjuk õket spwanolni egy prefab-bõl?
-    //egyenlõre az elõbbit csinálom meg, de változtatni bármikor tudok
     [SerializeField] private Enemy robotOne;
     [SerializeField] private Enemy2 robotTwo;
-
+    
     [SerializeField] private Transform spawnPoint;
 
     [SerializeField] private EnemyData enemyData;
+    [SerializeField] private AudioSource spawnSource;
+    [SerializeField] private AudioSO spawnConfig;
+    [SerializeField] private Wardrobe wardrobe;
+
     private System.Random random;
     private double randValue = 0;
-    private CountDownTimer countDownTimer;
     private bool EnemyOneIsOnField = false;
     private bool EnemyTwoIsOnField = false;
     private bool EnemyOnField = false;
-
+    private bool HasStartedRetreating = false;
     private CountDownTimer countDownEnemyOne;
-
-    public bool IsEnabled {get;set;}
+    private LoopTimer enemyCheck;
 
     private void Start()
     {
-        IsEnabled = false;
-        countDownTimer = new CountDownTimer(5);
-        countDownTimer.Start();
-        countDownEnemyOne = new CountDownTimer(20);
+        random = new System.Random();
+        enemyCheck = new LoopTimer(5,9999);
+        enemyCheck.OnLoop += UpdatingEnemyStatus;
+        enemyCheck.Start();
+        countDownEnemyOne = new CountDownTimer(25);
         robotOne.Despawned += OnRobotOneDespawned;
         robotTwo.Despawned += OnRobotTwoDespawned;
+        robotTwo.HidingSpotArrival += RobotTwoHidingSpotArrival;
+        wardrobe.OnHide += WardrobeOnHide;
+    }
+
+    private void RobotTwoHidingSpotArrival()
+    {
+        StartCoroutine(OpenAndKill());
+    }
+
+    private IEnumerator OpenAndKill()
+    {
+        wardrobe.Eject();
+        yield return new WaitForSeconds(1.5f);
+
+        robotTwo.isAtKillingPos = true;
+    }
+
+
+    private void WardrobeOnHide(bool hidingParam)
+    {
+        robotOne.isPlayerHiding = hidingParam;
+        robotTwo.isPlayerHiding = hidingParam;
+    }
+
+    private void UpdatingEnemyStatus(int obj)
+    {
+        if (EnemyOneIsOnField && !HasStartedRetreating)
+        {
+            countDownEnemyOne.Start();
+        }
+
+        RobotRetreatCalc();
     }
 
     private void OnRobotTwoDespawned()
@@ -42,123 +75,87 @@ public class EnemyManager : MonoBehaviour
     {
         EnemyOneIsOnField = false;
     }
-
-    private void Update()
-    {
-        while(IsEnabled && countDownTimer.IsFinished)
-        {
-            countDownTimer.Start();
-            randValue = random.NextDouble();
-            if (randValue <= 0.01)
-            {
-                StartCoroutine(Spawn());
-            }
-
-
-            EnemyCountDownStart();
-
-            RobotRetreatCalc();
-           
-        }
-    }
-
-    private void EnemyCountDownStart()
-    {
-        if (EnemyOneIsOnField)
-        {
-            countDownEnemyOne.Start();
-        }
-    }
-
     private void RobotRetreatCalc()
     {
         randValue = random.NextDouble();
         if (countDownEnemyOne.IsFinished && randValue < 0.4)
         {
+            HasStartedRetreating = true;
             robotOne.isRetreating = true;
         }
     }
 
-    private IEnumerator Spawn()
+    public IEnumerator Spawn()
     {
         //var index = GameManager.Instance.CurrentDays;
 
-        var type = enemyData.Days[1]; // index kell
-
+        var type = enemyData.Days[4]; // index kell
 
         switch (type)
         {
             case EnemyType.TypeA:
-
+                Debug.Log("A");
                 if (!EnemyOneIsOnField)
                 {
-                    //playsound
-                    robotOne.MoveUp(spawnPoint);
+                    SpawnEnemyOne();
                 }
 
                 break;
             case EnemyType.TypeB:
-
+                Debug.Log("B");
                 if (!EnemyTwoIsOnField)
                 {
-                    //playsound
-                    robotTwo.MoveUp(spawnPoint);
+                    SpawnEnemyTwo();
                 }
                 break;
             case EnemyType.Both:
                 randValue = random.NextDouble();
+                Debug.Log("C");
                 if (randValue < 0.002 && !EnemyOnField)
                 {
+                   
                     
-                    if (!EnemyOneIsOnField)
-                    {
-                        //playsound
-                        robotOne.MoveUp(spawnPoint);
-                        EnemyOnField = true;
-                    }
-                    yield return new WaitForSeconds(15);
-                    if (!EnemyTwoIsOnField)
-                    {
-                        //playsound
-                        robotTwo.MoveUp(spawnPoint);
-                        EnemyOnField = true;
-                    }
+                    SpawnEnemyOne();
+                    
+                    yield return new WaitForSeconds(7);
+                    
+                    SpawnEnemyTwo();
+                    
                 }
-                else if (randValue > 0.002 && randValue < 0.5)
+                else if (randValue > 0.002 && randValue <= 0.5)
                 {
                     if (!EnemyOneIsOnField)
                     {
-                        //playsound
-                        robotOne.MoveUp(spawnPoint);
-                        EnemyOnField = true;
+                        SpawnEnemyOne();
                     }
                 }
                 else if (randValue > 0.5)
                 {
                     if (!EnemyTwoIsOnField)
                     {
-                        //playsound
-                        robotTwo.MoveUp(spawnPoint);
-                        EnemyOnField = true;
-                    }
-                }
-                else
-                {
-                    if(EnemyOneIsOnField)
-                    {
-                        //playsound
-                        robotTwo.MoveUp(spawnPoint);
-                    }
-                    else
-                    {
-                        //playsound
-                        robotOne.MoveUp(spawnPoint);
+                        SpawnEnemyTwo();
                     }
                 }
                 break;
         }
             
 
+    }
+
+    private void SpawnEnemyOne()
+    {
+        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
+        EnemyOneIsOnField = true;
+        EnemyOnField = true;
+        robotOne.MoveUp(spawnPoint);
+    }
+
+    private void SpawnEnemyTwo()
+    {
+        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
+        EnemyTwoIsOnField = true;
+        EnemyOnField = true;
+        robotTwo.MoveUp(spawnPoint);
     }
 }
 

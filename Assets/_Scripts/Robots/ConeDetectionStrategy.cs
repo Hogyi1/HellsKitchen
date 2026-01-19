@@ -15,10 +15,9 @@ public class ConeDetectionStrategy : IdetectionStrategy
         this.innerdetectionRadius = innerdetectionRadius;
         this.layerMask = layerMask;
     }
-
-    public bool Execute(Transform player, Transform detector, CountDownTimer timer)
+     
+    public bool Execute(Transform player, Transform detector)
     {
-        if (timer.IsRunning) return false;
         var directionToPlayer = player.position - detector.position;
 
         var angleToPlayer = Vector3.Angle(directionToPlayer, detector.forward);
@@ -35,9 +34,6 @@ public class ConeDetectionStrategy : IdetectionStrategy
             }
         }
        
-        
-
-        timer.Start();
         return true;
     }
 }

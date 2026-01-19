@@ -5,23 +5,20 @@ using UnityEngine;
 
 public class PowerOutageEvent : MonoBehaviour
 {
-    public float checkInterval = 10f;
-    public float outageChancePercent = 1f;
-    public Transform doorparent;
+    [SerializeField] private Transform doorparent;
+    [SerializeField] private LightManager lightManager;
 
     private List<DoorManager> doorManagers;
-    private LightManager lightManager;
-
-    public event Action<bool> PowerOutage = delegate { };
+    public event Action PowerOutage = delegate { };
+    public event Action PowerBack = delegate { };
 
     void Awake()
     {
         int n = doorparent.childCount;
         doorManagers = new List<DoorManager>();
         for (int i = 0; i < n; i++) doorManagers.Add(doorparent.GetChild(i).GetComponent<DoorManager>());
-        lightManager = FindAnyObjectByType<LightManager>();
     }
-    private void PowerChange()
+    public void PowerChange()
     {
         Debug.Log("Áramkimaradás történt!");
 
@@ -31,8 +28,20 @@ public class PowerOutageEvent : MonoBehaviour
         }
         lightManager.FadeOut();
 
+        PowerOutage?.Invoke();
+    }
 
-        PowerOutage?.Invoke(false);
+    public void PowerComesBack()
+    {
+        Debug.Log("Visszajött az áram!");
+
+        foreach (DoorManager door in doorManagers)
+        {
+            door.OnPowerReturn();
+        }
+        lightManager.FadeIn();
+
+        PowerBack?.Invoke();
     }
    
 }

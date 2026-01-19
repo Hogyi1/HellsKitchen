@@ -32,12 +32,12 @@ public class RandomEventSpawner : MonoBehaviour
 
     private void OnDisable() => StopEvent();
 
-    private void HandleRandomEvents()
+    private void HandleRandomEvents(int i)
     {
         RandomEvent randomEvent = GetRandomEvent();
         if (randomEvent == RandomEvent.None)
             return;
-
+        
         // Keep track of events if we want to limit frequency or for analytics
         if (playedEvents.ContainsKey(randomEvent))
             playedEvents[randomEvent]++;
@@ -52,8 +52,8 @@ public class RandomEventSpawner : MonoBehaviour
         if (randomEvents == null || randomEvents.Length == 0)
             return RandomEvent.None;
 
-
         float roll = UnityEngine.Random.Range(0f, totalWeight);
+        
         float cumulativeWeight = 0f;
 
         foreach (var weightedEvent in randomEvents)
