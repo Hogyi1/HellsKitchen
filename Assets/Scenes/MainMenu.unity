@@ -312,6 +312,7 @@ MonoBehaviour:
   playerSettings: {fileID: 11400000, guid: 5cd31e91960521a40a6edc6c1abd2c70, type: 2}
   input: {fileID: 11400000, guid: 6827cf3379792274a825aa60c5e62565, type: 2}
   sceneHandler: {fileID: 492143454}
+  dayMusic: {fileID: 11400000, guid: e47d72931a3d1c246900803a52e361d6, type: 2}
 --- !u!1 &524477080
 GameObject:
   m_ObjectHideFlags: 0

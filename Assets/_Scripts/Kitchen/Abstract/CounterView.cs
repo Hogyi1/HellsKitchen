@@ -17,10 +17,21 @@ public abstract class CounterView : MonoBehaviour
     /// The Transform representing the top point of the counter where kitchen objects are usually placed.
     /// </summary>
     [SerializeField] protected Transform counterTop;
+
     /// <summary>
     /// A generic BaseVisual component used for displaying visual feedback, such as selection.
     /// </summary>
     [SerializeField] protected BaseVisual visual;
+
+    /// <summary>
+    /// A generic BaseVisual component used for displaying visual feedback, such as selection.
+    /// </summary>
+    [SerializeField] protected AudioSource staticAudioSource;
+
+    /// <summary>
+    /// A generic BaseVisual component used for displaying visual feedback, such as selection.
+    /// </summary>
+    [SerializeField] protected AudioSO staticAudio;
 
     /// <summary>
     /// Initializes references to the counterTop Transform and the BaseVisual component.
@@ -30,6 +41,7 @@ public abstract class CounterView : MonoBehaviour
     {
         counterTop = counterTop != null ? counterTop : transform.Find("CounterTop");
         visual = visual != null ? visual : GetComponentInChildren<BaseVisual>();
+        staticAudioSource = staticAudioSource != null ? staticAudioSource : gameObject.AddComponent<AudioSource>();
 
         SetupComponents();
     }
@@ -40,6 +52,7 @@ public abstract class CounterView : MonoBehaviour
     private void Start()
     {
         Initialize();
+        AudioManager.Instance.PlaySFX(staticAudio, staticAudioSource);
     }
 
     /// <summary>
@@ -76,4 +89,6 @@ public abstract class CounterView : MonoBehaviour
     protected virtual void SetupComponents() { }
 
     public T GetModel<T>() where T : CounterModel => _model as T;
+
+    private void OnDisable() => AudioManager.Instance.StopSFX(staticAudioSource);
 }

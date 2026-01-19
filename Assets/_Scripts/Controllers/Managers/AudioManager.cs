@@ -121,6 +121,8 @@ public class AudioManager : PersistentSingleton<AudioManager>
     /// <param name="fadeDuration">How long the crossfade should take.</param>
     public void PlayMusic(AudioSO musicSO, float fadeDuration)
     {
+        if (musicSO == null) return;
+
         if (activeMusicFade != null)
         {
             StopCoroutine(activeMusicFade);
@@ -135,6 +137,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
     /// <param name="fadeDuration">How long the crossfade should take.</param>
     public void PlayMusic(AudioSO musicSO)
     {
+        if (musicSO == null) return;
         PlayMusic(musicSO, musicSO.Fade ? musicSO.fadeTime : 0f);
     }
 
