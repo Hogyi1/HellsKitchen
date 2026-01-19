@@ -5,9 +5,10 @@ using UnityEngine;
 public class RecipeSO : ScriptableObject
 {
     public RecipeName RecipeName;
-    public RecipeIngredient MainIngredient;
+    public RecipeIngredient[] MainIngredient;
     public RecipeIngredient[] IngredientsToChooseFrom;
     public float AveragePrepareTime = 30f;
+    public int MaxIngredientCount;
 }
 
 [Serializable]

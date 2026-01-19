@@ -7,6 +7,7 @@ public class OrderManager : Singleton<OrderManager>
     public List<Recipe> debugRecipe;
     [SerializeField] RecipeName activeRecipeTemplate;
     [SerializeField] int maximumOrders = 5;
+    [SerializeField] float startingTime = 10f;
 
     Recipe activeRecipe;
     RecipeSO activeRecipeSO;
@@ -30,9 +31,14 @@ public class OrderManager : Singleton<OrderManager>
         extraOrderTime = so.AveragePrepareTime * 0.75f;
         _orderTimer = new(so.AveragePrepareTime * 0.5f, -1);
         _orderTimer.OnLoop += GenerateOrder;
-        _orderTimer.Start();
+    }
 
-        SelectActiveRecipe();
+    private void Start()
+    {
+        var timer = new CountDownTimer(startingTime);
+        timer.OnTimerStop += () => SelectActiveRecipe();
+        timer.Start();
+        _orderTimer.Start();
     }
 
     public void GenerateOrder(int round)

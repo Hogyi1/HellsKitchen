@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
   RecipeName: 1
   MainIngredient:
-    KitchenObjectSO: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
+  - KitchenObjectSO: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
+    Quantity: 1
+  - KitchenObjectSO: {fileID: 11400000, guid: d539eb1747736ba45a3eee4580b23e89, type: 2}
     Quantity: 1
   IngredientsToChooseFrom:
   - KitchenObjectSO: {fileID: 11400000, guid: a631967c29967f848b8dcaec0590102d, type: 2}
@@ -27,4 +29,5 @@ MonoBehaviour:
     Quantity: 2
   - KitchenObjectSO: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
     Quantity: 1
-  AveragePrepareTime: 60
+  AveragePrepareTime: 75
+  MaxIngredientCount: 6

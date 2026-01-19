@@ -22,6 +22,6 @@ MonoBehaviour:
   TopVisualOffset: 0.1
   PlaceSound: {fileID: 11400000, guid: 1138c026f3f727a43b4a7aadbdd23f5f, type: 2}
   PickUpSound: {fileID: 11400000, guid: cc81f3ff0ddc71245a084c5133b11940, type: 2}
-  DisposeSound: {fileID: 0}
+  DisposeSound: {fileID: 11400000, guid: 4e139dff8e9ccad489d9833a04c98f24, type: 2}
   Sprite: {fileID: 21300000, guid: 6058f5bc6bb590a45b6cc8cc82bc3cbb, type: 3}
   IsTwoHanded: 1

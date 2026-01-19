@@ -12,7 +12,8 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] Transform cameraTransform;
     [SerializeField] CinemachineCamera firstPersonCamera;
     [SerializeField] InputHandler input;
-    [SerializeField] PlayerCameraSettings settings;
+
+    private PlayerCameraSettings settings;
 
     Tween currentVignetteTween;
     Vignette vignette;
@@ -21,7 +22,7 @@ public class PlayerCameraController : MonoBehaviour
     private void Awake()
     {
         firstPersonCamera = cameraTransform.GetComponentInChildren<CinemachineCamera>();
-        settings = settings != null ? settings : ScriptableObject.CreateInstance<PlayerCameraSettings>();
+        settings = GameManager.PlayerSettings.cameraSettings;
 
         var volumeSettings = firstPersonCamera.GetComponentInChildren<CinemachineVolumeSettings>();
         if (volumeSettings != null) volumeSettings.Profile.TryGet(out vignette);

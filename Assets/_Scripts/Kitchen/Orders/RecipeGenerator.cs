@@ -29,17 +29,30 @@ public class RecipeGenerator
         foreach (var ingredient in activeRecipe.IngredientsToChooseFrom)
             ingredientCounts[ingredient.KitchenObjectSO] = ingredient.Quantity;
 
-        newRecipe.AddIngredient(activeRecipe.MainIngredient);
-
-        if (ingredientCounts.ContainsKey(activeRecipe.MainIngredient.KitchenObjectSO))
-            ingredientCounts.Remove(activeRecipe.MainIngredient.KitchenObjectSO);
+        foreach (var ing in activeRecipe.MainIngredient)
+        {
+            newRecipe.AddIngredient(ing);
+            if (ingredientCounts.ContainsKey(ing.KitchenObjectSO))
+            {
+                ingredientCounts[ing.KitchenObjectSO] -= ing.Quantity;
+                if (ingredientCounts[ing.KitchenObjectSO] <= 0)
+                    ingredientCounts.Remove(ing.KitchenObjectSO);
+            }
+        }
 
         foreach (var ingredients in ingredientCounts)
         {
+            int remaining = activeRecipe.MaxIngredientCount - ingredientCount;
+            if (remaining <= 0) break;
+
             float chance = Random.Range(0f, 1f);
             if (chance <= 0.65f)
             {
-                int count = Random.Range(1, ingredients.Value + 1);
+                int maxAdd = Mathf.Min(ingredients.Value, remaining);
+                if (maxAdd <= 0) continue;
+
+                int count = Random.Range(1, maxAdd + 1);
+
                 newRecipe.AddIngredient(ingredients.Key, count);
                 ingredientCount += count;
             }

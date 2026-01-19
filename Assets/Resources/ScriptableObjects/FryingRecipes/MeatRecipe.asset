@@ -15,5 +15,5 @@ MonoBehaviour:
   from: {fileID: 11400000, guid: 93db595b6bc0dcd41a86e42f47cfd161, type: 2}
   To: {fileID: 11400000, guid: d539eb1747736ba45a3eee4580b23e89, type: 2}
   Burnt: {fileID: 11400000, guid: 7aaa1d451ccaa09438498e48c64e9e96, type: 2}
-  fryingTime: 5
+  fryingTime: 10
   burningTime: 3

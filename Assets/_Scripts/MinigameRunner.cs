@@ -74,7 +74,7 @@ public class MinigameRunner : MonoBehaviour
             camController.ReleaseFocus(activeMinigame.GetCamera());
             yield return new WaitUntil(() => !camController.IsBlending());
         }
-        input.SwitchToFirstPerson();
+        input.SwitchToNight();
         activeMinigame = null;
     }
 }

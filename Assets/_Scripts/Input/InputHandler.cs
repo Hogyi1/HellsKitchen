@@ -29,8 +29,8 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
 
     #region Actionmaps
     public void SwitchToUI() => SwitchToMap(ActionMap.UI);
-    public void SwitchToFirstPerson() => SwitchToMap(ActionMap.NightTime);
-    public void SwitchToThirdPerson() => SwitchToMap(ActionMap.NightTime);
+    public void SwitchToNight() => SwitchToMap(ActionMap.NightTime);
+    public void SwitchToDay() => SwitchToMap(ActionMap.DayTime);
     public void EnableActions()
     {
         if (inputActions == null)
@@ -42,7 +42,7 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
             inputActions.Minigame.SetCallbacks(this); // FONTOS így fogja ez a szkript megkapni az eventeket
         }
 
-        SwitchToFirstPerson();
+        SwitchToUI();
     }
 
     private void OnEnable() => EnableActions();

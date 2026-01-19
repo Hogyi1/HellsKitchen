@@ -1,0 +1,51 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/SettingsMenu.uss?fileID=7433441132597879392&amp;guid=13d8d8f2c26a73b4f9bb42ec59f4aa30&amp;type=3#SettingsMenu" />
+    <Style src="project://database/Assets/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=019bff60e29d5a1428b92d9bd92b5b28&amp;type=3#MainMenu" />
+    <ui:VisualElement name="SettingsContainer" class="settings-container" style="align-items: center; align-self: flex-start; width: 100%; height: 100%;">
+        <ui:Label text="Settings" class="title" />
+        <ui:ScrollView name="SettingsScrollView" class="settings-scroll-view">
+            <ui:VisualElement name="OptionsContainer" class="options-container" style="width: auto; min-width: 500px;">
+                <ui:Label text="Audio" class="category-title" />
+                <ui:VisualElement name="MasterVolume" class="option-row" style="justify-content: flex-start; align-items: auto;">
+                    <ui:Label text="Master Volume" class="option-label" />
+                    <ui:Slider name="master-volume-slider" low-value="0" high-value="100" value="80" class="option-slider" />
+                    <ui:Label name="master-volume-value" text="100" class="value-label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="MusicVolume" class="option-row" style="align-items: auto;">
+                    <ui:Label text="Music Volume" class="option-label" />
+                    <ui:Slider name="music-volume-slider" low-value="0" high-value="100" value="70" class="option-slider" />
+                    <ui:Label name="music-volume-value" text="100" class="value-label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="SfxVolume" class="option-row" style="align-items: auto;">
+                    <ui:Label text="Sound FX Volume" class="option-label" />
+                    <ui:Slider name="sfx-volume-slider" low-value="0" high-value="100" value="90" class="option-slider" />
+                    <ui:Label name="sfx-volume-value" text="100" class="value-label" />
+                </ui:VisualElement>
+                <ui:Label text="Graphics" class="category-title" />
+                <ui:VisualElement name="Performance" class="option-row" style="align-items: auto;">
+                    <ui:Label text="Quality" class="option-label" />
+                    <ui:DropdownField name="quality-dropdown" class="option-dropdown" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Resolution" class="option-row" style="align-items: auto;">
+                    <ui:Label text="Resolution" class="option-label" />
+                    <ui:DropdownField name="resolution-dropdown" class="option-dropdown" style="align-items: auto;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Fullscreen" class="option-row">
+                    <ui:Label text="Fullscreen" class="option-label" />
+                    <ui:Toggle name="fullscreen-toggle" value="true" class="option-toggle" />
+                </ui:VisualElement>
+                <ui:Label text="Controls" class="category-title" />
+                <ui:VisualElement name="Sensitivity" class="option-row" style="align-items: auto;">
+                    <ui:Label text="Mouse Sensitivity" class="option-label" />
+                    <ui:Slider name="sensitivity-slider" low-value="0.1" high-value="1" value="0.5" class="option-slider" />
+                    <ui:Label name="sensitivity-value" text="1.0" class="value-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:ScrollView>
+        <ui:VisualElement class="spacer" />
+        <ui:VisualElement name="Footer" class="settings-footer">
+            <ui:Button text="Back" name="back-button" class="main-menu-button" style="font-size: 25px; -unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;);" />
+            <ui:Button text="Save" name="save-button" class="main-menu-button" style="font-size: 25px; -unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

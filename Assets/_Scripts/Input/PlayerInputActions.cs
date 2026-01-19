@@ -102,6 +102,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3cc9b8c-21ba-4cf1-ac89-5f1d104b67cb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""2ad1ec05-baeb-41f1-92fa-b8705438ff79"",
@@ -250,6 +259,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75b2a2d6-41f8-4ac3-88b4-a5f3c62c575c"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed46dac4-c036-4b58-beef-5be378ee84c2"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b319fd66-1a49-4011-b2ca-a1248ff40a32"",
+                    ""path"": ""<XRController>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1277,6 +1319,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // DayTime
         m_DayTime = asset.FindActionMap("DayTime", throwIfNotFound: true);
         m_DayTime_Move = m_DayTime.FindAction("Move", throwIfNotFound: true);
+        m_DayTime_Sprint = m_DayTime.FindAction("Sprint", throwIfNotFound: true);
         m_DayTime_Look = m_DayTime.FindAction("Look", throwIfNotFound: true);
         m_DayTime_Interact = m_DayTime.FindAction("Interact", throwIfNotFound: true);
         // NightTime
@@ -1390,6 +1433,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_DayTime;
     private List<IDayTimeActions> m_DayTimeActionsCallbackInterfaces = new List<IDayTimeActions>();
     private readonly InputAction m_DayTime_Move;
+    private readonly InputAction m_DayTime_Sprint;
     private readonly InputAction m_DayTime_Look;
     private readonly InputAction m_DayTime_Interact;
     /// <summary>
@@ -1407,6 +1451,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DayTime/Move".
         /// </summary>
         public InputAction @Move => m_Wrapper.m_DayTime_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "DayTime/Sprint".
+        /// </summary>
+        public InputAction @Sprint => m_Wrapper.m_DayTime_Sprint;
         /// <summary>
         /// Provides access to the underlying input action "DayTime/Look".
         /// </summary>
@@ -1444,6 +1492,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
@@ -1464,6 +1515,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
@@ -2003,6 +2057,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSprint(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

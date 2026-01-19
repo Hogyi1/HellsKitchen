@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioSO
   Clips:
   - {fileID: 8300000, guid: c1e3b42ff1aa679459179081298ad61e, type: 3}
-  Output: {fileID: 0}
+  Output: {fileID: 8474396079281171191, guid: 4798e78c9613aad44bfdb78455886aca, type: 2}
   Volume: 1
   PitchMin: 0.75
   PitchMax: 0.9

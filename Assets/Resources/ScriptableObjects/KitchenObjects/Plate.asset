@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: Plate
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
   Name: Plate
-  Icon: {fileID: 0}
   Prefab: {fileID: 4435034900750821911, guid: 791d08dd3d0d42144bab18f5ac12e73f, type: 3}
   VisualOffset: 0.1
+  Splittable: 0
+  BottomPrefab: {fileID: 0}
+  TopPrefab: {fileID: 0}
+  SplitVisualOffset: 0
+  TopVisualOffset: 0
+  PlaceSound: {fileID: 11400000, guid: 1138c026f3f727a43b4a7aadbdd23f5f, type: 2}
+  PickUpSound: {fileID: 11400000, guid: cc81f3ff0ddc71245a084c5133b11940, type: 2}
+  DisposeSound: {fileID: 11400000, guid: 4e139dff8e9ccad489d9833a04c98f24, type: 2}
+  Sprite: {fileID: 0}
+  IsTwoHanded: 1
