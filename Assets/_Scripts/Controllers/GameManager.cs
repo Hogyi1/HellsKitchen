@@ -1,7 +1,5 @@
 using System;
-using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(-5)]
 public class GameManager : PersistentSingleton<GameManager>
