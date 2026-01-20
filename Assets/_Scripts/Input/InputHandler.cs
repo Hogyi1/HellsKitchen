@@ -44,8 +44,6 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
             inputActions.Minigame.SetCallbacks(this); // FONTOS így fogja ez a szkript megkapni az eventeket
             inputActions.Hiding.SetCallbacks(this);
         }
-
-        SwitchToUI();
     }
 
     private void OnEnable() => EnableActions();

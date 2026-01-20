@@ -30,7 +30,7 @@ public class Enemy2:MonoBehaviour, IShotable, ICrawlable,IStunnable
     private CountDownTimer flashedCooldown;
 
     public event Action Despawned = delegate { };
-    public event Action OnKillPlayer = delegate { };
+    public event Action<EnemyType> OnKillPlayer = delegate { };
     public event Action HidingSpotArrival = delegate { };
 
     StateMachine stateMachine;
@@ -141,7 +141,7 @@ public class Enemy2:MonoBehaviour, IShotable, ICrawlable,IStunnable
     }
     public void OnKill()
     {
-        OnKillPlayer?.Invoke();
+        OnKillPlayer?.Invoke(EnemyType.TypeB);
     }
 
     public void OnArrival()

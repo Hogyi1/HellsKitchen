@@ -24,6 +24,8 @@ public class VentManager : MonoBehaviour, IInteractable
     }
     public InteractionResult TryInteract(PlayerController context)
     {
+        var child = context.GetChild() as Wrench;
+        if (child == null) return InteractionResult.Fail("");
         if(!timer.IsRunning)
         {
             if (screwCount == 0)
@@ -39,6 +41,6 @@ public class VentManager : MonoBehaviour, IInteractable
             AudioManager.Instance.PlaySFX(screwSO, audioSource);
             return InteractionResult.Ok("Lefutott");
         }
-        return InteractionResult.Ok("Nem futott le.");
+        return InteractionResult.Fail("Nem futott le.");
     }
 }

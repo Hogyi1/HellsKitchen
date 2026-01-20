@@ -50,6 +50,7 @@ public class PowerBoxScript : MonoBehaviour, IInteractable
     }
     public InteractionResult TryInteract(PlayerController context)
     {
+        if (!CanInteract(context)) return InteractionResult.Fail(""); 
         if (!stepOneDone && !timer.IsRunning)
         {
             StartInteraction();
