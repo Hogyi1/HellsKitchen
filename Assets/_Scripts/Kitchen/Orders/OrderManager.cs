@@ -124,4 +124,18 @@ public class OrderManager : MonoBehaviour
 
         activeRecipe.IsActive = true;
     }
+
+    public void EndOrders()
+    {
+        _orderTimer.Stop();
+
+        foreach (var recipe in _orderQueue)
+        {
+            OnOrderRemoved?.Invoke(recipe);
+            recipe.IsActive = false;
+        }
+
+        _orderQueue.Clear();
+        debugRecipe.Clear();
+    }
 }

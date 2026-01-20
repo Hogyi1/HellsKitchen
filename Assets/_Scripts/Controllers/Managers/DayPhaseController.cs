@@ -8,6 +8,9 @@ public class DayPhaseController : MonoBehaviour
     public event Action<KitchenDataModel> OnDayEnd = delegate { };
 
     public DayData dayData;
+    public float CooldownTime = 10f;
+
+    [SerializeField] private AudioSO alarmSound;
     [SerializeField] private KitchenUIHandler uiManager;
     [SerializeField] private OrderManager orderManager;
 
@@ -58,6 +61,12 @@ public class DayPhaseController : MonoBehaviour
         };
         orderManager.OnOrderRemoved -= (order) => GameData.OrdersFailed++;
 
-        OnDayEnd?.Invoke(GameData);
+        orderManager.EndOrders();
+        var timer = new CountDownTimer(CooldownTime);
+        timer.OnTimerStop += () => OnDayEnd?.Invoke(GameData);
+
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlaySFXUI(alarmSound);
+        timer.Start();
     }
 }

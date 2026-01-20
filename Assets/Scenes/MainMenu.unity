@@ -352,7 +352,7 @@ MonoBehaviour:
   Default: Default
   MainMenu: MainMenu
   KitchenScene: KitchenScene
-  NightScene: Bence_DevScene
+  NightScene: NightScene
 --- !u!4 &492143455
 Transform:
   m_ObjectHideFlags: 0

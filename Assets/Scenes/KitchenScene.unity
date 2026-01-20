@@ -10239,6 +10239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayPhaseController
   dayData: {fileID: 11400000, guid: e7c86f209d347da4e87ab1266eacc94e, type: 2}
+  CooldownTime: 10
+  alarmSound: {fileID: 11400000, guid: 4184f648600feed4c9707f35f27b8997, type: 2}
   uiManager: {fileID: 498379078}
   orderManager: {fileID: 1206977337}
 --- !u!4 &498379080
