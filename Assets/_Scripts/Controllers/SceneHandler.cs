@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Handles loading scenes, including async operations and tracking scene history.
@@ -21,6 +22,9 @@ public class SceneHandler : MonoBehaviour
     public string MainMenu = "MainMenu";
     public string KitchenScene = "KitchenScene";
     public string NightScene = "NightScene";
+
+    public UIDocument loadingScreenUI;
+    public float fadeDuration = 1f;
 
     public enum SceneName
     {
@@ -44,6 +48,7 @@ public class SceneHandler : MonoBehaviour
     private Dictionary<string, SceneName> sceneNameMap = new();
     private float timeSinceSceneLoad = 0f;
     private bool isLoading = false;
+    private VisualElement _root;
 
 
     private void Awake()
@@ -63,6 +68,12 @@ public class SceneHandler : MonoBehaviour
         else
             ActiveScene = SceneName.Default;
 
+        if (loadingScreenUI != null)
+        {
+            _root = loadingScreenUI.rootVisualElement;
+            _root.style.opacity = 0;
+            _root.style.display = DisplayStyle.None; // Start hidden
+        }
     }
 
     private void Update() => timeSinceSceneLoad += Time.deltaTime;
@@ -84,12 +95,36 @@ public class SceneHandler : MonoBehaviour
         StartCoroutine(LoadSceneCoroutine(sceneName));
     }
 
+    private IEnumerator Fade(float targetOpacity)
+    {
+        if (_root == null) yield break;
+
+        float time = 0;
+        float startOpacity = _root.style.opacity.value;
+
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            _root.style.opacity = Mathf.Lerp(startOpacity, targetOpacity, time / fadeDuration);
+            yield return null;
+        }
+        _root.style.opacity = targetOpacity;
+    }
+
     /// <summary>
     /// Handles the actual asynchronous loading process, including stats and UI.
     /// </summary>
     private IEnumerator LoadSceneCoroutine(string sceneName)
     {
         isLoading = true;
+
+        if (_root != null)
+        {
+            _root.style.display = DisplayStyle.Flex;
+        }
+
+        yield return StartCoroutine(Fade(1f));
+
 
         var targetSceneEnum = sceneNameMap[sceneName];
         var transitionData = new SceneTransitionData
@@ -114,6 +149,14 @@ public class SceneHandler : MonoBehaviour
         timeSinceSceneLoad = 0f;
 
         OnSceneLoaded?.Invoke(ActiveScene);
+
+        yield return StartCoroutine(Fade(0f));
+
+        if (_root != null)
+        {
+            _root.style.display = DisplayStyle.None;
+        }
+
         isLoading = false;
     }
 }

@@ -20,7 +20,8 @@ public class GameManager : PersistentSingleton<GameManager>
     [SerializeField] SceneHandler sceneHandler;
     [SerializeField] PauseMenuManager pauseManager;
 
-    private DayPhaseController dayPhaseManager;
+    private IDayPhaseManager dayPhaseManager;
+    private INightPhaseManager nightPhaseManager;
 
     public static PlayerSettings PlayerSettings => Instance.playerSettings;
     public static PlayerMovementSettings MovementSettings => Instance.playerMovement;
@@ -71,22 +72,42 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         AudioManager.Instance.ApplyMixerVolumes(playerSettings.audio);
         QualitySettings.SetQualityLevel(playerSettings.graphics.qualityLevelIndex, true);
-        Resolution selectedRes = Screen.resolutions[playerSettings.graphics.resolutionIndex];
+        Resolution selectedRes;
+
+        if (Screen.resolutions.Length >= playerSettings.graphics.resolutionIndex)
+            selectedRes = Screen.resolutions[playerSettings.graphics.resolutionIndex];
+        else
+            selectedRes = Screen.currentResolution;
+
         Screen.SetResolution(selectedRes.width, selectedRes.height, playerSettings.graphics.isFullscreen);
         cameraSettings.lookSensitivity = playerSettings.controls.mouseSensitivity;
     }
 
-    public void RegisterDayPhaseManager(DayPhaseController manager)
+    public void RegisterDayPhaseManager(IDayPhaseManager manager)
     {
         dayPhaseManager = manager;
-        dayPhaseManager.OnDayEnd += HandleDayEnd;
+        dayPhaseManager.OnPhaseEnd += HandleDayEnd;
+    }
+
+    public void RegisterNightPhaseManager(INightPhaseManager manager)
+    {
+        nightPhaseManager = manager;
+        nightPhaseManager.OnPhaseEnd += HandleNightEnd;
     }
 
     private void HandleDayEnd(KitchenDataModel dayData)
     {
         sceneHandler.LoadNightScene();
+        dayPhaseManager.OnPhaseEnd -= HandleDayEnd;
+
         Phase = GamePhase.Night;
         SwitchInputMap(Phase);
+    }
+
+    private void HandleNightEnd(NightDataModel nightData)
+    {
+        nightPhaseManager.OnPhaseEnd -= HandleNightEnd;
+        BackToMainMenu();
     }
 
     public void BackToMainMenu()

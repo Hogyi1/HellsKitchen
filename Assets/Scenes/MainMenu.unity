@@ -184,7 +184,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 131567689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df890e6f48e8a63439cf23f1badfe68f, type: 3}
+  m_Script: {fileID: 11500000, guid: c30ea4f27392275469a8da494d6b1b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuManager
   pauseMenuUI: {fileID: 131567691}
@@ -353,6 +353,8 @@ MonoBehaviour:
   MainMenu: MainMenu
   KitchenScene: KitchenScene
   NightScene: NightScene
+  loadingScreenUI: {fileID: 590687462}
+  fadeDuration: 1
 --- !u!4 &492143455
 Transform:
   m_ObjectHideFlags: 0
@@ -367,6 +369,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 131567690}
+  - {fileID: 590687461}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &492143456
@@ -750,6 +753,61 @@ Transform:
   - {fileID: 539780727}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &590687460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 590687461}
+  - component: {fileID: 590687462}
+  m_Layer: 0
+  m_Name: Loading
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &590687461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590687460}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 492143455}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &590687462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590687460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 2b66ae1315cd7f04290cbc2a43dcd5cd, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: d57acc2c732834e4ca1334b62abaf8bd, type: 3}
+  m_SortingOrder: 100
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1 &686039327
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,7 +851,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 686039327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1210c82e6d717446989f3f10723638f, type: 3}
+  m_Script: {fileID: 11500000, guid: 08250bdfd4241014cb187df2a4d416fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
   mainMenuAsset: {fileID: 9197481963319205126, guid: 24070e4a5f8b2dc45a0ad3f244d67077, type: 3}
@@ -835,7 +893,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 686039327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca1ddcefea77f5a40a6d2c3d2c38f1f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 86323a14ecaa7aa4ab507644f0049e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsManager
 --- !u!1 &757462519

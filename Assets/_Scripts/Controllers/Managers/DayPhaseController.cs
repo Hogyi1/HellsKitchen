@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(KitchenUIHandler))]
-public class DayPhaseController : MonoBehaviour
+public class DayPhaseController : MonoBehaviour, IDayPhaseManager
 {
-    public event Action OnDayStart = delegate { };
-    public event Action<KitchenDataModel> OnDayEnd = delegate { };
+    public event Action OnPhaseStart = delegate { };
+    public event Action<KitchenDataModel> OnPhaseEnd = delegate { };
 
-    public DayData dayData;
+    public PhaseData dayData;
     public float CooldownTime = 10f;
 
     [SerializeField] private AudioSO alarmSound;
@@ -21,19 +21,19 @@ public class DayPhaseController : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.RegisterDayPhaseManager(this);
-        GameData = new KitchenDataModel(dayData.GetDayDurationInSeconds());
-        dayTimer = new(1f, dayData.GetDayDurationInSeconds());
+        GameData = new KitchenDataModel(dayData.GetPhaseDurationInSeconds());
+        dayTimer = new(1f, dayData.GetPhaseDurationInSeconds());
 
         orderManager = orderManager != null ? orderManager : FindAnyObjectByType<OrderManager>();
         uiManager = uiManager != null ? uiManager : GetComponent<KitchenUIHandler>();
 
         uiManager.BindData(GameData);
-        StartDay();
+        StartPhase();
     }
 
-    public void StartDay()
+    public void StartPhase()
     {
-        dayTimer.OnTimerStop += EndDay;
+        dayTimer.OnTimerStop += EndPhase;
         dayTimer.OnLoop += (loopCount) => GameData.Seconds--;
 
         orderManager.OnOrderCompleted += (order, score) =>
@@ -47,10 +47,10 @@ public class DayPhaseController : MonoBehaviour
         orderManager.StartOrders();
         dayTimer.Start();
 
-        OnDayStart?.Invoke();
+        OnPhaseStart?.Invoke();
     }
 
-    public void EndDay()
+    public void EndPhase()
     {
         dayTimer.OnLoop -= (loopCount) => GameData.Seconds--;
 
@@ -63,10 +63,26 @@ public class DayPhaseController : MonoBehaviour
 
         orderManager.EndOrders();
         var timer = new CountDownTimer(CooldownTime);
-        timer.OnTimerStop += () => OnDayEnd?.Invoke(GameData);
+        timer.OnTimerStop += () => OnPhaseEnd?.Invoke(GameData);
 
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlaySFXUI(alarmSound);
         timer.Start();
     }
+}
+
+public interface IPhaseManager
+{
+    public event Action OnPhaseStart;
+
+    public void StartPhase();
+    public void EndPhase();
+}
+public interface IDayPhaseManager : IPhaseManager
+{
+    public event Action<KitchenDataModel> OnPhaseEnd;
+}
+public interface INightPhaseManager : IPhaseManager
+{
+    public event Action<NightDataModel> OnPhaseEnd;
 }

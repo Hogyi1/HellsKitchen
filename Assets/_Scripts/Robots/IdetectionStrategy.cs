@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public interface IdetectionStrategy
+public interface IDetectionStrategy
 {
     bool Execute(Transform player, Transform detector);
 }

@@ -24583,6 +24583,9 @@ MonoBehaviour:
   activeRecipeTemplate: 1
   maximumOrders: 5
   startingTime: 5
+  moneyAudio: {fileID: 11400000, guid: 54046c0a901f0cd4cb15ef2596616afb, type: 2}
+  newOrder: {fileID: 11400000, guid: 503f61d6e519c54448b36976539827c5, type: 2}
+  RecipesGenerated: 0
 --- !u!4 &1206977339
 Transform:
   m_ObjectHideFlags: 0
@@ -28016,6 +28019,22 @@ PrefabInstance:
     - target: {fileID: 338430188729988768, guid: 1716eb52567952241b23cf500d2d98f2, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198160034112709697, guid: 1716eb52567952241b23cf500d2d98f2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198160034112709697, guid: 1716eb52567952241b23cf500d2d98f2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198160034112709697, guid: 1716eb52567952241b23cf500d2d98f2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198160034112709697, guid: 1716eb52567952241b23cf500d2d98f2, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5144879735374281132, guid: 1716eb52567952241b23cf500d2d98f2, type: 3}
       propertyPath: m_Size.x
@@ -44039,6 +44058,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2081219634885440681, guid: 6b61f47af9f17604e976dce3ca162e92, type: 3}
+      propertyPath: orderManager
+      value: 
+      objectReference: {fileID: 1206977337}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

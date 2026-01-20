@@ -49,7 +49,7 @@ public abstract class BaseTool : IUsableItem
 }
 
 // hmmmm idk
-public class FlashLight : BaseTool, IInventoryItem
+public class FlashLight : BaseTool
 {
     private bool isOn = false;
     public override void Hold()

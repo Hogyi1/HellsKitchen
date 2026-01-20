@@ -13,7 +13,7 @@ public class PlayerDetector : MonoBehaviour
     private CountDownTimer aggroTimer;
     private bool isHiding = false;
 
-    IdetectionStrategy detectionStrategy;
+    IDetectionStrategy detectionStrategy;
     private void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player").transform;

@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlateObjectVisual
   plateCenter: {fileID: 1913992746544246836}
+  ingredientAddedAudio: {fileID: 11400000, guid: 1138c026f3f727a43b4a7aadbdd23f5f, type: 2}
 --- !u!1 &8428856555345728783
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,10 +8,12 @@ public class OrderManager : MonoBehaviour
     [SerializeField] RecipeName activeRecipeTemplate;
     [SerializeField] int maximumOrders = 5;
     [SerializeField] float startingTime = 10f;
+    [SerializeField] private AudioSO moneyAudio;
+    [SerializeField] private AudioSO newOrder;
 
     Recipe activeRecipe;
     RecipeSO activeRecipeSO;
-    int recipesGenerated = 0; // Pure stats
+    public int RecipesGenerated = 0; // Pure stats
 
     private RecipeGenerator _recipeGenerator;
     private Queue<Recipe> _orderQueue;
@@ -57,7 +59,8 @@ public class OrderManager : MonoBehaviour
         _orderQueue.Enqueue(newRecipe);
         debugRecipe.Add(newRecipe);
         OnNewOrder?.Invoke(newRecipe);
-        recipesGenerated++;
+        RecipesGenerated++;
+        AudioManager.Instance.PlaySFXUI(newOrder);
     }
 
     private void Update()
@@ -97,6 +100,7 @@ public class OrderManager : MonoBehaviour
         OnOrderCompleted?.Invoke(recipe, score * activeRecipeSO.Price);
         OnOrderRemoved?.Invoke(recipe);
 
+        AudioManager.Instance.PlaySFXUI(moneyAudio);
         SelectActiveRecipe();
 
         debugRecipe.Remove(activeRecipe);
@@ -118,7 +122,7 @@ public class OrderManager : MonoBehaviour
         }
         else
         {
-            GenerateOrder(recipesGenerated);
+            GenerateOrder(RecipesGenerated);
             activeRecipe = _orderQueue.Peek();
         }
 

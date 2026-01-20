@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static TimeManager;
 
 public class RandomEventSpawner : MonoBehaviour
 {
@@ -26,8 +26,6 @@ public class RandomEventSpawner : MonoBehaviour
 
         randomEventTimer = new LoopTimer(RandomEventInterval, -1);
         randomEventTimer.OnLoop += HandleRandomEvents;
-
-        StartEvent();
     }
 
     private void OnDisable() => StopEvent();
@@ -69,4 +67,11 @@ public class RandomEventSpawner : MonoBehaviour
     }
     public void StartEvent() => randomEventTimer.Start();
     public void StopEvent() => randomEventTimer.Stop();
+}
+
+[Serializable]
+public struct WeightedEvent
+{
+    public RandomEvent Event;
+    public float Weight;
 }

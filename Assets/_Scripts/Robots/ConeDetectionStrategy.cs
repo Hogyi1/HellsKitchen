@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ConeDetectionStrategy : IdetectionStrategy
+public class ConeDetectionStrategy : IDetectionStrategy
 {
     readonly float detectionRadius;
     readonly float detectionAngle;

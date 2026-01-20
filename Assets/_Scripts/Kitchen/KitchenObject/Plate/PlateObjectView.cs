@@ -9,6 +9,7 @@ public class PlateObjectView : KitchenObjectView
     [SerializeField] private Transform plateCenter;
     private readonly List<GameObject> spawnedVisuals = new();
 
+    public AudioSO ingredientAddedAudio;
     public PlateObjectModel PlateModel => model as PlateObjectModel;
 
     public override void Initialize()
@@ -31,6 +32,8 @@ public class PlateObjectView : KitchenObjectView
             Destroy(obj);
 
         spawnedVisuals.Clear();
+        if (PlateModel.IngredientList.Count > 0)
+            AudioManager.Instance.PlaySFX(ingredientAddedAudio, transform.position);
 
         float currentHeight = 0f;
         var includedIngredients = PlateModel.GetIngredientList();
