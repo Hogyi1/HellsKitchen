@@ -37,6 +37,7 @@ public class RecipeGenerator
                 ingredientCounts[ing.KitchenObjectSO] -= ing.Quantity;
                 if (ingredientCounts[ing.KitchenObjectSO] <= 0)
                     ingredientCounts.Remove(ing.KitchenObjectSO);
+                ingredientCount += ing.Quantity;
             }
         }
 

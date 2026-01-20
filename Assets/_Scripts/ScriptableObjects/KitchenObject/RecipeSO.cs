@@ -9,6 +9,7 @@ public class RecipeSO : ScriptableObject
     public RecipeIngredient[] IngredientsToChooseFrom;
     public float AveragePrepareTime = 30f;
     public int MaxIngredientCount;
+    public float Price = 30f;
 }
 
 [Serializable]

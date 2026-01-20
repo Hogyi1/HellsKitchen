@@ -12,8 +12,6 @@ using static Unity.VisualScripting.Member;
 /// </summary>
 public class AudioManager : PersistentSingleton<AudioManager>
 {
-    private PlayerAudioSettings _audioSettings;
-
     [Header("Audio Sources")]
     [Tooltip("The AudioSource for the primary music track.")]
     [SerializeField] private AudioSource musicSource1;
@@ -34,8 +32,6 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public override void BaseAwake()
     {
-        _audioSettings = GameManager.PlayerSettings.playerAudioSettings;
-
         sfxPool = new ObjectPool<AudioSource>(
             createFunc: () =>
             {
@@ -51,11 +47,11 @@ public class AudioManager : PersistentSingleton<AudioManager>
     }
 
     #region Audio Mixer Volume Controls
-    public void ApplyMixerVolumes()
+    public void ApplyMixerVolumes(AudioSettings audio)
     {
-        _masterMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Clamp(_audioSettings.MasterVolume, 0.0001f, 1f)) * 20f);
-        _masterMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(_audioSettings.MusicVolume, 0.0001f, 1f)) * 20f);
-        _masterMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(_audioSettings.SFXVolume, 0.0001f, 1f)) * 20f);
+        _masterMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Clamp(audio.masterVolume, 0.0001f, 1f)) * 20f);
+        _masterMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(audio.musicVolume, 0.0001f, 1f)) * 20f);
+        _masterMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(audio.sfxVolume, 0.0001f, 1f)) * 20f);
     }
 
     public void SetMixerVolumes(float master, float music, float sfx)
@@ -151,7 +147,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public bool StopSFX(AudioSO audioSO, AudioSource source)
     {
-        if (!source.isPlaying)
+        if (source == null || audioSO == null || !source.isPlaying)
             return false;
 
         activeTweens.TryGetValue(source, out Tween tween);
@@ -167,6 +163,8 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public bool StopSFX(AudioSO audioSO, int audioID)
     {
+        if (audioSO == null) return false;
+
         bool hasKey = activeSources.ContainsKey(audioID);
         if (!hasKey)
             return false;
@@ -180,6 +178,8 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public bool StopSFX(AudioSource source)
     {
+        if (source == null) return false;
+
         activeTweens.TryGetValue(source, out Tween tween);
         tween?.Kill();
 

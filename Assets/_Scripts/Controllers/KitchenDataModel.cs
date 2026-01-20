@@ -10,34 +10,29 @@ public class KitchenDataModel : INotifyBindablePropertyChanged
     /// </summary>
     public event EventHandler<BindablePropertyChangedEventArgs> propertyChanged = delegate { };
 
-    private int _hours;
-    private int _minutes;
+    private int _seconds;
     private int _ordersCompleted;
     private int _ordersFailed;
-    private int _totalEarnings;
+    private float _totalEarnings;
 
-    [CreateProperty]
-    public int Hours
+    public KitchenDataModel(int Seconds)
     {
-        get => _hours;
-        set
-        {
-            if (_hours == value)
-                return;
-            _hours = value;
-            Notify();
-        }
+        this.Seconds = Seconds;
+        OrdersCompleted = 0;
+        OrdersFailed = 0;
+        TotalEarnings = 0f;
     }
 
     [CreateProperty]
-    public int Minutes
+    public int Seconds
     {
-        get => _minutes;
+        get => _seconds;
         set
         {
-            if (_minutes == value)
+            if (_seconds == value)
                 return;
-            _minutes = value;
+            _seconds = value;
+
             Notify();
         }
     }
@@ -69,7 +64,7 @@ public class KitchenDataModel : INotifyBindablePropertyChanged
     }
 
     [CreateProperty]
-    public int TotalEarnings
+    public float TotalEarnings
     {
         get => _totalEarnings;
         set
@@ -81,6 +76,13 @@ public class KitchenDataModel : INotifyBindablePropertyChanged
         }
     }
 
+    public string GetFormattedTime()
+    {
+        int minutes = Seconds / 60;
+        int seconds = Seconds % 60;
+        return $"{minutes:D2}:{seconds:D2}";
+    }
+
     /// <summary>
     /// Notifies listeners that a specific property has changed.
     /// </summary>
@@ -89,4 +91,6 @@ public class KitchenDataModel : INotifyBindablePropertyChanged
     {
         propertyChanged?.Invoke(this, new BindablePropertyChangedEventArgs(property));
     }
+
+    public void AddEarnings(float score) => TotalEarnings += score;
 }

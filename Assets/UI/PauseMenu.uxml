@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=019bff60e29d5a1428b92d9bd92b5b28&amp;type=3#MainMenu" />
+    <Style src="project://database/Assets/UI/PauseMenu.uss?fileID=7433441132597879392&amp;guid=e72673e42cb05b14a81195487f417fb4&amp;type=3#PauseMenu" />
+    <ui:VisualElement name="PauseMenuContainer" class="pause-menu-container" style="align-content: center; align-self: center; width: 100%; height: 100%;">
+        <ui:VisualElement name="PausePanel" class="pause-panel">
+            <ui:Label text="Paused" name="PausedTitle" class="pause-title" style="-unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;);" />
+            <ui:Button text="Continue" name="ContinueButton" class="main-menu-button" style="-unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;); width: 100%;" />
+            <ui:Button text="Back to Main Menu" name="MainMenuButton" class="main-menu-button" style="-unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;); width: 100%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -60,15 +60,16 @@ public class SettingsManager : MonoBehaviour
     public void SaveChanges()
     {
         // Copy pending state over to the definitive PlayerSettings SO
-        playerSettings.playerAudioSettings.MasterVolume = pendingState.masterVolume;
-        playerSettings.playerAudioSettings.MusicVolume = pendingState.musicVolume;
-        playerSettings.playerAudioSettings.SFXVolume = pendingState.sfxVolume;
-        playerSettings.cameraSettings.lookSensitivity = pendingState.lookSensitivity;
-        playerSettings.graphicsSettings.qualityLevelIndex = pendingState.qualityLevelIndex;
-        playerSettings.graphicsSettings.resolutionIndex = pendingState.resolutionIndex;
-        playerSettings.graphicsSettings.isFullscreen = pendingState.isFullscreen;
+        playerSettings.audio.masterVolume = pendingState.masterVolume;
+        playerSettings.audio.musicVolume = pendingState.musicVolume;
+        playerSettings.audio.sfxVolume = pendingState.sfxVolume;
+        playerSettings.controls.mouseSensitivity = pendingState.lookSensitivity;
+        playerSettings.graphics.qualityLevelIndex = pendingState.qualityLevelIndex;
+        playerSettings.graphics.resolutionIndex = pendingState.resolutionIndex;
+        playerSettings.graphics.isFullscreen = pendingState.isFullscreen;
 
         originalState = pendingState;
+        playerSettings.Save();
     }
 
     /// <summary>
@@ -163,13 +164,13 @@ public class SettingsManager : MonoBehaviour
     {
         return new SettingsState
         {
-            masterVolume = settings.playerAudioSettings.MasterVolume,
-            musicVolume = settings.playerAudioSettings.MusicVolume,
-            sfxVolume = settings.playerAudioSettings.SFXVolume,
-            lookSensitivity = settings.cameraSettings.lookSensitivity,
-            qualityLevelIndex = settings.graphicsSettings.qualityLevelIndex,
-            resolutionIndex = settings.graphicsSettings.resolutionIndex,
-            isFullscreen = settings.graphicsSettings.isFullscreen
+            masterVolume = settings.audio.masterVolume,
+            musicVolume = settings.audio.musicVolume,
+            sfxVolume = settings.audio.sfxVolume,
+            lookSensitivity = settings.controls.mouseSensitivity,
+            qualityLevelIndex = settings.graphics.qualityLevelIndex,
+            resolutionIndex = settings.graphics.resolutionIndex,
+            isFullscreen = settings.graphics.isFullscreen
         };
     }
 

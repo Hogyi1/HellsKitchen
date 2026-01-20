@@ -22,7 +22,7 @@ public class PlayerCameraController : MonoBehaviour
     private void Awake()
     {
         firstPersonCamera = cameraTransform.GetComponentInChildren<CinemachineCamera>();
-        settings = GameManager.PlayerSettings.cameraSettings;
+        settings = GameManager.CameraSettings;
 
         var volumeSettings = firstPersonCamera.GetComponentInChildren<CinemachineVolumeSettings>();
         if (volumeSettings != null) volumeSettings.Profile.TryGet(out vignette);

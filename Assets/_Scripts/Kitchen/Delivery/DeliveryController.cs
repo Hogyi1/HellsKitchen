@@ -8,6 +8,8 @@ public class DeliveryController : CounterController, IObjectHolder<KitchenObject
     private CountDownTimer _deliveryTimer;
     private CountDownTimer _coolDownTimer;
 
+    [SerializeField] private OrderManager orderManager;
+
     public DeliveryCounter Model => GetModel<DeliveryCounter>();
 
     protected override void Initialize()
@@ -15,6 +17,7 @@ public class DeliveryController : CounterController, IObjectHolder<KitchenObject
         model = new DeliveryCounter(_deliveryTime);
         _deliveryTimer = new CountDownTimer(_deliveryTime);
         _coolDownTimer = new CountDownTimer(_coolDown);
+        orderManager = orderManager != null ? orderManager : FindAnyObjectByType<OrderManager>();
 
         var hasPlateAndNotEmpty = new ContextualPredicate<PlayerController>(
             (PlayerController context) =>
@@ -47,7 +50,7 @@ public class DeliveryController : CounterController, IObjectHolder<KitchenObject
     private void ScoreDelivery()
     {
         _deliveryTimer.OnTimerStop -= ScoreDelivery;
-        OrderManager.Instance.CompleteOrder(Model.Plate.GetIngredientDictionary());
+        orderManager.CompleteOrder(Model.Plate.GetIngredientDictionary());
         _coolDownTimer.Stop();
         Model.ReleaseChild();
     }

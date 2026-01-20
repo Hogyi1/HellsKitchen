@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c952ee9bc111ecb4b8767522d09a8fdb, type: 3}
+  m_Name: DayTime
+  m_EditorClassIdentifier: Assembly-CSharp::DayData
+  TimeInMinutes: 1
+  Music: {fileID: 11400000, guid: e47d72931a3d1c246900803a52e361d6, type: 2}

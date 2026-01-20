@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OnPause",
+                    "type": "Button",
+                    "id": "d0166a8b-f55a-4936-8ea7-d9113b804f9b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -263,6 +272,17 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6444b331-be82-45f5-a939-d400a6c82165",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -337,6 +357,15 @@
                     "name": "Use",
                     "type": "Button",
                     "id": "f9fc5bec-4356-47de-a6b0-86398930488b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OnPause",
+                    "type": "Button",
+                    "id": "9dce469a-22cf-425f-b45d-de1f217db47b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -640,6 +669,17 @@
                     "action": "Use",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f7f4f656-0adf-4120-9e26-86e9fa539295",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -733,6 +773,15 @@
                     "type": "PassThrough",
                     "id": "c27842e1-dc8a-411d-9beb-712fb75a71ee",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OnPause",
+                    "type": "Button",
+                    "id": "7f54093e-6e54-4265-b22b-4a6b5b9b6ad0",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1156,6 +1205,17 @@
                     "action": "TrackedDeviceOrientation",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7883d187-8db0-446f-bc75-902b0cd1ad73",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1186,6 +1246,15 @@
                     "type": "PassThrough",
                     "id": "d3bfe1e8-e6a5-43bf-84c5-0c4435e9c0cd",
                     "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OnPause",
+                    "type": "Button",
+                    "id": "2af8a6a6-b87c-4a2f-984b-2702e9d5942f",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1224,6 +1293,17 @@
                     "action": "Valuebased",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "040fa383-57ad-4d73-b310-2a38d0b11580",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1239,6 +1319,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OnPause",
+                    "type": "Button",
+                    "id": "a70ca3e0-ae49-4a70-9128-415e1107825a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1250,6 +1339,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "477a95bf-b724-4b57-9faa-2c1ee584670d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnPause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -29,5 +29,6 @@ MonoBehaviour:
     Quantity: 2
   - KitchenObjectSO: {fileID: 11400000, guid: 49bc6d85b115d574e80bd10919d85423, type: 2}
     Quantity: 1
-  AveragePrepareTime: 75
-  MaxIngredientCount: 6
+  AveragePrepareTime: 60
+  MaxIngredientCount: 5
+  Price: 30

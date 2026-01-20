@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b8f2c3976958f429067ee101f9f929, type: 3}
   m_Name: DefaultCameraSettings
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCameraSettings
-  lookSensitivity: 0.1
+  lookSensitivity: 0.15
   upperCameraLimit: 60
   lowerCameraLimit: 60
   runningFov: 80
   normalFov: 60
   crouchingVignette: 0.25
+  fovChangeSpeed: 0.25

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrderManager : Singleton<OrderManager>
+public class OrderManager : MonoBehaviour
 {
     public List<Recipe> debugRecipe;
     [SerializeField] RecipeName activeRecipeTemplate;
@@ -21,19 +21,26 @@ public class OrderManager : Singleton<OrderManager>
     public event Action<Recipe> OnNewOrder = delegate { };
     public event Action<Recipe> OnActiveOrder = delegate { };
     public event Action<Recipe> OnOrderRemoved = delegate { };
-    public event Action<Recipe> OnOrderExpiration = delegate { };
+    public event Action<Recipe> OnOrderFailed = delegate { };
+    public event Action<Recipe, float> OnOrderCompleted = delegate { };
 
-    public override void BaseAwake()
+    private void Awake()
     {
         _orderQueue = new(maximumOrders);
         var so = SetRecipeSO(activeRecipeTemplate);
         _recipeGenerator = new(so);
-        extraOrderTime = so.AveragePrepareTime * 0.75f;
+        extraOrderTime = so.AveragePrepareTime * 0.5f;
         _orderTimer = new(so.AveragePrepareTime * 0.5f, -1);
         _orderTimer.OnLoop += GenerateOrder;
     }
 
-    private void Start()
+    private void OnDisable()
+    {
+        _orderTimer.Stop();
+        _orderTimer.OnLoop -= GenerateOrder;
+    }
+
+    public void StartOrders()
     {
         var timer = new CountDownTimer(startingTime);
         timer.OnTimerStop += () => SelectActiveRecipe();
@@ -72,6 +79,7 @@ public class OrderManager : Singleton<OrderManager>
         _orderQueue.TryDequeue(out Recipe expiredRecipe);
         debugRecipe.Remove(expiredRecipe);
         OnOrderRemoved?.Invoke(expiredRecipe);
+        OnOrderFailed?.Invoke(expiredRecipe);
         SelectActiveRecipe();
         Debug.Log("Order expired!");
     }
@@ -86,12 +94,11 @@ public class OrderManager : Singleton<OrderManager>
 
 
         _orderQueue.TryDequeue(out Recipe recipe);
+        OnOrderCompleted?.Invoke(recipe, score * activeRecipeSO.Price);
         OnOrderRemoved?.Invoke(recipe);
 
         SelectActiveRecipe();
 
-        Debug.Log("Dish has been scored: " + score);
-        // IDK money vagy something
         debugRecipe.Remove(activeRecipe);
     }
 
@@ -114,5 +121,7 @@ public class OrderManager : Singleton<OrderManager>
             GenerateOrder(recipesGenerated);
             activeRecipe = _orderQueue.Peek();
         }
+
+        activeRecipe.IsActive = true;
     }
 }

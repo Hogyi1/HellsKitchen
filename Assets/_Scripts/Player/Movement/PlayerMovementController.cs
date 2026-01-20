@@ -31,7 +31,7 @@ public class PlayerMovementController : MonoBehaviour
     #region Unity methods
     private void Awake()
     {
-        settings = GameManager.PlayerSettings.movementSettings;
+        settings = GameManager.MovementSettings;
         stateMachine = new StateMachine();
         coyoteTimer = new CountDownTimer(settings.coyoteTime);
         mover = mover != null ? mover : GetComponentInChildren<PlayerMover>();
@@ -205,9 +205,10 @@ public class PlayerMovementController : MonoBehaviour
     /// </summary>
     void HandleRotation()
     {
-        float target;
+        float target = cameraController.cameraRotation.x;
 
-        target = cameraController.cameraRotation.x;
+        if (float.IsNaN(target) || float.IsInfinity(target)) return;
+
         float smoothed = Mathf.SmoothDampAngle(
             transform.eulerAngles.y,
             target,
@@ -215,17 +216,6 @@ public class PlayerMovementController : MonoBehaviour
             settings.rotationSmoothTime);
 
         transform.rotation = Quaternion.Euler(0f, smoothed, 0f);
-
-
-        //Vector3 moveDir = CalculateMovementDirection();
-
-        //if (moveDir.sqrMagnitude > 0.01f)
-        //{
-        //    Vector3 movedir = new Vector3(movement.x, 0f, movement.y).normalized;
-        //    transform.forward = Vector3.Lerp(transform.forward, moveDir, Time.deltaTime * smoothing);
-        //}
-        //else
-        //    target = transform.eulerAngles.y;
     }
 
     /// <summary>

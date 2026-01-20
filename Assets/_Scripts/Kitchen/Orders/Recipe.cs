@@ -15,7 +15,21 @@ public class Recipe : INotifyBindablePropertyChanged
     private float _expirationTime;
     private float _passedTime;
     private float _expirationProgress;
+    private bool _isActive;
     public bool IsExpired => ExpirationTime <= PassedTime;
+
+    [CreateProperty]
+    public bool IsActive
+    {
+        get => _isActive;
+        set
+        {
+            if (_isActive == value)
+                return;
+            _isActive = value;
+            Notify();
+        }
+    }
 
     [CreateProperty]
     public float ExpirationProgress
@@ -74,6 +88,7 @@ public class Recipe : INotifyBindablePropertyChanged
     {
         _ingredientList = new List<RecipeIngredient>();
         this.ExpirationTime = expirationTime;
+        IsActive = false;
     }
 
     public void AddTime(float extraTime) => ExpirationTime += extraTime;

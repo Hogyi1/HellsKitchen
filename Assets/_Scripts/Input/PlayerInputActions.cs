@@ -127,6 +127,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OnPause"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0166a8b-f55a-4936-8ea7-d9113b804f9b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -349,6 +358,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6444b331-be82-45f5-a939-d400a6c82165"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnPause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -423,6 +443,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Use"",
                     ""type"": ""Button"",
                     ""id"": ""f9fc5bec-4356-47de-a6b0-86398930488b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OnPause"",
+                    ""type"": ""Button"",
+                    ""id"": ""9dce469a-22cf-425f-b45d-de1f217db47b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -726,6 +755,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7f4f656-0adf-4120-9e26-86e9fa539295"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnPause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -819,6 +859,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""c27842e1-dc8a-411d-9beb-712fb75a71ee"",
                     ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OnPause"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f54093e-6e54-4265-b22b-4a6b5b9b6ad0"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1242,6 +1291,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7883d187-8db0-446f-bc75-902b0cd1ad73"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnPause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1272,6 +1332,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""d3bfe1e8-e6a5-43bf-84c5-0c4435e9c0cd"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OnPause"",
+                    ""type"": ""Button"",
+                    ""id"": ""2af8a6a6-b87c-4a2f-984b-2702e9d5942f"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1310,6 +1379,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Valuebased"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""040fa383-57ad-4d73-b310-2a38d0b11580"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnPause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1321,6 +1401,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Exit"",
                     ""type"": ""Button"",
                     ""id"": ""9ca45405-af46-4ca9-bd42-685a7b640c27"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OnPause"",
+                    ""type"": ""Button"",
+                    ""id"": ""a70ca3e0-ae49-4a70-9128-415e1107825a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1338,6 +1427,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""477a95bf-b724-4b57-9faa-2c1ee584670d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnPause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1350,6 +1450,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_DayTime_Sprint = m_DayTime.FindAction("Sprint", throwIfNotFound: true);
         m_DayTime_Look = m_DayTime.FindAction("Look", throwIfNotFound: true);
         m_DayTime_Interact = m_DayTime.FindAction("Interact", throwIfNotFound: true);
+        m_DayTime_OnPause = m_DayTime.FindAction("OnPause", throwIfNotFound: true);
         // NightTime
         m_NightTime = asset.FindActionMap("NightTime", throwIfNotFound: true);
         m_NightTime_Move = m_NightTime.FindAction("Move", throwIfNotFound: true);
@@ -1360,6 +1461,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_NightTime_Sprint = m_NightTime.FindAction("Sprint", throwIfNotFound: true);
         m_NightTime_Interact = m_NightTime.FindAction("Interact", throwIfNotFound: true);
         m_NightTime_Use = m_NightTime.FindAction("Use", throwIfNotFound: true);
+        m_NightTime_OnPause = m_NightTime.FindAction("OnPause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1372,14 +1474,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_OnPause = m_UI.FindAction("OnPause", throwIfNotFound: true);
         // Minigame
         m_Minigame = asset.FindActionMap("Minigame", throwIfNotFound: true);
         m_Minigame_Exit = m_Minigame.FindAction("Exit", throwIfNotFound: true);
         m_Minigame_MyInteract = m_Minigame.FindAction("MyInteract", throwIfNotFound: true);
         m_Minigame_Valuebased = m_Minigame.FindAction("Valuebased", throwIfNotFound: true);
+        m_Minigame_OnPause = m_Minigame.FindAction("OnPause", throwIfNotFound: true);
         // Hiding
         m_Hiding = asset.FindActionMap("Hiding", throwIfNotFound: true);
         m_Hiding_Exit = m_Hiding.FindAction("Exit", throwIfNotFound: true);
+        m_Hiding_OnPause = m_Hiding.FindAction("OnPause", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -1468,6 +1573,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_DayTime_Sprint;
     private readonly InputAction m_DayTime_Look;
     private readonly InputAction m_DayTime_Interact;
+    private readonly InputAction m_DayTime_OnPause;
     /// <summary>
     /// Provides access to input actions defined in input action map "DayTime".
     /// </summary>
@@ -1495,6 +1601,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DayTime/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_DayTime_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "DayTime/OnPause".
+        /// </summary>
+        public InputAction @OnPause => m_Wrapper.m_DayTime_OnPause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1533,6 +1643,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @OnPause.started += instance.OnOnPause;
+            @OnPause.performed += instance.OnOnPause;
+            @OnPause.canceled += instance.OnOnPause;
         }
 
         /// <summary>
@@ -1556,6 +1669,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @OnPause.started -= instance.OnOnPause;
+            @OnPause.performed -= instance.OnOnPause;
+            @OnPause.canceled -= instance.OnOnPause;
         }
 
         /// <summary>
@@ -1601,6 +1717,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_NightTime_Sprint;
     private readonly InputAction m_NightTime_Interact;
     private readonly InputAction m_NightTime_Use;
+    private readonly InputAction m_NightTime_OnPause;
     /// <summary>
     /// Provides access to input actions defined in input action map "NightTime".
     /// </summary>
@@ -1644,6 +1761,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "NightTime/Use".
         /// </summary>
         public InputAction @Use => m_Wrapper.m_NightTime_Use;
+        /// <summary>
+        /// Provides access to the underlying input action "NightTime/OnPause".
+        /// </summary>
+        public InputAction @OnPause => m_Wrapper.m_NightTime_OnPause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1694,6 +1815,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Use.started += instance.OnUse;
             @Use.performed += instance.OnUse;
             @Use.canceled += instance.OnUse;
+            @OnPause.started += instance.OnOnPause;
+            @OnPause.performed += instance.OnOnPause;
+            @OnPause.canceled += instance.OnOnPause;
         }
 
         /// <summary>
@@ -1729,6 +1853,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Use.started -= instance.OnUse;
             @Use.performed -= instance.OnUse;
             @Use.canceled -= instance.OnUse;
+            @OnPause.started -= instance.OnOnPause;
+            @OnPause.performed -= instance.OnOnPause;
+            @OnPause.canceled -= instance.OnOnPause;
         }
 
         /// <summary>
@@ -1776,6 +1903,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_ScrollWheel;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_OnPause;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -1827,6 +1955,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/TrackedDeviceOrientation".
         /// </summary>
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/OnPause".
+        /// </summary>
+        public InputAction @OnPause => m_Wrapper.m_UI_OnPause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1883,6 +2015,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+            @OnPause.started += instance.OnOnPause;
+            @OnPause.performed += instance.OnOnPause;
+            @OnPause.canceled += instance.OnOnPause;
         }
 
         /// <summary>
@@ -1924,6 +2059,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
+            @OnPause.started -= instance.OnOnPause;
+            @OnPause.performed -= instance.OnOnPause;
+            @OnPause.canceled -= instance.OnOnPause;
         }
 
         /// <summary>
@@ -1964,6 +2102,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Minigame_Exit;
     private readonly InputAction m_Minigame_MyInteract;
     private readonly InputAction m_Minigame_Valuebased;
+    private readonly InputAction m_Minigame_OnPause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Minigame".
     /// </summary>
@@ -1987,6 +2126,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Minigame/Valuebased".
         /// </summary>
         public InputAction @Valuebased => m_Wrapper.m_Minigame_Valuebased;
+        /// <summary>
+        /// Provides access to the underlying input action "Minigame/OnPause".
+        /// </summary>
+        public InputAction @OnPause => m_Wrapper.m_Minigame_OnPause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2022,6 +2165,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Valuebased.started += instance.OnValuebased;
             @Valuebased.performed += instance.OnValuebased;
             @Valuebased.canceled += instance.OnValuebased;
+            @OnPause.started += instance.OnOnPause;
+            @OnPause.performed += instance.OnOnPause;
+            @OnPause.canceled += instance.OnOnPause;
         }
 
         /// <summary>
@@ -2042,6 +2188,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Valuebased.started -= instance.OnValuebased;
             @Valuebased.performed -= instance.OnValuebased;
             @Valuebased.canceled -= instance.OnValuebased;
+            @OnPause.started -= instance.OnOnPause;
+            @OnPause.performed -= instance.OnOnPause;
+            @OnPause.canceled -= instance.OnOnPause;
         }
 
         /// <summary>
@@ -2080,6 +2229,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Hiding;
     private List<IHidingActions> m_HidingActionsCallbackInterfaces = new List<IHidingActions>();
     private readonly InputAction m_Hiding_Exit;
+    private readonly InputAction m_Hiding_OnPause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Hiding".
     /// </summary>
@@ -2095,6 +2245,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Hiding/Exit".
         /// </summary>
         public InputAction @Exit => m_Wrapper.m_Hiding_Exit;
+        /// <summary>
+        /// Provides access to the underlying input action "Hiding/OnPause".
+        /// </summary>
+        public InputAction @OnPause => m_Wrapper.m_Hiding_OnPause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2124,6 +2278,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Exit.started += instance.OnExit;
             @Exit.performed += instance.OnExit;
             @Exit.canceled += instance.OnExit;
+            @OnPause.started += instance.OnOnPause;
+            @OnPause.performed += instance.OnOnPause;
+            @OnPause.canceled += instance.OnOnPause;
         }
 
         /// <summary>
@@ -2138,6 +2295,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Exit.started -= instance.OnExit;
             @Exit.performed -= instance.OnExit;
             @Exit.canceled -= instance.OnExit;
+            @OnPause.started -= instance.OnOnPause;
+            @OnPause.performed -= instance.OnOnPause;
+            @OnPause.canceled -= instance.OnOnPause;
         }
 
         /// <summary>
@@ -2206,6 +2366,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OnPause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "NightTime" which allows adding and removing callbacks.
@@ -2270,6 +2437,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUse(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OnPause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
@@ -2348,6 +2522,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OnPause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Minigame" which allows adding and removing callbacks.
@@ -2377,6 +2558,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnValuebased(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OnPause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOnPause(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Hiding" which allows adding and removing callbacks.
@@ -2392,5 +2580,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnExit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OnPause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOnPause(InputAction.CallbackContext context);
     }
 }

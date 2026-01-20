@@ -119,6 +119,77 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &131567689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131567690}
+  - component: {fileID: 131567692}
+  - component: {fileID: 131567691}
+  m_Layer: 0
+  m_Name: PauseMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &131567690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131567689}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 492143455}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &131567691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131567689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 2b66ae1315cd7f04290cbc2a43dcd5cd, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 23c8304a63f6fec4895f536429273f7d, type: 3}
+  m_SortingOrder: 15
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!114 &131567692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131567689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df890e6f48e8a63439cf23f1badfe68f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenuManager
+  pauseMenuUI: {fileID: 131567691}
+  hoverSound: {fileID: 11400000, guid: 838589269a9be60459c0d3716c1d92da, type: 2}
+  selectSound: {fileID: 11400000, guid: d7a6841345c7b224393733e5353eaa09, type: 2}
 --- !u!1 &473858973
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +352,7 @@ MonoBehaviour:
   Default: Default
   MainMenu: MainMenu
   KitchenScene: KitchenScene
-  NightScene: NightScene
+  NightScene: Bence_DevScene
 --- !u!4 &492143455
 Transform:
   m_ObjectHideFlags: 0
@@ -294,7 +365,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 131567690}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &492143456
@@ -310,9 +382,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   playerSettings: {fileID: 11400000, guid: 5cd31e91960521a40a6edc6c1abd2c70, type: 2}
+  playerMovement: {fileID: 11400000, guid: 9d77f10998539254c9ca9b12c63ad196, type: 2}
+  cameraSettings: {fileID: 11400000, guid: 76377e038c4865e42a95b21d2670a2c1, type: 2}
   input: {fileID: 11400000, guid: 6827cf3379792274a825aa60c5e62565, type: 2}
   sceneHandler: {fileID: 492143454}
-  dayMusic: {fileID: 11400000, guid: e47d72931a3d1c246900803a52e361d6, type: 2}
+  pauseManager: {fileID: 131567692}
+  Phase: 0
 --- !u!1 &524477080
 GameObject:
   m_ObjectHideFlags: 0

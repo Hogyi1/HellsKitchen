@@ -15,6 +15,7 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
     public event UnityAction<bool> Crouch = delegate { };
     public event UnityAction Interact = delegate { };
     public event UnityAction Use = delegate { };
+    public event UnityAction Pause = delegate { };
 
     private PlayerInputActions inputActions;
 
@@ -85,6 +86,12 @@ public class InputHandler : ScriptableObject, IDayTimeActions, INightTimeActions
     #endregion
 
     #region Player actions
+    public void OnOnPause(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+            Pause.Invoke();
+    }
+
     public void OnMove(InputAction.CallbackContext context) => Move.Invoke(context.ReadValue<Vector2>());
     public void OnLook(InputAction.CallbackContext context) => Look.Invoke(context.ReadValue<Vector2>());
     public void OnJump(InputAction.CallbackContext context)

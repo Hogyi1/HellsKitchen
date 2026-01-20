@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; justify-content: space-between; flex-direction: row;">
+        <ui:Label text="6:10" name="TimeLabel" style="position: relative; top: 0; left: 0; align-self: flex-end; font-size: 40px; -unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;); color: rgb(219, 219, 219); -unity-text-outline-width: 0; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.54); margin-top: 100px; margin-left: 15px; margin-bottom: 15px;" />
+        <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; align-items: auto; align-content: flex-end;">
+            <ui:VisualElement style="flex-grow: 1; align-content: flex-start; justify-content: flex-end;">
+                <ui:Label text="$100" name="MoneyLabel" style="position: relative; top: 0; left: 0; align-self: flex-end; font-size: 40px; -unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;); color: rgb(219, 219, 219); -unity-text-outline-width: 0; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.54); margin-top: 12px; align-content: flex-end; justify-content: flex-start; margin-right: 15px; margin-bottom: 15px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
