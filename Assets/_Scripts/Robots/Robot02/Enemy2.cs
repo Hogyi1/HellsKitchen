@@ -32,6 +32,7 @@ public class Enemy2:MonoBehaviour, IShotable, ICrawlable,IStunnable
     public event Action Despawned = delegate { };
     public event Action<EnemyType> OnKillPlayer = delegate { };
     public event Action HidingSpotArrival = delegate { };
+    public event Action OnDestroy = delegate { };
 
     StateMachine stateMachine;
     private void Awake()
@@ -166,5 +167,10 @@ public class Enemy2:MonoBehaviour, IShotable, ICrawlable,IStunnable
         transform.position = retreatTarget.position - new Vector3(0, 100, 0);
         Despawned.Invoke();
         isSpawned = false;
+    }
+
+    public void OnDeath()
+    {
+        OnDestroy?.Invoke();
     }
 }

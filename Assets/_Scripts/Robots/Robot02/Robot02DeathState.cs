@@ -19,6 +19,7 @@ public class Robot02DeathState : Robot02BaseState
 
     private IEnumerator DestroyAfterSeconds(float seconds)
     {
+        enemy.OnDeath();
         yield return new WaitForSeconds(seconds);
         GameObject.Destroy(enemy.gameObject);
     }

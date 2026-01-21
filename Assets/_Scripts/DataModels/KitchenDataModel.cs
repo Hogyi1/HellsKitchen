@@ -14,7 +14,7 @@ public class KitchenDataModel : INotifyBindablePropertyChanged
     private int _ordersCompleted;
     private int _ordersFailed;
     private float _totalEarnings;
-
+    
     public KitchenDataModel(int Seconds)
     {
         this.Seconds = Seconds;

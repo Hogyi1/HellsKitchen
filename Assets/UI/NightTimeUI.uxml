@@ -1,0 +1,5 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:Label text="6:10" name="TimeLabel" style="-unity-font-definition: url(&quot;project://database/Assets/Images/MainMenu/VCR_OSD_MONO_1.001.ttf?fileID=12800000&amp;guid=ce4d9eb51c31c4540a79e3008cda5219&amp;type=3#VCR_OSD_MONO_1.001&quot;); font-size: 40px; align-self: flex-start; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0); color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0);" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,24 +1,28 @@
 using System;
 using System.Runtime.CompilerServices;
+using Unity.Properties;
 using UnityEngine.UIElements;
 
 public class NightDataModel : INotifyBindablePropertyChanged
 {
+    
     /// <summary>
     /// Event triggered when a bindable property on the cutting board changes, used for UI binding.
     /// </summary>
     public event EventHandler<BindablePropertyChangedEventArgs> propertyChanged = delegate { };
 
-    /// <summary>
-    /// Notifies listeners that a specific property has changed.
-    /// </summary>
-    /// <param name="property">The name of the property that changed.</param>
-    void Notify([CallerMemberName] string property = null)
+    private int _seconds;
+    private int _powerOutages;
+    private int _robotsSpawned;
+
+    public NightDataModel(float initialNightDurationInSeconds)
     {
-        propertyChanged?.Invoke(this, new BindablePropertyChangedEventArgs(property));
+        Seconds = (int)initialNightDurationInSeconds;
+        PowerOutages = 0;
+        RobotsSpawned = 0;
     }
 
-    private int _seconds;
+    [CreateProperty]
     public int Seconds
     {
         get => _seconds;
@@ -32,7 +36,7 @@ public class NightDataModel : INotifyBindablePropertyChanged
         }
     }
 
-    private int _powerOutages;
+    
     public int PowerOutages
     {
         get => _powerOutages;
@@ -46,7 +50,7 @@ public class NightDataModel : INotifyBindablePropertyChanged
         }
     }
 
-    private int _robotsSpawned;
+    
     public int RobotsSpawned
     {
         get => _robotsSpawned;
@@ -60,10 +64,19 @@ public class NightDataModel : INotifyBindablePropertyChanged
         }
     }
 
-    public NightDataModel(float initialNightDurationInSeconds)
+    public string GetFormattedTime()
     {
-        Seconds = (int)initialNightDurationInSeconds;
-        PowerOutages = 0;
-        RobotsSpawned = 0;
+        int minutes = Seconds / 60;
+        int seconds = Seconds % 60;
+        return $"{minutes:D2}:{seconds:D2}";
+    }
+
+    /// <summary>
+    /// Notifies listeners that a specific property has changed.
+    /// </summary>
+    /// <param name="property">The name of the property that changed.</param>
+    void Notify([CallerMemberName] string property = null)
+    {
+        propertyChanged?.Invoke(this, new BindablePropertyChangedEventArgs(property));
     }
 }

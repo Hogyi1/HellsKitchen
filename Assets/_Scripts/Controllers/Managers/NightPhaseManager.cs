@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class NightPhaseManager : MonoBehaviour, INightPhaseManager
@@ -9,6 +10,7 @@ public class NightPhaseManager : MonoBehaviour, INightPhaseManager
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private PhaseData nightData;
     [SerializeField] private AudioSO alarmSound;
+    [SerializeField] private NightUIHandler uiManager;
 
     public float CooldownTime = 10f;
     public NightDataModel GameData { get; private set; }
@@ -36,6 +38,8 @@ public class NightPhaseManager : MonoBehaviour, INightPhaseManager
         breakerbox = breakerbox != null ? breakerbox : FindAnyObjectByType<PowerBoxScript>();
         enemyManager = enemyManager != null ? enemyManager : FindAnyObjectByType<EnemyManager>();
 
+        uiManager.BindData(GameData);
+
         StartPhase();
     }
 
@@ -47,15 +51,36 @@ public class NightPhaseManager : MonoBehaviour, INightPhaseManager
         outageEvent.PowerOutage += OnPowerOutage;
         outageEvent.PowerBack += OnPowerBack;
         breakerbox.OnPowerRestoreEvent += OnPowerRestore;
-
+        enemyManager.PlayerDied += OnPlayerDied;
+        
         breakerbox.isActive = false;
         AudioManager.Instance.PlayMusic(nightData.Music);
         eventSpawner.StartEvent();
         nightTimer.Start();
-
+        
         OnPhaseStart?.Invoke();
     }
 
+    private void OnPlayerDied(EnemyType enemyType)
+    {
+        StartCoroutine(HandleEnemyPopUp(enemyType));      
+    }
+
+    private IEnumerator HandleEnemyPopUp(EnemyType enemyType)
+    {
+        switch (enemyType)
+        {
+            case EnemyType.TypeA:
+
+                break;
+            case EnemyType.TypeB:
+
+                break;
+        }
+        yield return new WaitForSeconds(10f);
+        
+        OnPhaseEnd?.Invoke(GameData);
+    }
     public void EndPhase()
     {
         nightTimer.OnTimerStop -= EndPhase;

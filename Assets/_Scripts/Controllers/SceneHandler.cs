@@ -67,7 +67,9 @@ public class SceneHandler : MonoBehaviour
             ActiveScene = initialScene;
         else
             ActiveScene = SceneName.Default;
-
+    }
+    private void Start()
+    {
         if (loadingScreenUI != null)
         {
             _root = loadingScreenUI.rootVisualElement;
@@ -75,7 +77,6 @@ public class SceneHandler : MonoBehaviour
             _root.style.display = DisplayStyle.None; // Start hidden
         }
     }
-
     private void Update() => timeSinceSceneLoad += Time.deltaTime;
 
     public void LoadMainMenu() => LoadScene(MainMenu);

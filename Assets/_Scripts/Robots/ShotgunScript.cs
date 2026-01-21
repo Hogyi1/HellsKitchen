@@ -1,33 +1,30 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 public class ShotgunScript : MonoBehaviour
 {
-    [Header("Raycast Settings")]
-    public KeyCode castKey = KeyCode.E;
-    public float rayDistance = 10f;
-    public LayerMask enemyLayer;
-    public int ammocount = 2;
-    public bool isEnabled = false;
-
-    [Header("Cooldown")]
-    public float cooldownTime = 10f;
+   
+    [SerializeField] private KeyCode castKey = KeyCode.F;
+    [SerializeField] private float rayDistance = 10f;
+    [SerializeField] private LayerMask enemyLayer;    
+    [SerializeField] private float cooldownTime = 10f;
+    [SerializeField] private AudioSO shootingAndReloading;
+    [SerializeField] private AudioSource source;
     private CountDownTimer cooldownTimer;
-
+    public int ammocount = 3;
+    public event Action<int> OnShoot = delegate { };
     void Start()
     {
         cooldownTimer = new CountDownTimer(cooldownTime);
     }
-
-
     void Update()
     {
-        cooldownTimer.Tick();
-
         if (!cooldownTimer.IsRunning && Input.GetKeyDown(castKey) && ammocount > 0)
         {         
             ammocount--;
-            Debug.Log($"Shooting, ammo left: {ammocount}");
+            AudioManager.Instance.PlaySFX(shootingAndReloading,source);
             CastRay();
+            OnShoot?.Invoke(ammocount);
         }
     }
 
@@ -54,11 +51,5 @@ public class ShotgunScript : MonoBehaviour
     public void SetAmmoCount(int ac)
     {
         ammocount = ac;
-    }
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * rayDistance);
-        Gizmos.DrawSphere(transform.position + transform.forward * rayDistance, 0.1f);
     }
 }

@@ -74,7 +74,6 @@ public class DayPhaseController : MonoBehaviour, IDayPhaseManager
 public interface IPhaseManager
 {
     public event Action OnPhaseStart;
-
     public void StartPhase();
     public void EndPhase();
 }

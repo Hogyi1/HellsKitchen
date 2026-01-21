@@ -41,6 +41,7 @@ public class Enemy : MonoBehaviour, IShotable
 
     public event Action Despawned = delegate { };
     public event Action<EnemyType> OnKillPlayer = delegate { };
+    public event Action OnDestroy = delegate { };
 
     void Awake()
     {
@@ -158,5 +159,10 @@ public class Enemy : MonoBehaviour, IShotable
         transform.position = waypoints[waypoints.Length - 1].position - new Vector3(0, 100, 0);
         Despawned.Invoke();
         isSpawned = false;
+    }
+
+    public void OnDeath()
+    {
+        OnDestroy?.Invoke();
     }
 }

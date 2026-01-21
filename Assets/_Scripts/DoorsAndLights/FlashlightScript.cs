@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FlashlightScript : MonoBehaviour
@@ -6,10 +7,13 @@ public class FlashlightScript : MonoBehaviour
     [SerializeField] private float maxBatteryTime = 100f;
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private KeyCode inputKey = KeyCode.F;
+
     private float currentBattery;
     private bool isOn = false;
     private LoopTimer rayLoop;
+    private float progress = 1;
+    
+    public event Action<float> OnProgress = delegate { };
     void Start()
     {
         currentBattery = maxBatteryTime;
@@ -19,10 +23,9 @@ public class FlashlightScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(inputKey))
+        if (Input.GetMouseButtonDown(1))
         {
-            ToggleFlashlight();
-            
+            ToggleFlashlight();     
         }
     }
 
@@ -35,8 +38,7 @@ public class FlashlightScript : MonoBehaviour
             if (currentBattery <= 0f)
             {
                 currentBattery = 0f;
-                TurnOff();
-                
+                TurnOff();       
             }
 
 
@@ -51,6 +53,9 @@ public class FlashlightScript : MonoBehaviour
                 hit.transform.TryGetComponent(out IStunnable target);
                 target?.OnFlashed();
             }
+
+            progress = Math.Clamp(currentBattery /maxBatteryTime, .0f, 1.0f);
+            OnProgress?.Invoke(progress);
         }
     }
     void ToggleFlashlight()
@@ -63,10 +68,12 @@ public class FlashlightScript : MonoBehaviour
         if(isOn)
         {
             rayLoop.Start();
+            
         }
         else
         {
             rayLoop.Stop();
+            
         }
     }
 

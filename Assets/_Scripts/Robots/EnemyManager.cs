@@ -23,6 +23,11 @@ public class EnemyManager : MonoBehaviour
     private CountDownTimer countDownEnemyOne;
     private LoopTimer enemyCheck;
 
+    private bool CanSpawnEnemyOne = true;
+    private bool CanSpawnEnemyTwo = true;
+
+    public event Action<EnemyType> PlayerDied;
+
     private void Start()
     {
         random = new System.Random();
@@ -33,7 +38,31 @@ public class EnemyManager : MonoBehaviour
         robotOne.Despawned += OnRobotOneDespawned;
         robotTwo.Despawned += OnRobotTwoDespawned;
         robotTwo.HidingSpotArrival += RobotTwoHidingSpotArrival;
+        robotOne.OnDestroy += RobotOneOnDestroy;
+        robotTwo.OnDestroy += RobotTwoOnDestroy;
         wardrobe.OnHide += WardrobeOnHide;
+        robotOne.OnKillPlayer += RobotOneOnKillPlayer;
+        robotTwo.OnKillPlayer += RobotTwoOnKillPlayer;
+    }
+
+    private void RobotTwoOnKillPlayer(EnemyType obj)
+    {
+        PlayerDied?.Invoke(obj);
+    }
+
+    private void RobotOneOnKillPlayer(EnemyType obj)
+    {
+        PlayerDied?.Invoke(obj);
+    }
+
+    private void RobotTwoOnDestroy()
+    {
+        CanSpawnEnemyTwo = false;
+    }
+
+    private void RobotOneOnDestroy()
+    {
+        CanSpawnEnemyOne = false;
     }
 
     private void RobotTwoHidingSpotArrival()
@@ -58,7 +87,7 @@ public class EnemyManager : MonoBehaviour
 
     private void UpdatingEnemyStatus(int obj)
     {
-        if (EnemyOneIsOnField && !HasStartedRetreating)
+        if (EnemyOneIsOnField && !HasStartedRetreating && CanSpawnEnemyOne)
         {
             countDownEnemyOne.Start();
         }
@@ -78,7 +107,7 @@ public class EnemyManager : MonoBehaviour
     private void RobotRetreatCalc()
     {
         randValue = random.NextDouble();
-        if (countDownEnemyOne.IsFinished && randValue < 0.4)
+        if (countDownEnemyOne.IsFinished && randValue < 0.4 && CanSpawnEnemyOne)
         {
             HasStartedRetreating = true;
             robotOne.isRetreating = true;
@@ -89,7 +118,7 @@ public class EnemyManager : MonoBehaviour
     {
         //var index = GameManager.Instance.CurrentDays;
 
-        var type = enemyData.Days[4]; // index kell
+        var type = enemyData.Days[4];
 
         switch (type)
         {
@@ -144,18 +173,24 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemyOne()
     {
-        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-        EnemyOneIsOnField = true;
-        EnemyOnField = true;
-        robotOne.MoveUp(spawnPoint);
+        if(CanSpawnEnemyOne)
+        {
+            AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
+            EnemyOneIsOnField = true;
+            EnemyOnField = true;
+            robotOne.MoveUp(spawnPoint);
+        }
     }
 
     private void SpawnEnemyTwo()
     {
-        AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
-        EnemyTwoIsOnField = true;
-        EnemyOnField = true;
-        robotTwo.MoveUp(spawnPoint);
+        if (CanSpawnEnemyTwo)
+        {
+            AudioManager.Instance.PlaySFX(spawnConfig, spawnSource);
+            EnemyTwoIsOnField = true;
+            EnemyOnField = true;
+            robotTwo.MoveUp(spawnPoint);
+        }       
     }
 }
 
