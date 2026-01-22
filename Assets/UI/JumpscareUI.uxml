@@ -1,0 +1,4 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Robot1" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/DeathScreen/DeathScreen1Comp2.png?fileID=2800000&amp;guid=c1de4bbbabee644489dabadd37b4b219&amp;type=3#DeathScreen1Comp2&quot;); width: 100%; height: 100%; position: absolute;" />
+    <ui:VisualElement name="Robot2" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; background-image: url(&quot;project://database/Assets/Images/DeathScreen/DeathScreen2Comp.png?fileID=2800000&amp;guid=9de4bffa626c8c04bb6c032bf9b0cb65&amp;type=3#DeathScreen2Comp&quot;);" />
+</ui:UXML>

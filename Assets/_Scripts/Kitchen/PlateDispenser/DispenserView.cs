@@ -24,7 +24,8 @@ public class DispenserView : CounterView
         _particleTimer = new(ParticleDuration);
         _particleTimer.OnTimerStop += () =>
         {
-            particles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            if (particles != null)
+                particles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         };
 
         particles.Stop(true, ParticleSystemStopBehavior.StopEmitting);

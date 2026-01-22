@@ -1,9 +1,6 @@
-using System;
 using DG.Tweening;
 using Unity.Cinemachine;
-using UnityEditor.SettingsManagement;
 using UnityEngine;
-using UnityEngine.ProBuilder;
 using UnityEngine.Rendering.Universal;
 
 // TODO move camera with crouching

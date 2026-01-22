@@ -65,7 +65,7 @@ public class DayPhaseController : MonoBehaviour, IDayPhaseManager
         var timer = new CountDownTimer(CooldownTime);
         timer.OnTimerStop += () => OnPhaseEnd?.Invoke(GameData);
 
-        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.StopMusic(5f);
         AudioManager.Instance.PlaySFXUI(alarmSound);
         timer.Start();
     }

@@ -12,20 +12,25 @@ public class FlashlightScript : MonoBehaviour
     private bool isOn = false;
     private LoopTimer rayLoop;
     private float progress = 1;
-    
+
     public event Action<float> OnProgress = delegate { };
     void Start()
     {
         currentBattery = maxBatteryTime;
-        rayLoop = new LoopTimer(1,9999);
+        rayLoop = new LoopTimer(1, 9999);
         rayLoop.OnLoop += OnLoop;
+    }
+
+    private void OnDisable()
+    {
+        rayLoop.OnLoop -= OnLoop;
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
-            ToggleFlashlight();     
+            ToggleFlashlight();
         }
     }
 
@@ -38,7 +43,7 @@ public class FlashlightScript : MonoBehaviour
             if (currentBattery <= 0f)
             {
                 currentBattery = 0f;
-                TurnOff();       
+                TurnOff();
             }
 
 
@@ -46,7 +51,7 @@ public class FlashlightScript : MonoBehaviour
             Vector3 origin = transform.position;
             Vector3 direction = transform.forward;
 
-            
+
             if (Physics.Raycast(origin, direction, out hit, rayDistance, enemyLayer))
             {
 
@@ -54,7 +59,7 @@ public class FlashlightScript : MonoBehaviour
                 target?.OnFlashed();
             }
 
-            progress = Math.Clamp(currentBattery /maxBatteryTime, .0f, 1.0f);
+            progress = Math.Clamp(currentBattery / maxBatteryTime, .0f, 1.0f);
             OnProgress?.Invoke(progress);
         }
     }
@@ -65,15 +70,15 @@ public class FlashlightScript : MonoBehaviour
 
         isOn = !isOn;
         flashlight.enabled = isOn;
-        if(isOn)
+        if (isOn)
         {
             rayLoop.Start();
-            
+
         }
         else
         {
             rayLoop.Stop();
-            
+
         }
     }
 

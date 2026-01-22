@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdc6838e4909c94a91e91c00699cbfb, type: 3}
   m_Name: DayTime
   m_EditorClassIdentifier: Assembly-CSharp::DayData
-  TimeInMinutes: 1
+  TimeInMinutes: 5
   Music: {fileID: 11400000, guid: e47d72931a3d1c246900803a52e361d6, type: 2}

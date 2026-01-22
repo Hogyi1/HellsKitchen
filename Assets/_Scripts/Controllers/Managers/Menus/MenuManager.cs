@@ -137,7 +137,6 @@ public class MenuManager : MonoBehaviour
             settingsManager.SaveChanges();
         }
 
-        AudioManager.Instance.PlaySFXUI(selectSound);
         Debug.Log("Settings saved.");
     }
 
@@ -145,14 +144,12 @@ public class MenuManager : MonoBehaviour
 
     private void StartNewGame()
     {
-        AudioManager.Instance.PlaySFXUI(selectSound);
         GameManager.Instance.StartNewGame();
         Debug.Log("Starting New Game...");
     }
 
     private void QuitGame()
     {
-        AudioManager.Instance.PlaySFXUI(selectSound);
         Debug.Log("Quitting Game...");
         Application.Quit();
     }

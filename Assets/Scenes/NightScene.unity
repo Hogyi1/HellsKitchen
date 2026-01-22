@@ -4752,6 +4752,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590467404}
   m_Mesh: {fileID: 6124436484349841348, guid: 8828a4c54cea3584aad7cdf220bd6c9a, type: 3}
+--- !u!1 &595457642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 595457644}
+  - component: {fileID: 595457643}
+  m_Layer: 0
+  m_Name: JumpscareUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &595457643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595457642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 2b66ae1315cd7f04290cbc2a43dcd5cd, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 4be5aa0a18a8fbc4c847458f0498dbc9, type: 3}
+  m_SortingOrder: 10
+  m_Position: 1
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!4 &595457644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595457642}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.95058, y: 0, z: -10.534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &615769015
 GameObject:
   m_ObjectHideFlags: 0
@@ -18375,6 +18430,7 @@ MonoBehaviour:
   nightData: {fileID: 11400000, guid: a362afb5872008c4fae435ae885a8a10, type: 2}
   alarmSound: {fileID: 11400000, guid: 4184f648600feed4c9707f35f27b8997, type: 2}
   uiManager: {fileID: 1980404707}
+  jumpScareUI: {fileID: 595457643}
   CooldownTime: 10
 --- !u!4 &1980404705
 Transform:
@@ -50738,6 +50794,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 572389441}
   - {fileID: 1980404705}
+  - {fileID: 595457644}
   - {fileID: 758252476}
   - {fileID: 250328034}
   - {fileID: 503855720}
